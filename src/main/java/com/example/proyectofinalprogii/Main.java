@@ -41,15 +41,9 @@ public class Main extends Application {
 
         try {
             System.out.println(mochila.mostrarItems());
-        }catch (NoItemsException noItemsException){
+        } catch (NoItemsException noItemsException){
             System.out.println(noItemsException.getMessage());
         }
-        System.out.println("prueba primer commit");
-
-        System.out.println("soy fede");
-
-        System.out.println("mati puto");
-
     }
 
 
