@@ -59,9 +59,13 @@ public class Main extends Application {
 
     // este es el main de toda la vida, no se mareen con lo de arriba tranqui
     public static void main(String[] args){
-        launch(args); // lo unico que tiene que haber en el main es esta linea de código
-
+        launch(args); // comentar para que no les moleste
         // luego utilizaré los parametros de incialización (args) para distintos metodos
+
+        // realicen sus testing o código que necesiten acá en el main
+
+
+
     }
 
 
