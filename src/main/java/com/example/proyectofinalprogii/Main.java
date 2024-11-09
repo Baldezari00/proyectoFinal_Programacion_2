@@ -1,6 +1,7 @@
 package com.example.proyectofinalprogii;
 
 import com.example.proyectofinalprogii.ExcepcionesPersonalizadas.ExcJugador.NoItemsException;
+import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Jugador;
 import com.example.proyectofinalprogii.Usuario.Mochila.Consumible;
 import com.example.proyectofinalprogii.Usuario.Mochila.Item;
 import com.example.proyectofinalprogii.Usuario.Mochila.Mochila;
@@ -19,15 +20,9 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("vista-juego.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("juego aventura!");
-        stage.setScene(scene);
-        stage.show();
-    }
 
 
-    // este es el main de toda la vida, no se mareen con lo de arriba tranqui
-    public static void main(String[] args) throws NoItemsException {
-        //launch(); // método para ejecutar escena (dejar comentado para que no les joda)
+        // crear instancias aquí que necesiten ser transmitidas al controlador
 
         //testing de Usuario/Mochila
         Objeto llave = new Objeto("llave verde",12);
@@ -35,15 +30,38 @@ public class Main extends Application {
         Consumible comidaConRadiacion = new Consumible("pan erradiado",-10);
 
         Mochila<Item> mochila = new Mochila<>();
-       // mochila.agregarItem(llave);
-       // mochila.agregarItem(cafe);
-       // mochila.agregarItem(comidaConRadiacion);
+        mochila.agregarItem(llave);
+        mochila.agregarItem(cafe);
+        // mochila.agregarItem(comidaConRadiacion);
 
         try {
             System.out.println(mochila.mostrarItems());
         } catch (NoItemsException noItemsException){
             System.out.println(noItemsException.getMessage());
         }
+
+
+
+        //jugador
+        Jugador jugador = new Jugador("balde","1234");
+
+        // controlador
+        controladorJuego controlador = fxmlLoader.getController();
+        controlador.setJugadorLocal(jugador);
+
+
+
+        stage.setTitle("juego aventura!");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+
+    // este es el main de toda la vida, no se mareen con lo de arriba tranqui
+    public static void main(String[] args){
+        launch(args); // lo unico que tiene que haber en el main es esta linea de código
+
+        // luego utilizaré los parametros de incialización (args) para distintos metodos
     }
 
 
