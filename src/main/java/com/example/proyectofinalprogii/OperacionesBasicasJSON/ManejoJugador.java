@@ -35,28 +35,6 @@ public class ManejoJugador {
         }
     }
 
-    public void jugadoresToArchivo() {
-        String archivoJugadores = "jugadores.json";
-
-        try (FileWriter file = new FileWriter(archivoJugadores)) {
-            JSONArray jsonArray = new JSONArray();
-
-            for (Map.Entry<String, Jugador> entry : jugadores.entrySet()) {
-                Jugador jugadorAux = entry.getValue();
-
-                JSONObject jugadorJson = jugadorToJson(jugadorAux);
-
-                jsonArray.put(jugadorJson);
-            }
-
-            file.write(jsonArray.toString(4));
-
-            System.out.println("Jugadores guardados en archivo");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public static JSONObject jugadorToJson(Jugador jugador) {
         JSONObject jsonObject = new JSONObject();
 
