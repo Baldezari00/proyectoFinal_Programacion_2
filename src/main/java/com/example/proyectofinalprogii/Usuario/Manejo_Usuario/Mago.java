@@ -18,6 +18,7 @@ public class Mago extends  Personaje implements CuracionEnergia{
     @Override
     public String Ataque() {
         return "El personaje " + getNombre() + "  realiza un ataque";
+
     }
     // Si la consecuencia es mala, recibe daño por parametro para asi mostrar la vida actual que queda
     @Override

@@ -4,7 +4,7 @@ public abstract class Personaje {
     // TRABAJO DE MATI:
     // crear los 3 personajes necesarios junto con clase padre (esta misma), sus atributos y demás.
     // 1 interfaz que la utilicen 2 de los personajes
-    // extra: seri  alizar personajes (convertir personaje a JSON y viceversa. Sin archivo y dentro de la misma clase).
+    // extra: serializar personajes (convertir personaje a JSON y viceversa. Sin archivo y dentro de la misma clase).
     private static int contarId = 0;
     private int ID;
     private String Nombre;
