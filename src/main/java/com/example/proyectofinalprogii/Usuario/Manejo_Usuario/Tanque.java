@@ -3,7 +3,7 @@ package com.example.proyectofinalprogii.Usuario.Manejo_Usuario;
 public class Tanque extends Personaje{
     private int defensa;
 
-    public Tanque(int ID, String nombre, int vida, int defensa) {
+    public Tanque(int ID, String nombre) {
         super(ID, nombre, 150);
         this.defensa = 10;
     }

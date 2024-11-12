@@ -3,7 +3,7 @@ package com.example.proyectofinalprogii.Usuario.Manejo_Usuario;
 public class Arquero extends Personaje implements CuracionEnergia{
     private int energia;
 
-    public Arquero(int ID, String nombre, int vida, int energia) {
+    public Arquero(int ID, String nombre) {
         super(ID, nombre, 120);
         this.energia = 5;
     }
