@@ -12,6 +12,8 @@ public class Tanque extends Personaje{
         return defensa;
     }
 //Metodos heredados
+
+    /*
     @Override
     public String Ataque() {
         return "El personaje " + getNombre() + " realiza un ataque";
@@ -28,7 +30,7 @@ public class Tanque extends Personaje{
         }
         return "El personaje " + getNombre() + " sufre " + danioReducido + " de daño la salud actual es " + this.vida;
     }
-
+*/
     @Override
     public String toString() {
         return "Tanque{" + super.toString() +

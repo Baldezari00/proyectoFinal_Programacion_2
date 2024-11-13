@@ -33,10 +33,6 @@ public abstract class Personaje {
     }
 
 
-
-    public abstract String Ataque();
-    public abstract String RecibirDanio(int danio);
-
     @Override
     public String toString() {
         return "Personaje{" +
@@ -45,4 +41,6 @@ public abstract class Personaje {
                 ", vida=" + vida +
                 ' ';
     }
+
+
 }
