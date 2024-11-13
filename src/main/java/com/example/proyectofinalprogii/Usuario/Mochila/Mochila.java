@@ -37,13 +37,23 @@ public class Mochila <T extends Item>{
 
     public StringBuilder mostrarItems() throws NoItemsException {
         StringBuilder stringBuilder = new StringBuilder();
-        for (Item i: items) {
-            stringBuilder.append(i.toString()+"\n"); // voy concatenando los toString de los distintos items
-        }
-        if (stringBuilder.isEmpty()) {
+
+        if (items.isEmpty()) {  // Verificamos si la lista de items está vacía antes de empezar a agregar texto
             throw new NoItemsException();
         }
 
+        for (Item i : items) {
+            stringBuilder.append(i.toString()).append("\n");  // Concatenamos el toString de cada item
+        }
+
         return stringBuilder;
+    }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Mochila{");
+        sb.append("items=").append(items);  // Imprime la lista de items
+        sb.append('}');
+        return sb.toString();
     }
 }

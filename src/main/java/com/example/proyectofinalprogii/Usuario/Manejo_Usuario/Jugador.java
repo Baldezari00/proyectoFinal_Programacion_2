@@ -75,11 +75,15 @@ public class Jugador {
 
     @Override
     public String toString() {
-        return "Jugador {" +
-                "id = " + id +
-                ", nombreUsuario = '" + nombreUsuario + '\'' +
-                ", contrasenia = '" + contrasenia + '\'' +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("Jugador{");
+        sb.append("id=").append(id).append(", ");
+        sb.append("nombreUsuario='").append(nombreUsuario).append("', ");
+        sb.append("contraseña='").append(contrasenia).append("', ");
+        sb.append("oro=").append(oro).append(", ");
+        sb.append("mochila=").append(mochila.getItems());  // Imprime los items de la mochila
+        sb.append('}');
+        return sb.toString();
     }
 
     @Override

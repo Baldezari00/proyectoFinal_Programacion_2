@@ -57,7 +57,7 @@ public class OperacionLecturaEscritura {
          }
      }
 
-     public void cargarMapJugadores(JSONArray arrJsonJugadores, Map<String, Jugador> mapJugadores) {
+     public static void cargarMapJugadores(JSONArray arrJsonJugadores, Map<String, Jugador> mapJugadores) {
           mapJugadores.clear();
 
           for (int i = 0; i < arrJsonJugadores.length(); i++) {

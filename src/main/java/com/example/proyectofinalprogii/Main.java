@@ -1,6 +1,8 @@
 package com.example.proyectofinalprogii;
 
 import com.example.proyectofinalprogii.ExcepcionesPersonalizadas.ExcJugador.NoItemsException;
+import com.example.proyectofinalprogii.OperacionesBasicasJSON.ManejoJugador;
+import com.example.proyectofinalprogii.OperacionesBasicasJSON.OperacionLecturaEscritura;
 import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Jugador;
 import com.example.proyectofinalprogii.Usuario.Mochila.Consumible;
 import com.example.proyectofinalprogii.Usuario.Mochila.Item;
@@ -12,6 +14,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main extends Application {
 
@@ -59,7 +63,7 @@ public class Main extends Application {
 
     // este es el main de toda la vida, no se mareen con lo de arriba tranqui
     public static void main(String[] args){
-        launch(args); // comentar para que no les moleste
+        //launch(args); // comentar para que no les moleste
         // luego utilizaré los parametros de incialización (args) para distintos metodos
 
         // realicen sus testing o código que necesiten acá en el main

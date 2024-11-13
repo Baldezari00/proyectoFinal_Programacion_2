@@ -27,6 +27,10 @@ public class ManejoJugador {
         this.jugadores = new HashMap<>();
     }
 
+    public Map<String, Jugador> getJugadores() {
+        return jugadores;
+    }
+
     public void agregarJugador(Jugador jugador) {
         if (!jugadores.containsKey(jugador.getNombreUsuario())) {
             jugadores.put(jugador.getNombreUsuario(), jugador);
@@ -57,10 +61,9 @@ public class ManejoJugador {
                 }
 
                 jsonArray.put(jsonItem);
-
-                jsonObject.put("items", jsonArray);
-
             }
+
+            jsonObject.put("items", jsonArray);
 
         } catch (JSONException e) {
             e.printStackTrace();
