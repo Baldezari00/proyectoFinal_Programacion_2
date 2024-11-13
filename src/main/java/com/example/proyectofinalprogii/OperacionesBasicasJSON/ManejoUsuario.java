@@ -19,28 +19,29 @@ public class ManejoUsuario {
 
     public void crearCuenta() {
         Scanner scanner = new Scanner(System.in);
-
-        int flag = 0;
-
+        boolean usuarioValido = false;
         String nombreUsuario = null;
 
-        while (flag == 0) {
-            System.out.println("Ingrese un nombre de usuario");
-            nombreUsuario = scanner.nextLine();
+        // Bucle para pedir el nombre de usuario hasta que se encuentre uno válido
+        while (!usuarioValido) {
+            System.out.println("Ingrese un nombre de usuario:");
+            nombreUsuario = scanner.nextLine().trim();  // Usamos trim para evitar problemas con espacios
 
             if (!verificarUsuario(nombreUsuario)) {
-                flag = 1;
+                usuarioValido = true; // Salir del bucle si el nombre de usuario es válido
+                System.out.println("Nombre de usuario disponible.");
             } else {
-                System.out.println("ERROR, nombre de usuario en uso");
+                System.out.println("ERROR, nombre de usuario en uso.");
             }
         }
 
-        System.out.println("Ingrese una contraseña");
-        String contrasenia = scanner.nextLine();
+        System.out.println("Ingrese una contraseña:");
+        String contrasenia = scanner.nextLine().trim(); // Lee la contraseña
 
         Jugador nuevoJugador = new Jugador(nombreUsuario, contrasenia);
-
         manejoJugador.agregarJugador(nuevoJugador);
+
+        System.out.println("Cuenta creada exitosamente.");
     }
 
     public boolean verificarUsuario(String nombreUsuario) {

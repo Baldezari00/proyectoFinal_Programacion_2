@@ -2,6 +2,7 @@ package com.example.proyectofinalprogii;
 
 import com.example.proyectofinalprogii.ExcepcionesPersonalizadas.ExcJugador.NoItemsException;
 import com.example.proyectofinalprogii.OperacionesBasicasJSON.ManejoJugador;
+import com.example.proyectofinalprogii.OperacionesBasicasJSON.ManejoUsuario;
 import com.example.proyectofinalprogii.OperacionesBasicasJSON.OperacionLecturaEscritura;
 import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Jugador;
 import com.example.proyectofinalprogii.Usuario.Mochila.Consumible;
@@ -69,7 +70,9 @@ public class Main extends Application {
         // realicen sus testing o código que necesiten acá en el main
 
 
+        ManejoUsuario manejoUsuario = new ManejoUsuario();
 
+        manejoUsuario.crearCuenta();
     }
 
 

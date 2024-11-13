@@ -1,0 +1,23 @@
+[
+    {
+        "idJugador": 0,
+        "oroJugador": 0,
+        "nombreUsuario": "Usuario1",
+        "items": [],
+        "contraseña": "password1"
+    },
+    {
+        "idJugador": 2,
+        "oroJugador": 0,
+        "nombreUsuario": "Usuario3",
+        "items": [],
+        "contraseña": "password3"
+    },
+    {
+        "idJugador": 1,
+        "oroJugador": 0,
+        "nombreUsuario": "Usuario2",
+        "items": [],
+        "contraseña": "password2"
+    }
+]
