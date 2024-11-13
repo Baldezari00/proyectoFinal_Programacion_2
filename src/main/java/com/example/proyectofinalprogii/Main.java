@@ -54,8 +54,6 @@ public class Main extends Application {
         controladorJuego controlador = fxmlLoader.getController();
         controlador.setJugadorLocal(jugador);
 
-
-
         stage.setTitle("juego aventura!");
         stage.setScene(scene);
         stage.show();
