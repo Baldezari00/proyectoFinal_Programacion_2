@@ -54,8 +54,6 @@ public class Main extends Application {
         controladorJuego controlador = fxmlLoader.getController();
         controlador.setJugadorLocal(jugador);
 
-
-
         stage.setTitle("juego aventura!");
         stage.setScene(scene);
         stage.show();
@@ -63,7 +61,7 @@ public class Main extends Application {
 
 
     // este es el main de toda la vida, no se mareen con lo de arriba tranqui
-    public static void main(String[] args){
+    public static void main(String[] args) {
         //launch(args); // comentar para que no les moleste
         // luego utilizaré los parametros de incialización (args) para distintos metodos
 
@@ -76,7 +74,7 @@ public class Main extends Application {
 //        manejoUsuario.crearCuenta(manejoJugador);
 //
 //        manejoUsuario.iniciarSesion(manejoJugador);
-        System.out.println("pruebaaaa");
+
     }
 
 
