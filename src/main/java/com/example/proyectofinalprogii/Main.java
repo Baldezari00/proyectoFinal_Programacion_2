@@ -74,6 +74,7 @@ public class Main extends Application {
 //        manejoUsuario.crearCuenta(manejoJugador);
 //
 //        manejoUsuario.iniciarSesion(manejoJugador);
+        System.out.println("pruebaaaa");
     }
 
 
