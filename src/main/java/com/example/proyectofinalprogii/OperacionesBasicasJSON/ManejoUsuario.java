@@ -2,6 +2,7 @@ package com.example.proyectofinalprogii.OperacionesBasicasJSON;
 
 import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Jugador;
 
+import java.util.Map;
 import java.util.Scanner;
 
 public class ManejoUsuario {
@@ -11,13 +12,7 @@ public class ManejoUsuario {
      Tiene una clase ManejoJugador en donde estan los jugadores creados y se guardan los nuevos
      **/
 
-    private ManejoJugador manejoJugador;
-
-    public ManejoUsuario() {
-        this.manejoJugador = new ManejoJugador();
-    }
-
-    public void crearCuenta() {
+    public void crearCuenta(ManejoJugador manejoJugador) {
         Scanner scanner = new Scanner(System.in);
         boolean usuarioValido = false;
         String nombreUsuario = null;
@@ -27,9 +22,8 @@ public class ManejoUsuario {
             System.out.println("Ingrese un nombre de usuario:");
             nombreUsuario = scanner.nextLine().trim();  // Usamos trim para evitar problemas con espacios
 
-            if (!verificarUsuario(nombreUsuario)) {
+            if (!verificarUsuario(manejoJugador, nombreUsuario)) {
                 usuarioValido = true; // Salir del bucle si el nombre de usuario es válido
-                System.out.println("Nombre de usuario disponible.");
             } else {
                 System.out.println("ERROR, nombre de usuario en uso.");
             }
@@ -44,11 +38,11 @@ public class ManejoUsuario {
         System.out.println("Cuenta creada exitosamente.");
     }
 
-    public boolean verificarUsuario(String nombreUsuario) {
+    public boolean verificarUsuario(ManejoJugador manejoJugador, String nombreUsuario) {
         return manejoJugador.getJugadores().containsKey(nombreUsuario);
     }
 
-    public void iniciarSesion() {
+    public void iniciarSesion(ManejoJugador manejoJugador) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Ingrese su nombre de usuario");
@@ -62,7 +56,7 @@ public class ManejoUsuario {
             return;
         }
 
-        if (verificarUsuario(nombreUsuario)) {
+        if (verificarUsuario(manejoJugador, nombreUsuario)) {
             Jugador jugador = manejoJugador.getJugadores().get(nombreUsuario);
 
             if (contrasenia.equals(jugador.getContrasenia())) {

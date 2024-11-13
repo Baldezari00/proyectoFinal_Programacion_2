@@ -70,9 +70,12 @@ public class Main extends Application {
         // realicen sus testing o código que necesiten acá en el main
 
 
-        ManejoUsuario manejoUsuario = new ManejoUsuario();
-
-        manejoUsuario.crearCuenta();
+//        ManejoUsuario manejoUsuario = new ManejoUsuario();
+//        ManejoJugador manejoJugador = new ManejoJugador();
+//
+//        manejoUsuario.crearCuenta(manejoJugador);
+//
+//        manejoUsuario.iniciarSesion(manejoJugador);
     }
 
 
