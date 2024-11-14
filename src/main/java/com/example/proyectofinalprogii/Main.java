@@ -1,6 +1,7 @@
 package com.example.proyectofinalprogii;
 
 import com.example.proyectofinalprogii.ExcepcionesPersonalizadas.ExcJugador.NoItemsException;
+import com.example.proyectofinalprogii.OperacionesBasicasJSON.Inicio;
 import com.example.proyectofinalprogii.OperacionesBasicasJSON.ManejoJugador;
 import com.example.proyectofinalprogii.OperacionesBasicasJSON.ManejoUsuario;
 import com.example.proyectofinalprogii.OperacionesBasicasJSON.OperacionLecturaEscritura;
@@ -62,19 +63,7 @@ public class Main extends Application {
 
     // este es el main de toda la vida, no se mareen con lo de arriba tranqui
     public static void main(String[] args) {
-        //launch(args); // comentar para que no les moleste
-        // luego utilizaré los parametros de incialización (args) para distintos metodos
-
-        // realicen sus testing o código que necesiten acá en el main
-
-
-//        ManejoUsuario manejoUsuario = new ManejoUsuario();
-//        ManejoJugador manejoJugador = new ManejoJugador();
-//
-//        manejoUsuario.crearCuenta(manejoJugador);
-//
-//        manejoUsuario.iniciarSesion(manejoJugador);
-
+        Inicio.inicio();
     }
 
 

@@ -7,6 +7,20 @@
         "contraseña": "password1"
     },
     {
+        "idJugador": 3,
+        "oroJugador": 0,
+        "nombreUsuario": "fedegianera",
+        "items": [],
+        "contraseña": "a"
+    },
+    {
+        "idJugador": 4,
+        "oroJugador": 0,
+        "nombreUsuario": "aldogianera",
+        "items": [],
+        "contraseña": "a"
+    },
+    {
         "idJugador": 2,
         "oroJugador": 0,
         "nombreUsuario": "Usuario3",

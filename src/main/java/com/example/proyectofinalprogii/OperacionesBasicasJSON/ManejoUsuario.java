@@ -12,7 +12,7 @@ public class ManejoUsuario {
      Tiene una clase ManejoJugador en donde estan los jugadores creados y se guardan los nuevos
      **/
 
-    public void crearCuenta(ManejoJugador manejoJugador) {
+    public static void crearCuenta(ManejoJugador manejoJugador) {
         Scanner scanner = new Scanner(System.in);
         boolean usuarioValido = false;
         String nombreUsuario = null;
@@ -38,11 +38,11 @@ public class ManejoUsuario {
         System.out.println("Cuenta creada exitosamente.");
     }
 
-    public boolean verificarUsuario(ManejoJugador manejoJugador, String nombreUsuario) {
+    public static boolean verificarUsuario(ManejoJugador manejoJugador, String nombreUsuario) {
         return manejoJugador.getJugadores().containsKey(nombreUsuario);
     }
 
-    public void iniciarSesion(ManejoJugador manejoJugador) {
+    public static void iniciarSesion(ManejoJugador manejoJugador) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Ingrese su nombre de usuario");
