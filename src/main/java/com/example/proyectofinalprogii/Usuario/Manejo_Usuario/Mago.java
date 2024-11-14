@@ -15,7 +15,7 @@ public class Mago extends  Personaje implements CuracionEnergia{
     }
 
 //Metodos heredados
-    @Override
+  /*  @Override
     public String Ataque() {
         return "El personaje " + getNombre() + "  realiza un ataque";
 
@@ -28,7 +28,7 @@ public class Mago extends  Personaje implements CuracionEnergia{
             this.vida = 0;// se podria crear una excepcion para notificar que no tiene mas vida
         }
         return "El personaje " + getNombre() + " sufre " + danio + " dedaño la salud actual es " + getVida();
-    }
+    }*/
 
 //Metodo interfaz
     @Override

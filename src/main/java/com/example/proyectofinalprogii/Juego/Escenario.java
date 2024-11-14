@@ -1,4 +1,7 @@
 package com.example.proyectofinalprogii.Juego;
+
+import com.example.proyectofinalprogii.Juego.ConsecuenciasEnum.ConsecuenciaMala;
+
 /**
  * Escenario que cuenta con solo 2 opciones y una descripción.
  * @author Balde

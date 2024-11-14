@@ -13,7 +13,7 @@ public class Arquero extends Personaje implements CuracionEnergia{
     }
 
     //Metodos Heredados
-    @Override
+   /* @Override
     public String Ataque() {
         return "El personaje " + getNombre() + " realiza un ataque";
     }
@@ -26,7 +26,7 @@ public class Arquero extends Personaje implements CuracionEnergia{
         }
         return "El personaje " + getNombre() + " sufre " + danio + " de daño, la salud actual es " + this.vida;
     }
-
+*/
 
     //Metodo interfaz
     @Override
