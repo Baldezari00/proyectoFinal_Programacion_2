@@ -22,4 +22,5 @@ public class Mago extends  Personaje implements CuracionEnergia{
         return "Mago{" + super.toString() +
                 "} " ;
     }
+
 }
