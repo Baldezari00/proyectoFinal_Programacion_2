@@ -1,49 +1,37 @@
 [
     {
-        "descripcion": "escenario1",
+        "descripcion": "te encontras perdido en una especie de bosque con niebla, ves una casa a lo lejos y un camino formado al otro lado... como si alguien ya hubiese pasado por ahí",
         "opcion2": {
-            "objetoGanado": {
-                "codigoObj": 123,
-                "nombre": "celular",
-                "idItem": 0
-            },
-            "consecuenciaTitulo": "Opcion2"
+            "vidaAModificar": -10,
+            "consecuenciaTitulo": "Seguir el camino"
         },
         "opcion1": {
-            "vidaAModificar": 10,
-            "consecuenciaTitulo": "Opcion1"
+            "vidaAModificar": 40,
+            "consecuenciaTitulo": "Revisar casa"
         },
         "idEscenario": 0
     },
     {
-        "descripcion": "escenario2",
+        "descripcion": "abc",
         "opcion2": {
-            "objetoGanado": {
-                "codigoObj": 123,
-                "nombre": "celular",
-                "idItem": 0
-            },
-            "consecuenciaTitulo": "Opcion2"
+            "vidaAModificar": -20,
+            "consecuenciaTitulo": "b"
         },
         "opcion1": {
-            "vidaAModificar": 10,
-            "consecuenciaTitulo": "Opcion1"
+            "vidaAModificar": 20,
+            "consecuenciaTitulo": "a"
         },
         "idEscenario": 1
     },
     {
-        "descripcion": "escenario3",
+        "descripcion": "ert",
         "opcion2": {
-            "objetoGanado": {
-                "codigoObj": 123,
-                "nombre": "celular",
-                "idItem": 0
-            },
-            "consecuenciaTitulo": "Opcion2"
+            "vidaAModificar": -25,
+            "consecuenciaTitulo": "b"
         },
         "opcion1": {
-            "vidaAModificar": 10,
-            "consecuenciaTitulo": "Opcion1"
+            "vidaAModificar": 25,
+            "consecuenciaTitulo": "a"
         },
         "idEscenario": 2
     }

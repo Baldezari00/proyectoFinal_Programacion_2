@@ -1,17 +1,22 @@
 package com.example.proyectofinalprogii.Juego;
-
 import com.example.proyectofinalprogii.Main;
 import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Usuario;
+import com.example.proyectofinalprogii.Usuario.Mochila.Consumible;
+import com.example.proyectofinalprogii.Usuario.Mochila.Item;
+import com.example.proyectofinalprogii.Usuario.Mochila.Mochila;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
-
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class controladorJuego {
     // en esta clase se va a manejar la parte visual del juego y su control de acciones.
@@ -29,19 +34,120 @@ public class controladorJuego {
     private Label notificadorVida;
     @FXML
     private Button siguiente;
+    // mochila
+    @FXML
+    private Button mochilaBoton;
+    @FXML
+    private VBox contenedorItems;
+    private Boolean toggleMochila=false; // false = no se ven los items
     private Usuario jugadorLocal;
     private Stage stage;
 
-    //inicializar
+
+    //inicializar mochila y texto bienvenida
     @FXML
     public void initialize() {
-        if (historiaLabel != null) {
-            historiaLabel.setText("Iniciando...");
+        if (jugadorLocal != null) {
+            agregarTextoBienvenida();
+
         } else {
-            System.out.println("historiaLabel no está inicializado");
+            System.out.println("El jugador local no está inicializado aún.");
         }
     }
 
+
+// cargar en la vbox los elementos
+  /*  public void cargarItemsEnVBox() {
+        contenedorItems.getChildren().clear(); // Limpiar elementos previos
+        for (Item item : jugadorLocal.getMochila().getItems()) {
+            Label itemLabel = crearRepresentacionItem(item);
+            contenedorItems.getChildren().add(itemLabel);
+        }
+    }
+
+    // presentacion de cada item dentro de la vbox
+   public Label crearRepresentacionItem(Item item) {
+        Label labelItem = new Label(String.valueOf(item.mostrarItem()));
+        labelItem.setWrapText(true);
+        return labelItem;
+    }
+
+
+   */
+
+    public void cargarItemsEnVBox() {
+        contenedorItems.getChildren().clear(); // Limpiar elementos previos
+        for (Item item : jugadorLocal.getMochila().getItems()) {
+            VBox itemInteractivo = crearRepresentacionItemInteractiva(item);
+            contenedorItems.getChildren().add(itemInteractivo);
+        }
+    }
+
+
+
+    public VBox crearRepresentacionItemInteractiva(Item item) {
+        Label labelItem = new Label(String.valueOf(item.mostrarItem()));
+        Button btnUsar = new Button("Usar");
+
+
+        labelItem.setWrapText(true);
+
+        btnUsar.setOnAction(event -> {
+            // Lógica para usar el ítem
+            usarItem(item);
+        });
+
+
+
+
+
+
+
+        VBox contenedorItem = new VBox(10, labelItem, btnUsar); // 1er Separación entre elementos
+        contenedorItem.setStyle("-fx-padding: 10; -fx-border-color: black; -fx-border-width: 1; -fx-border-radius: 5;");
+
+
+
+        // Cambia el color de fondo según el tipo de ítem
+        if (item instanceof Consumible) {
+            contenedorItem.setStyle(contenedorItem.getStyle() + "-fx-background-color: #d4edda;"); // Verde claro
+        } else {
+            contenedorItem.setStyle(contenedorItem.getStyle() + "-fx-background-color: #f8d7da;"); // Rojo claro
+        }
+
+        contenedorItem.setAlignment(Pos.CENTER);
+
+
+        return contenedorItem;
+    }
+
+    // logica de uso
+    public void usarItem(Item item) {
+        if (item instanceof Consumible) {
+            Consumible consumible = (Consumible) item;
+            jugadorLocal.consumir(consumible); // Método que actualiza atributos del personaje
+            jugadorLocal.getMochila().removerItem(item); // Elimina el ítem de la mochila
+            cargarItemsEnVBox(); // Actualiza la interfaz
+        } else {
+            System.out.println("No se puede usar este tipo de ítem.");
+        }
+    }
+
+
+
+    // accion del boton mochila
+    @FXML
+    protected void mostrarItems(){
+        if(toggleMochila){
+            contenedorItems.setVisible(false);
+            toggleMochila = false;
+        }else{
+            cargarItemsEnVBox();
+            contenedorItems.setVisible(true);
+            toggleMochila = true;
+        }
+
+    }
 
 
     // getter y setter
@@ -85,7 +191,7 @@ public class controladorJuego {
 
             // Cambiar la escena del Stage
             stage.setTitle("Juego Aventura en Acción!");
-            stage.setScene(new Scene(root));
+            stage.setScene(new Scene(root,1200,720));
             stage.show();
 
         } catch (IOException io) {
@@ -119,6 +225,7 @@ public class controladorJuego {
 
 
     public void cargarEscenario(){
+        AtomicBoolean eleccionHecha = new AtomicBoolean(false);
 
         Escenario escenario = jugadorLocal.getEscenarios().iterator().next();
         notificadorVida.setText("");
@@ -127,51 +234,58 @@ public class controladorJuego {
         opcion1.setText(escenario.getOpcion1().getConsecuenciaTitulo());
         opcion2.setText(escenario.getOpcion2().getConsecuenciaTitulo());
 
-        opcion1.setOnAction(actionEvent -> {
-            String descripcion = escenario.getOpcion1().accionDeOpcion(jugadorLocal,"algo paso y ganaste ",escenario.getOpcion1().getVidaAModificar());
-            if(jugadorLocal.getPersonajeElegido().getVida()<=0){
-                historiaLabel.setText(descripcion+"\nperdiste el juego...");
-                historiaLabel.setTextFill(Paint.valueOf("red"));
-                notificadorVida.setText("");
 
-            }else{
-                historiaLabel.setText(descripcion);
-                notificadorVida.setText("te quedan "+jugadorLocal.getPersonajeElegido().getVidaString()+"hp restantes");
+            opcion1.setOnAction(actionEvent -> {
+                if(!eleccionHecha.get()){
+                    eleccionHecha.set(true);
+                    String descripcion = escenario.getOpcion1().accionDeOpcion(jugadorLocal,"algo paso y ganaste ",escenario.getOpcion1().getVidaAModificar());
+                    if(jugadorLocal.getPersonajeElegido().getVida()<=0){
+                        historiaLabel.setText(descripcion+"\nperdiste el juego...");
+                        historiaLabel.setTextFill(Paint.valueOf("red"));
+                        notificadorVida.setText("");
 
-
-                if(jugadorLocal.getPersonajeElegido().getVida()<50){
-                    notificadorVida.setTextFill(Paint.valueOf("red"));
-                }else {
-                    notificadorVida.setTextFill(Paint.valueOf("green"));
-                }
-            }
-
-        });
-
-        opcion2.setOnAction(actionEvent -> {
-            String descripcion = escenario.getOpcion2().accionDeOpcion(jugadorLocal,"algo paso y perdiste ",escenario.getOpcion2().getVidaAModificar());
-            if(jugadorLocal.getPersonajeElegido().getVida()<=0){
-                historiaLabel.setText(descripcion+"\nperdiste el juego...");
-                historiaLabel.setTextFill(Paint.valueOf("red"));
-                notificadorVida.setText("");
-
-            }else{
-                historiaLabel.setText(descripcion);
-                notificadorVida.setText("te quedan "+jugadorLocal.getPersonajeElegido().getVidaString()+"hp restantes");
+                    }else{
+                        historiaLabel.setText(descripcion);
+                        notificadorVida.setText("te quedan "+jugadorLocal.getPersonajeElegido().getVidaString()+"hp restantes");
 
 
-                if(jugadorLocal.getPersonajeElegido().getVida()<50){
-                    notificadorVida.setTextFill(Paint.valueOf("red"));
-
-                }else {
-                    notificadorVida.setTextFill(Paint.valueOf("green"));
+                        if(jugadorLocal.getPersonajeElegido().getVida()<50){
+                            notificadorVida.setTextFill(Paint.valueOf("red"));
+                        }else {
+                            notificadorVida.setTextFill(Paint.valueOf("green"));
+                        }
+                    }
                 }
 
+            });
 
-            }
+            opcion2.setOnAction(actionEvent -> {
+                if(!eleccionHecha.get()){
+                    eleccionHecha.set(true);
+                    String descripcion = escenario.getOpcion2().accionDeOpcion(jugadorLocal,"algo paso y perdiste ",escenario.getOpcion2().getVidaAModificar());
+                    if(jugadorLocal.getPersonajeElegido().getVida()<=0){
+                        historiaLabel.setText(descripcion+"\nperdiste el juego...");
+                        historiaLabel.setTextFill(Paint.valueOf("red"));
+                        notificadorVida.setText("");
 
-        });
+                    }else{
+                        historiaLabel.setText(descripcion);
+                        notificadorVida.setText("te quedan "+jugadorLocal.getPersonajeElegido().getVidaString()+"hp restantes");
 
+
+                        if(jugadorLocal.getPersonajeElegido().getVida()<50){
+                            notificadorVida.setTextFill(Paint.valueOf("red"));
+
+                        }else {
+                            notificadorVida.setTextFill(Paint.valueOf("green"));
+                        }
+
+
+                    }
+                }
+
+
+            });
 
         // remover escenario
         jugadorLocal.getEscenarios().remove(escenario);

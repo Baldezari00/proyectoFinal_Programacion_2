@@ -27,9 +27,7 @@ public class Objeto extends Item{
     }
 
     @Override
-    public String toString() {
-        return super.toString()+"Objeto{" +
-                "codigo=" + codigo +
-                '}';
+    public StringBuilder mostrarItem() {
+        return new StringBuilder().append("Objeto: ").append(super.getNombre());
     }
 }

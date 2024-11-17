@@ -1,8 +1,10 @@
 package com.example.proyectofinalprogii.Usuario.Manejo_Usuario;
 
 import com.example.proyectofinalprogii.Juego.Escenario;
+import com.example.proyectofinalprogii.Usuario.Mochila.Consumible;
 import com.example.proyectofinalprogii.Usuario.Mochila.Item;
 import com.example.proyectofinalprogii.Usuario.Mochila.Mochila;
+import com.example.proyectofinalprogii.Usuario.Mochila.Objeto;
 
 import java.util.HashSet;
 
@@ -86,6 +88,9 @@ public class Usuario {
         this.personajeElegido = personajeElegido;
     }
 
+    public void setMochila(Mochila<Item> mochila) {
+        this.mochila = mochila;
+    }
 
     @Override
     public String toString() {
@@ -112,5 +117,15 @@ public class Usuario {
 
     public void agregarEscenario(Escenario escenario){
         escenarios.add(escenario);
+    }
+
+    //metodo para consumir item
+    public void consumir(Item item){
+        if(item instanceof Consumible){
+            personajeElegido.cambiarVida(((Consumible) item).getSaludRecibida());
+            System.out.println("objeto usado, te queda: "+personajeElegido.getVida()+"hp\n");
+        }else if(item instanceof Objeto){
+
+        }
     }
 }

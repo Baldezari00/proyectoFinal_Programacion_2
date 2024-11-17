@@ -16,7 +16,7 @@ public abstract class Personaje {
     }
 
     public void cambiarVida(int cantVidaACambiar) {
-        this.vida = this.vida + vida;
+        this.vida += cantVidaACambiar;
     }
 
     @Override
