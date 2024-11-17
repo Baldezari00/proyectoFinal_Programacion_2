@@ -4,6 +4,8 @@ import com.example.proyectofinalprogii.ExcepcionesPersonalizadas.ExcJugador.NoIt
 import com.example.proyectofinalprogii.Juego.Escenario;
 import com.example.proyectofinalprogii.Juego.Opcion;
 import com.example.proyectofinalprogii.Juego.controladorJuego;
+import com.example.proyectofinalprogii.OperacionesBasicasJSON.Inicio;
+import com.example.proyectofinalprogii.OperacionesBasicasJSON.OperacionLecturaEscritura;
 import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Usuario;
 import com.example.proyectofinalprogii.Usuario.Mochila.Consumible;
 import com.example.proyectofinalprogii.Usuario.Mochila.Item;
@@ -15,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.HashSet;
 
 public class Main extends Application {
 
@@ -66,8 +69,10 @@ public class Main extends Application {
 
     // este es el main de toda la vida, no se mareen con lo de arriba tranqui
     public static void main(String[] args) {
-     //   Inicio.inicio();
-        launch();
+//        Inicio.inicio();
+//        launch();
+
+
     }
 
 

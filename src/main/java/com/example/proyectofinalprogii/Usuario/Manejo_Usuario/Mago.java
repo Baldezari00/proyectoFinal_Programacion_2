@@ -5,7 +5,7 @@ package com.example.proyectofinalprogii.Usuario.Manejo_Usuario;
 public class Mago extends Personaje implements CuracionEnergia{
 
     public Mago(int ID, String nombre) {
-        super(ID, nombre, 100);
+        super(100);
     }
 
 
@@ -13,7 +13,7 @@ public class Mago extends Personaje implements CuracionEnergia{
     @Override
     public String CuraRapida() {
             this.vida +=15;
-            return "El personaje " + getNombre() + " tiene "+super.getVida()+"hp\n";
+            return "El personaje tiene " + super.getVida()+"hp\n";
     }
 
     @Override

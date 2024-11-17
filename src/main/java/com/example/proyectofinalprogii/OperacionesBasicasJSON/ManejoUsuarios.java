@@ -12,7 +12,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ManejoJugador {
+public class ManejoUsuarios {
     /**
      @author Fede
      Esta clase tiene los metodos estaticos para pasar de json a jugador y viceversa
@@ -21,7 +21,7 @@ public class ManejoJugador {
     //aca se van a guardar todos los jugadores creados, su key es el nombre de usuario
     private Map<String, Usuario> jugadores;
 
-    public ManejoJugador() {
+    public ManejoUsuarios() {
         this.jugadores = new HashMap<>();
     }
 

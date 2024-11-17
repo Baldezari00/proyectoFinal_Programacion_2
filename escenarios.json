@@ -1,0 +1,50 @@
+[
+    {
+        "descripcion": "escenario1",
+        "opcion2": {
+            "objetoGanado": {
+                "codigoObj": 123,
+                "nombre": "celular",
+                "idItem": 0
+            },
+            "consecuenciaTitulo": "Opcion2"
+        },
+        "opcion1": {
+            "vidaAModificar": 10,
+            "consecuenciaTitulo": "Opcion1"
+        },
+        "idEscenario": 0
+    },
+    {
+        "descripcion": "escenario2",
+        "opcion2": {
+            "objetoGanado": {
+                "codigoObj": 123,
+                "nombre": "celular",
+                "idItem": 0
+            },
+            "consecuenciaTitulo": "Opcion2"
+        },
+        "opcion1": {
+            "vidaAModificar": 10,
+            "consecuenciaTitulo": "Opcion1"
+        },
+        "idEscenario": 1
+    },
+    {
+        "descripcion": "escenario3",
+        "opcion2": {
+            "objetoGanado": {
+                "codigoObj": 123,
+                "nombre": "celular",
+                "idItem": 0
+            },
+            "consecuenciaTitulo": "Opcion2"
+        },
+        "opcion1": {
+            "vidaAModificar": 10,
+            "consecuenciaTitulo": "Opcion1"
+        },
+        "idEscenario": 2
+    }
+]

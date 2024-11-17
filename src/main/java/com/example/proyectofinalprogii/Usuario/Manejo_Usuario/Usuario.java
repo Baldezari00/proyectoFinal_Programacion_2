@@ -14,7 +14,7 @@ public class Usuario {
     @author Fede
     EXTRA: que el jugador pueda iniciar sesion. Si se te complica o ya se te hace mucho trabajo lo vemos en clase
     **/
-    private HashSet<Escenario> escenarios; // cada jugador va a tener el set de escenarios donde se iran eliminando a medida que este los va jugando.
+    private HashSet<Escenario> escenariosJugador; // cada jugador va a tener el set de escenarios donde se iran eliminando a medida que este los va jugando.
                                             //al crear el jugador, en el constructor automaticamente se le cargaran los escenarios y cuando termine de jugarlos todos (hasSet vacio) gana el juego
     private static int contadorId = 0;
     private int id;
@@ -25,7 +25,7 @@ public class Usuario {
 
     public Usuario(String nombreUsuario, String contrasenia) {
         //falta cargar escenarios del archivo
-        this.escenarios = new HashSet<>();
+        this.escenariosJugador = new HashSet<>();
         this.id = contadorId++;
         this.nombreUsuario = nombreUsuario;
         this.contrasenia = contrasenia;
@@ -34,7 +34,7 @@ public class Usuario {
 
     public Usuario(String nombreUsuario, String contrasenia, Mochila<Item> mochila) {
         //falta cargar escenarios del archivo
-        this.escenarios = new HashSet<>();
+        this.escenariosJugador = new HashSet<>();
         this.id = contadorId++;
         this.nombreUsuario = nombreUsuario;
         this.contrasenia = contrasenia;
@@ -71,11 +71,11 @@ public class Usuario {
     }
 
     public HashSet<Escenario> getEscenarios() {
-        return escenarios;
+        return escenariosJugador;
     }
 
     public void setEscenarios(HashSet<Escenario> escenarios) {
-        this.escenarios = escenarios;
+        this.escenariosJugador = escenarios;
     }
 
     public Personaje getPersonajeElegido() {
@@ -111,6 +111,6 @@ public class Usuario {
     }
 
     public void agregarEscenario(Escenario escenario){
-        escenarios.add(escenario);
+        escenariosJugador.add(escenario);
     }
 }
