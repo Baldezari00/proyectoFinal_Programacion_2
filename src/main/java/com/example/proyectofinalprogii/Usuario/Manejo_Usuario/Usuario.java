@@ -23,22 +23,23 @@ public class Usuario {
     private Personaje personajeElegido;
     private Mochila<Item> mochila;
 
-    public Usuario(String nombreUsuario, String contrasenia) {
+    public Usuario(String nombreUsuario, String contrasenia, Personaje personaje) {
         //falta cargar escenarios del archivo
         this.escenarios = new HashSet<>();
         this.id = contadorId++;
         this.nombreUsuario = nombreUsuario;
         this.contrasenia = contrasenia;
         this.mochila = new Mochila<>();
+        this.personajeElegido = personaje;
     }
 
-    public Usuario(String nombreUsuario, String contrasenia, Mochila<Item> mochila) {
-        //falta cargar escenarios del archivo
-        this.escenarios = new HashSet<>();
+    public Usuario(String nombreUsuario, String contrasenia, Mochila<Item> mochila, Personaje personaje, HashSet<Escenario> escenarios) {
+        this.escenarios = escenarios;
         this.id = contadorId++;
         this.nombreUsuario = nombreUsuario;
         this.contrasenia = contrasenia;
         this.mochila = mochila;
+        this.personajeElegido = personaje;
     }
 
     public int getId() {
@@ -52,7 +53,6 @@ public class Usuario {
     public String getContrasenia() {
         return this.contrasenia;
     }
-
 
     public Mochila<Item> getMochila() {
         return this.mochila;

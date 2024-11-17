@@ -1,5 +1,7 @@
 package com.example.proyectofinalprogii.OperacionesBasicasJSON;
 
+import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Usuario;
+
 import java.util.Scanner;
 
 public class Inicio {
@@ -8,12 +10,14 @@ public class Inicio {
      Esta clase tiene un metodo estatico inicio en donde se llama un manejoJugador donde cuando se inicia se traen
      los jugadores del archivo, y tiene todas las funciones relacionadas a ellos
      **/
-    public static void inicio() {
+    public static Usuario inicio() {
         Scanner scanner = new Scanner(System.in);
 
         // Se crea una instancia de ManejoJugador y se cargan los jugadores desde el archivo
         ManejoUsuarios manejoJugadores = new ManejoUsuarios();
         OperacionLecturaEscritura.archivoToJugadores(manejoJugadores.getJugadores());
+
+        Usuario usuarioActivo = null;
 
         boolean exit = false;
 
@@ -29,7 +33,7 @@ public class Inicio {
 
                 switch (opcion) {
                     case 1:
-                        ManejoCuentas.iniciarSesion(manejoJugadores);
+                        usuarioActivo = ManejoCuentas.iniciarSesion(manejoJugadores);
                         exit = true;
                         break;
                     case 2:
@@ -52,7 +56,9 @@ public class Inicio {
                 System.out.println("Por favor, ingrese un número válido.");
                 scanner.next(); // limpia el input no válido
             }
+
         }
 
+        return usuarioActivo;
     }
 }

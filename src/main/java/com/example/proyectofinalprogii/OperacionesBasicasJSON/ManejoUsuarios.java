@@ -1,5 +1,7 @@
 package com.example.proyectofinalprogii.OperacionesBasicasJSON;
 
+import com.example.proyectofinalprogii.Juego.Escenario;
+import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Personaje;
 import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Usuario;
 import com.example.proyectofinalprogii.Usuario.Mochila.Consumible;
 import com.example.proyectofinalprogii.Usuario.Mochila.Item;
@@ -10,6 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 public class ManejoUsuarios {
@@ -46,9 +49,7 @@ public class ManejoUsuarios {
             jsonObject.put("contraseña", jugador.getContrasenia());
 
 
-            JSONArray jsonArray = new JSONArray();
-
-            //Esto se podria mejorar para no tener que usar instance of ni castear
+            JSONArray jsonItems = new JSONArray();
 
             for (Item item : jugador.getMochila().getItems()) {
                 JSONObject jsonItem = null;
@@ -58,10 +59,23 @@ public class ManejoUsuarios {
                     jsonItem = ManejoItems.objetoToJson((Objeto) item);
                 }
 
-                jsonArray.put(jsonItem);
+                jsonItems.put(jsonItem);
             }
 
-            jsonObject.put("items", jsonArray);
+            jsonObject.put("items", jsonItems);
+
+            JSONObject jsonPersonaje = ManejoPersonaje.personajeToJson(jugador.getPersonajeElegido());
+            jsonObject.put("personajeElegido", jsonPersonaje);
+
+            JSONArray jsonEscenarios = new JSONArray();
+
+            for (Escenario escenario : jugador.getEscenarios()) {
+                JSONObject jsonEscenario = ManejoEscenario.escenarioToJson(escenario);
+
+                jsonEscenarios.put(jsonEscenario);
+            }
+
+            jsonObject.put("escenarios", jsonEscenarios);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -74,14 +88,13 @@ public class ManejoUsuarios {
         int idJugador = jsonObject.getInt("idJugador");
         String nombreUsuario = jsonObject.getString("nombreUsuario");
         String contrasenia = jsonObject.getString("contraseña");
-        int oroJugador = jsonObject.getInt("oroJugador");
 
         Mochila<Item> mochila = new Mochila<>();
 
-        JSONArray jsonArray = jsonObject.getJSONArray("items");
+        JSONArray jsonItems = jsonObject.getJSONArray("items");
 
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject itemJson = jsonArray.getJSONObject(i);
+        for (int i = 0; i < jsonItems.length(); i++) {
+            JSONObject itemJson = jsonItems.getJSONObject(i);
 
             if (itemJson.has("saludRecibida")) {
                 Consumible aux = ManejoItems.jsonToConsumible(itemJson);
@@ -92,7 +105,21 @@ public class ManejoUsuarios {
             }
         }
 
-        Usuario jugadorAux = new Usuario(nombreUsuario, contrasenia, mochila);
+        JSONObject jsonPersonaje = jsonObject.getJSONObject("personajeElegido");
+        Personaje personajeElegido = ManejoPersonaje.jsonToPersonaje(jsonPersonaje);
+
+        JSONArray jsonEscenarios = jsonObject.getJSONArray("escenarios");
+        HashSet<Escenario> escenariosAux = new HashSet<>();
+
+        for (int i = 0; i < jsonEscenarios.length(); i++) {
+            JSONObject jsonEscenario = jsonEscenarios.getJSONObject(i);
+
+            Escenario aux = ManejoEscenario.jsonToEscenario(jsonEscenario);
+
+            escenariosAux.add(aux);
+        }
+
+        Usuario jugadorAux = new Usuario(nombreUsuario, contrasenia, mochila, personajeElegido, escenariosAux);
         jugadorAux.setId(idJugador);
 
         return jugadorAux;
