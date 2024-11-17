@@ -4,8 +4,8 @@ import com.example.proyectofinalprogii.ExcepcionesPersonalizadas.ExcJugador.NoIt
 import com.example.proyectofinalprogii.Juego.Escenario;
 import com.example.proyectofinalprogii.Juego.Opcion;
 import com.example.proyectofinalprogii.Juego.controladorJuego;
-import com.example.proyectofinalprogii.OperacionesBasicasJSON.Inicio;
-import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Viejo;
+import com.example.proyectofinalprogii.OperacionesBasicasJSON.OperacionLecturaEscritura;
+import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Mago;
 import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Personaje;
 import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Usuario;
 import com.example.proyectofinalprogii.Usuario.Mochila.Consumible;
@@ -18,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.HashSet;
 
 public class Main extends Application {
 
@@ -62,8 +63,8 @@ public class Main extends Application {
         Opcion opcion6= new Opcion("b", -25);
         Escenario escenario2 = new Escenario("ert",opcion5,opcion6);
         //jugador
-        Personaje mago = new Viejo();
-        Usuario jugador = new Usuario("balde","1234", mago);
+        Personaje mago = new Mago();
+        Usuario jugador = new Usuario("balde","1234");
         jugador.setPersonajeElegido(mago);
         jugador.agregarEscenario(escenario);
         jugador.agregarEscenario(escenario1);
@@ -82,8 +83,14 @@ public class Main extends Application {
 
     // este es el main de toda la vida, no se mareen con lo de arriba tranqui
     public static void main(String[] args) {
-        Inicio.inicio();
-        // launch();
+        //   Inicio.inicio();
+       // launch();
+
+        HashSet<Escenario> escenarios = OperacionLecturaEscritura.archivoToEscenarios();
+
+        for (Escenario escenario : escenarios) {
+            System.out.println(escenario.toString());
+        }
 
     }
 

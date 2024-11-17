@@ -26,11 +26,18 @@ public class Consumible extends Item {
             return saludRecibida;
         }
 
+
         @Override
-        public String toString() {
-            return super.toString()+"Consubmible{" +
-                    "saludRecuperada=" + saludRecibida +
-                    '}';
+        public StringBuilder mostrarItem() {
+        StringBuilder consumibleMostrar= new StringBuilder();
+        consumibleMostrar.append("Consumible: "+super.getNombre());
+        if(saludRecibida<0){
+            consumibleMostrar.append(" perdida de salud "+getSaludRecibida()+"hp");
+        }else{
+            consumibleMostrar.append(" ganancia de salud "+getSaludRecibida()+"hp");
+        }
+
+        return consumibleMostrar;
         }
 
 

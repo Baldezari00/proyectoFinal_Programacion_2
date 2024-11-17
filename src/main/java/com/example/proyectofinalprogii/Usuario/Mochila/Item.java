@@ -38,12 +38,6 @@ public abstract class Item {
         this.nombre = nombre;
     }
 
-    @Override
-    public String toString() {
-        return "Item {" +
-                "nombre='" + nombre + '\'' +
-                '}';
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -55,5 +49,9 @@ public abstract class Item {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
+    }
+
+    public StringBuilder mostrarItem(){
+        return new StringBuilder();
     }
 }
