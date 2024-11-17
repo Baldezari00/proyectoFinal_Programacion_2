@@ -1,8 +1,7 @@
 package com.example.proyectofinalprogii.OperacionesBasicasJSON;
 
-import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Jugador;
+import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Usuario;
 
-import java.util.Map;
 import java.util.Scanner;
 
 public class ManejoUsuario {
@@ -32,7 +31,7 @@ public class ManejoUsuario {
         System.out.println("Ingrese una contraseña:");
         String contrasenia = scanner.nextLine().trim(); // Lee la contraseña
 
-        Jugador nuevoJugador = new Jugador(nombreUsuario, contrasenia);
+        Usuario nuevoJugador = new Usuario(nombreUsuario, contrasenia);
         manejoJugador.agregarJugador(nuevoJugador);
 
         System.out.println("Cuenta creada exitosamente.");
@@ -57,7 +56,7 @@ public class ManejoUsuario {
         }
 
         if (verificarUsuario(manejoJugador, nombreUsuario)) {
-            Jugador jugador = manejoJugador.getJugadores().get(nombreUsuario);
+            Usuario jugador = manejoJugador.getJugadores().get(nombreUsuario);
 
             if (contrasenia.equals(jugador.getContrasenia())) {
                 System.out.println("Sesión iniciada con éxito.");

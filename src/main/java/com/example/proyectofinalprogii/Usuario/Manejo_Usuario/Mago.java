@@ -2,7 +2,7 @@ package com.example.proyectofinalprogii.Usuario.Manejo_Usuario;
 
 
 
-public class Mago extends  Personaje implements CuracionEnergia{
+public class Mago extends Personaje implements CuracionEnergia{
 
     public Mago(int ID, String nombre) {
         super(ID, nombre, 100);

@@ -1,12 +1,7 @@
 package com.example.proyectofinalprogii.OperacionesBasicasJSON;
 
-import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Jugador;
-import com.example.proyectofinalprogii.Usuario.Mochila.Consumible;
-import com.example.proyectofinalprogii.Usuario.Mochila.Item;
-import com.example.proyectofinalprogii.Usuario.Mochila.Mochila;
-import com.example.proyectofinalprogii.Usuario.Mochila.Objeto;
+import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Usuario;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
@@ -22,14 +17,14 @@ public class OperacionLecturaEscritura {
      Esta clase tiene los metodos estaticos para guardar jugadores o traerlos de archivos json
      **/
 
-    public static void jugadoresToArchivo(Map<String, Jugador> jugadores) {
+    public static void jugadoresToArchivo(Map<String, Usuario> jugadores) {
          String archivoJugadores = "jugadores.json";
 
          try (FileWriter file = new FileWriter(archivoJugadores)) {
               JSONArray jsonArray = new JSONArray();
 
-              for (Map.Entry<String, Jugador> entry : jugadores.entrySet()) {
-                   Jugador jugadorAux = entry.getValue();
+              for (Map.Entry<String, Usuario> entry : jugadores.entrySet()) {
+                   Usuario jugadorAux = entry.getValue();
 
                    JSONObject jugadorJson = ManejoJugador.jugadorToJson(jugadorAux);
 
@@ -44,7 +39,7 @@ public class OperacionLecturaEscritura {
          }
     }
 
-     public static void archivoToJugadores(Map<String, Jugador> mapJugadores) {
+     public static void archivoToJugadores(Map<String, Usuario> mapJugadores) {
          String archivo = "jugadores.json";
 
          try {
@@ -57,13 +52,13 @@ public class OperacionLecturaEscritura {
          }
      }
 
-     public static void cargarMapJugadores(JSONArray arrJsonJugadores, Map<String, Jugador> mapJugadores) {
+     public static void cargarMapJugadores(JSONArray arrJsonJugadores, Map<String, Usuario> mapJugadores) {
           mapJugadores.clear();
 
           for (int i = 0; i < arrJsonJugadores.length(); i++) {
                JSONObject jsonJugador = arrJsonJugadores.getJSONObject(i);
 
-               Jugador jugador = ManejoJugador.jsonToJugador(jsonJugador);
+               Usuario jugador = ManejoJugador.jsonToJugador(jsonJugador);
                mapJugadores.put(jugador.getNombreUsuario(), jugador);
           }
      }
