@@ -32,6 +32,9 @@ public abstract class Personaje {
         return vida;
     }
 
+    public void cambiarVida(int cantVidaACambiar) {
+        this.vida = this.vida + vida;
+    }
 
     @Override
     public String toString() {

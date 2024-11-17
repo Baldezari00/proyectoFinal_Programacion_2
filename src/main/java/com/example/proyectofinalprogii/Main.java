@@ -1,10 +1,9 @@
 package com.example.proyectofinalprogii;
 
 import com.example.proyectofinalprogii.ExcepcionesPersonalizadas.ExcJugador.NoItemsException;
-import com.example.proyectofinalprogii.OperacionesBasicasJSON.Inicio;
-import com.example.proyectofinalprogii.OperacionesBasicasJSON.ManejoJugador;
-import com.example.proyectofinalprogii.OperacionesBasicasJSON.ManejoUsuario;
-import com.example.proyectofinalprogii.OperacionesBasicasJSON.OperacionLecturaEscritura;
+import com.example.proyectofinalprogii.Juego.Escenario;
+import com.example.proyectofinalprogii.Juego.Opcion;
+import com.example.proyectofinalprogii.Juego.controladorJuego;
 import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Jugador;
 import com.example.proyectofinalprogii.Usuario.Mochila.Consumible;
 import com.example.proyectofinalprogii.Usuario.Mochila.Item;
@@ -16,8 +15,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Main extends Application {
 
@@ -48,12 +45,18 @@ public class Main extends Application {
 
 
 
+        // escenario
+        Opcion opcion1= new Opcion("Revisar casa", 40);
+        Opcion opcion2= new Opcion("Seguir el camino", -10);
+        Escenario escenario = new Escenario("te encontras perdido en una especie de bosque con niebla, ves una casa a lo lejos y un camino formado al otro lado... como si alguien ya hubiese pasado por ahí",opcion1,opcion2);
         //jugador
         Jugador jugador = new Jugador("balde","1234");
+        jugador.agregarEscenario(escenario);
 
         // controlador
         controladorJuego controlador = fxmlLoader.getController();
         controlador.setJugadorLocal(jugador);
+        controlador.setStage(stage);
 
         stage.setTitle("juego aventura!");
         stage.setScene(scene);
@@ -63,7 +66,10 @@ public class Main extends Application {
 
     // este es el main de toda la vida, no se mareen con lo de arriba tranqui
     public static void main(String[] args) {
-        Inicio.inicio();
+     //   Inicio.inicio();
+        launch();
+
+
     }
 
 

@@ -14,7 +14,6 @@ public class Mago extends  Personaje implements CuracionEnergia{
     public String CuraRapida() {
             this.vida +=15;
             return "El personaje " + getNombre() + " tiene "+super.getVida()+"hp\n";
-
     }
 
     @Override

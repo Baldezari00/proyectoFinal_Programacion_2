@@ -1,9 +1,11 @@
 package com.example.proyectofinalprogii.Usuario.Manejo_Usuario;
 
+import com.example.proyectofinalprogii.Juego.Escenario;
 import com.example.proyectofinalprogii.Usuario.Mochila.Item;
 import com.example.proyectofinalprogii.Usuario.Mochila.Mochila;
 import org.json.JSONArray;
 
+import java.util.HashSet;
 import java.util.Objects;
 
 public class Jugador {
@@ -14,26 +16,30 @@ public class Jugador {
     @author Fede
     EXTRA: que el jugador pueda iniciar sesion. Si se te complica o ya se te hace mucho trabajo lo vemos en clase
     **/
+    private HashSet<Escenario> escenarios; // cada jugador va a tener el set de escenarios donde se iran eliminando a medida que este los va jugando.
+                                            //al crear el jugador, en el constructor automaticamente se le cargaran los escenarios y cuando termine de jugarlos todos (hasSet vacio) gana el juego
     private static int contadorId = 0;
     private int id;
     private String nombreUsuario;
     private String contrasenia;
-    private int oro;
+    private Personaje personajeElegido;
     private Mochila<Item> mochila;
 
     public Jugador(String nombreUsuario, String contrasenia) {
+        //falta cargar escenarios del archivo
+        this.escenarios = new HashSet<>();
         this.id = contadorId++;
         this.nombreUsuario = nombreUsuario;
         this.contrasenia = contrasenia;
-        this.oro = 0;
         this.mochila = new Mochila<>();
     }
 
     public Jugador(String nombreUsuario, String contrasenia, Mochila<Item> mochila) {
+        //falta cargar escenarios del archivo
+        this.escenarios = new HashSet<>();
         this.id = contadorId++;
         this.nombreUsuario = nombreUsuario;
         this.contrasenia = contrasenia;
-        this.oro = 0;
         this.mochila = mochila;
     }
 
@@ -49,9 +55,6 @@ public class Jugador {
         return this.contrasenia;
     }
 
-    public int getOro() {
-        return this.oro;
-    }
 
     public Mochila<Item> getMochila() {
         return this.mochila;
@@ -69,21 +72,32 @@ public class Jugador {
         this.contrasenia = contrasenia;
     }
 
-    public void setOro(int oro) {
-        this.oro = oro;
+    public HashSet<Escenario> getEscenarios() {
+        return escenarios;
     }
+
+    public void setEscenarios(HashSet<Escenario> escenarios) {
+        this.escenarios = escenarios;
+    }
+
+    public Personaje getPersonajeElegido() {
+        return personajeElegido;
+    }
+
+    public void setPersonajeElegido(Personaje personajeElegido) {
+        this.personajeElegido = personajeElegido;
+    }
+
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Jugador{");
-        sb.append("id=").append(id).append(", ");
-        sb.append("nombreUsuario='").append(nombreUsuario).append("', ");
-        sb.append("contraseña='").append(contrasenia).append("', ");
-        sb.append("oro=").append(oro).append(", ");
-        sb.append("mochila=").append(mochila.getItems());  // Imprime los items de la mochila
-        sb.append('}');
-        return sb.toString();
+        return "Jugador{" +
+                "id=" + id +
+                ", nombreUsuario='" + nombreUsuario + '\'' +
+                ", contrasenia='" + contrasenia + '\'' +
+                ", personajeElegido=" + personajeElegido +
+                ", mochila=" + mochila +
+                '}';
     }
 
     @Override
@@ -96,5 +110,9 @@ public class Jugador {
     @Override
     public int hashCode() {
         return Integer.hashCode(id);
+    }
+
+    public void agregarEscenario(Escenario escenario){
+        escenarios.add(escenario);
     }
 }

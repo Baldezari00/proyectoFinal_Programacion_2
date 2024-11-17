@@ -46,7 +46,7 @@ public class ManejoJugador {
             jsonObject.put("idJugador", jugador.getId());
             jsonObject.put("nombreUsuario", jugador.getNombreUsuario());
             jsonObject.put("contraseña", jugador.getContrasenia());
-            jsonObject.put("oroJugador", jugador.getOro());
+
 
             JSONArray jsonArray = new JSONArray();
 
@@ -96,7 +96,6 @@ public class ManejoJugador {
 
         Jugador jugadorAux = new Jugador(nombreUsuario, contrasenia, mochila);
         jugadorAux.setId(idJugador);
-        jugadorAux.setOro(oroJugador);
 
         return jugadorAux;
     }

@@ -8,4 +8,6 @@ module com.example.proyectofinalprogii {
 
     opens com.example.proyectofinalprogii to javafx.fxml;
     exports com.example.proyectofinalprogii;
+    exports com.example.proyectofinalprogii.Juego;
+    opens com.example.proyectofinalprogii.Juego to javafx.fxml;
 }

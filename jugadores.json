@@ -33,5 +33,12 @@
         "nombreUsuario": "Usuario2",
         "items": [],
         "contraseña": "password2"
+    },
+    {
+        "idJugador": 5,
+        "oroJugador": 0,
+        "nombreUsuario": "balde",
+        "items": [],
+        "contraseña": "123"
     }
 ]

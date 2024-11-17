@@ -1,7 +1,5 @@
 package com.example.proyectofinalprogii.Juego;
 
-import com.example.proyectofinalprogii.Juego.ConsecuenciasEnum.ConsecuenciaMala;
-
 /**
  * Escenario que cuenta con solo 2 opciones y una descripción.
  * @author Balde
@@ -18,10 +16,36 @@ public class Escenario {
         this.opcion2 = opcion2;
     }
 
-    public void accionEscenario(){
-        // recibiría el jugador por parametro y luego determinaría, según la
-        // opción elegiga, la consecuencia.
-        // (recordar que una opción solo puede tener una sola consecuencia)
+    public void mostrarEscenario(){
+        System.out.println("\n------------------------\n");
+        System.out.println(descripcion+"\n");
+        System.out.println("Opción 1: "+opcion1.getConsecuenciaTitulo());
+        System.out.println("Opción 2: "+opcion2.getConsecuenciaTitulo());
+        System.out.println("\n------------------------\n");
 
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Opcion getOpcion1() {
+        return opcion1;
+    }
+
+    public void setOpcion1(Opcion opcion1) {
+        this.opcion1 = opcion1;
+    }
+
+    public Opcion getOpcion2() {
+        return opcion2;
+    }
+
+    public void setOpcion2(Opcion opcion2) {
+        this.opcion2 = opcion2;
     }
 }
