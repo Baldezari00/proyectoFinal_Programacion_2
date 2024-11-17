@@ -2,8 +2,8 @@ package com.example.proyectofinalprogii.Usuario.Manejo_Usuario;
 
 public class Arquero extends Personaje implements CuracionEnergia{
 
-    public Arquero(int ID, String nombre) {
-        super(ID, nombre, 120);
+    public Arquero(String nombre) {
+        super(nombre, 120);
     }
 
 
