@@ -4,14 +4,14 @@ import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Usuario;
 
 import java.util.Scanner;
 
-public class ManejoUsuario {
+public class ManejoCuentas {
     /**
      @author Fede
      Esta clase maneja los metodos de crear cuenta e iniciar sesion.
      Tiene una clase ManejoJugador en donde estan los jugadores creados y se guardan los nuevos
      **/
 
-    public static void crearCuenta(ManejoJugador manejoJugador) {
+    public static void crearCuenta(ManejoUsuarios manejoUsuarios) {
         Scanner scanner = new Scanner(System.in);
         boolean usuarioValido = false;
         String nombreUsuario = null;
@@ -21,7 +21,7 @@ public class ManejoUsuario {
             System.out.println("Ingrese un nombre de usuario:");
             nombreUsuario = scanner.nextLine().trim();  // Usamos trim para evitar problemas con espacios
 
-            if (!verificarUsuario(manejoJugador, nombreUsuario)) {
+            if (!verificarUsuario(manejoUsuarios, nombreUsuario)) {
                 usuarioValido = true; // Salir del bucle si el nombre de usuario es válido
             } else {
                 System.out.println("ERROR, nombre de usuario en uso.");
@@ -32,16 +32,16 @@ public class ManejoUsuario {
         String contrasenia = scanner.nextLine().trim(); // Lee la contraseña
 
         Usuario nuevoJugador = new Usuario(nombreUsuario, contrasenia);
-        manejoJugador.agregarJugador(nuevoJugador);
+        manejoUsuarios.agregarJugador(nuevoJugador);
 
         System.out.println("Cuenta creada exitosamente.");
     }
 
-    public static boolean verificarUsuario(ManejoJugador manejoJugador, String nombreUsuario) {
-        return manejoJugador.getJugadores().containsKey(nombreUsuario);
+    public static boolean verificarUsuario(ManejoUsuarios manejoUsuarios, String nombreUsuario) {
+        return manejoUsuarios.getJugadores().containsKey(nombreUsuario);
     }
 
-    public static void iniciarSesion(ManejoJugador manejoJugador) {
+    public static void iniciarSesion(ManejoUsuarios manejoUsuarios) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Ingrese su nombre de usuario");
@@ -55,8 +55,8 @@ public class ManejoUsuario {
             return;
         }
 
-        if (verificarUsuario(manejoJugador, nombreUsuario)) {
-            Usuario jugador = manejoJugador.getJugadores().get(nombreUsuario);
+        if (verificarUsuario(manejoUsuarios, nombreUsuario)) {
+            Usuario jugador = manejoUsuarios.getJugadores().get(nombreUsuario);
 
             if (contrasenia.equals(jugador.getContrasenia())) {
                 System.out.println("Sesión iniciada con éxito.");

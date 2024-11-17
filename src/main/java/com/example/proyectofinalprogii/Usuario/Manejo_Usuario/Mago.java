@@ -4,8 +4,8 @@ package com.example.proyectofinalprogii.Usuario.Manejo_Usuario;
 
 public class Mago extends Personaje implements CuracionEnergia{
 
-    public Mago(String nombre) {
-        super(nombre, 100);
+    public Mago(int ID, String nombre) {
+        super(ID, nombre, 100);
     }
 
 

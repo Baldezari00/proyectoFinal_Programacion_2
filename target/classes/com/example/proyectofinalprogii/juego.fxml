@@ -10,7 +10,10 @@
       <Button fx:id="opcion1" alignment="CENTER" layoutX="37.0" layoutY="268.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="209.0" text="opcion1" />
       <Button fx:id="opcion2" alignment="CENTER" layoutX="372.0" layoutY="268.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="209.0" text="opcion2" />
       <Label fx:id="historiaLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="67.0" layoutY="24.0" prefHeight="207.0" prefWidth="466.0" text="historia" textAlignment="CENTER" />
+<<<<<<< HEAD
       <Label fx:id="notificadorVida" alignment="CENTER" contentDisplay="CENTER" layoutX="161.0" layoutY="164.0" prefHeight="104.0" prefWidth="278.0" textAlignment="CENTER" />
       <Button fx:id="siguiente" alignment="CENTER" layoutX="229.0" layoutY="343.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="143.0" text="Siguiente" />
+=======
+>>>>>>> origin/main
    </children>
 </AnchorPane>

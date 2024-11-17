@@ -1,5 +1,5 @@
 package com.example.proyectofinalprogii.Juego;
-import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Usuario;
+import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Jugador;
 import com.example.proyectofinalprogii.Usuario.Mochila.Item;
 
 /**
@@ -15,28 +15,12 @@ public class Opcion {
 
 
 
-    public String getConsecuenciaTitulo() {
+    public String Getconsecuencia(){
         return consecuenciaTitulo;
     }
 
-    public void setConsecuenciaTitulo(String consecuenciaTitulo) {
-        this.consecuenciaTitulo = consecuenciaTitulo;
-    }
-
-    public int getVidaAModificar() {
-        return vidaAModificar;
-    }
-
-    public void setVidaAModificar(int vidaAModificar) {
-        this.vidaAModificar = vidaAModificar;
-    }
-
-    public Item getItemGanado() {
-        return itemGanado;
-    }
-
-    public void setItemGanado(Item itemGanado) {
-        this.itemGanado = itemGanado;
+    public String getConsecuenciaTitulo() {
+        return consecuenciaTitulo;
     }
 
     public Opcion(String consecuenciaTitulo, int vidaAModificar) {
@@ -49,11 +33,16 @@ public class Opcion {
         this.itemGanado = itemGanado;
     }
 
-    public String accionDeOpcion(Usuario jugador, String descripcionDeOpcion){
+    public String accionDeOpcion(Jugador jugador, String descripcionDeOpcion, int vidaAModificar){
         jugador.getPersonajeElegido().cambiarVida(vidaAModificar);
-        return descripcionDeOpcion;
+        if(jugador.getPersonajeElegido().getVida()<=0){
+            return descripcionDeOpcion+"\nperdiste el juego\n";
+        }else{
+            return descripcionDeOpcion;
+        }
+
     }
-    public String accionDeOpcion(Usuario jugador, String descripcionDeOpcion, Item itemGanado){
+    public String accionDeOpcion(Jugador jugador, String descripcionDeOpcion, Item itemGanado){
         jugador.getMochila().agregarItem(itemGanado);
         return descripcionDeOpcion;
     }

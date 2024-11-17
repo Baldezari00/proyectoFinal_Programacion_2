@@ -5,15 +5,20 @@ public abstract class Personaje {
     // crear los 3 personajes necesarios junto con clase padre (esta misma), sus atributos y demás.
     // 1 interfaz que la utilicen 2 de los personajes
     // extra: serializar personajes (convertir personaje a JSON y viceversa. Sin archivo y dentro de la misma clase).
-
+    private static int contarId = 0;
+    private int ID;
     private String Nombre;
     protected int vida;
 
-    public Personaje(String nombre, int vida) {
+    public Personaje(int ID, String nombre, int vida) {
+        this.ID = contarId++;
         this.Nombre = nombre;
         this.vida = vida;
     }
 
+    public int getID() {
+        return ID;
+    }
 
     public String getNombre() {
         return Nombre;
@@ -26,17 +31,15 @@ public abstract class Personaje {
     public int getVida() {
         return vida;
     }
-    public String getVidaString() {
-        return String.valueOf(vida);
-    }
 
     public void cambiarVida(int cantVidaACambiar) {
-        this.vida = this.vida + (cantVidaACambiar);
+        this.vida = this.vida + vida;
     }
 
     @Override
     public String toString() {
         return "Personaje{" +
+                "ID=" + ID +
                 ", Nombre='" + Nombre + '\'' +
                 ", vida=" + vida +
                 ' ';

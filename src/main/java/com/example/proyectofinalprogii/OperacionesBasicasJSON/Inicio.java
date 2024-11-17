@@ -1,6 +1,5 @@
 package com.example.proyectofinalprogii.OperacionesBasicasJSON;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Inicio {
@@ -13,7 +12,7 @@ public class Inicio {
         Scanner scanner = new Scanner(System.in);
 
         // Se crea una instancia de ManejoJugador y se cargan los jugadores desde el archivo
-        ManejoJugador manejoJugadores = new ManejoJugador();
+        ManejoUsuarios manejoJugadores = new ManejoUsuarios();
         OperacionLecturaEscritura.archivoToJugadores(manejoJugadores.getJugadores());
 
         boolean exit = false;
@@ -30,15 +29,15 @@ public class Inicio {
 
                 switch (opcion) {
                     case 1:
-                        ManejoUsuario.iniciarSesion(manejoJugadores);
+                        ManejoCuentas.iniciarSesion(manejoJugadores);
                         exit = true;
                         break;
                     case 2:
-                        ManejoUsuario.crearCuenta(manejoJugadores);
+                        ManejoCuentas.crearCuenta(manejoJugadores);
                         OperacionLecturaEscritura.jugadoresToArchivo(manejoJugadores.getJugadores());
 
                         System.out.println("Cuenta creada exitosamente. Ahora debe iniciar sesión.");
-                        ManejoUsuario.iniciarSesion(manejoJugadores);
+                        ManejoCuentas.iniciarSesion(manejoJugadores);
                         exit = true;
                         break;
                     case 0:

@@ -1,14 +1,14 @@
 package com.example.proyectofinalprogii.Juego;
 
 import com.example.proyectofinalprogii.Main;
-import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Usuario;
+import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Jugador;
+import com.example.proyectofinalprogii.Usuario.Mochila.Item;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -25,11 +25,7 @@ public class controladorJuego {
     private Button opcion1;
     @FXML
     private Button opcion2;
-    @FXML
-    private Label notificadorVida;
-    @FXML
-    private Button siguiente;
-    private Usuario jugadorLocal;
+    private Jugador jugadorLocal;
     private Stage stage;
 
     //inicializar
@@ -46,11 +42,11 @@ public class controladorJuego {
 
     // getter y setter
 
-    public Usuario getJugadorLocal() {
+    public Jugador getJugadorLocal() {
         return jugadorLocal;
     }
 
-    public void setJugadorLocal(Usuario jugadorLocal) {
+    public void setJugadorLocal(Jugador jugadorLocal) {
         this.jugadorLocal = jugadorLocal;
     }
     public void setStage(Stage stage){
@@ -97,18 +93,15 @@ public class controladorJuego {
         if (jugadorLocal != null && jugadorLocal.getEscenarios() != null) {
             historiaLabel.setWrapText(true);  // Esto permite el ajuste de texto
 
-            if(jugadorLocal.getEscenarios().iterator().hasNext()){
-              cargarEscenario();
-              siguiente.setOnAction(actionEvent -> {
-                  if(jugadorLocal.getEscenarios().iterator().hasNext()) {
-                      cargarEscenario();
-                  }else{
-                     cargarEscenarioGanador();
-                  }
-              });
-
+            if(!jugadorLocal.getEscenarios().isEmpty()){
+                Escenario escenario = jugadorLocal.getEscenarios().iterator().next();
+                historiaLabel.setText(escenario.getDescripcion());
+                opcion1.setText(escenario.getOpcion1().getConsecuenciaTitulo());
+                opcion2.setText(escenario.getOpcion2().getConsecuenciaTitulo());
+                jugadorLocal.getEscenarios().remove(escenario);
             }else{
-               cargarEscenarioGanador();
+                historiaLabel.setText("Felicidades, ganaste el juego!\n");
+                // mostrar estadisticas como cant de opciones elegidas
             }
 
 
@@ -117,79 +110,18 @@ public class controladorJuego {
         }
     }
 
-
-    public void cargarEscenario(){
-
-            Escenario escenario = jugadorLocal.getEscenarios().iterator().next();
-            notificadorVida.setText("");
-            // textos
-            historiaLabel.setText(escenario.getDescripcion());
-            opcion1.setText(escenario.getOpcion1().getConsecuenciaTitulo());
-            opcion2.setText(escenario.getOpcion2().getConsecuenciaTitulo());
-
-            opcion1.setOnAction(actionEvent -> {
-                String descripcion = escenario.getOpcion1().accionDeOpcion(jugadorLocal,"algo paso y ganaste "+escenario.getOpcion1().getVidaAModificar()+"hp");
-                if(jugadorLocal.getPersonajeElegido().getVida()<=0){
-                    historiaLabel.setText(descripcion+"\nperdiste el juego...");
-                    historiaLabel.setTextFill(Paint.valueOf("red"));
-                    notificadorVida.setText("");
-
-                }else{
-                    historiaLabel.setText(descripcion);
-                    notificadorVida.setText("te quedan "+jugadorLocal.getPersonajeElegido().getVidaString()+"hp restantes");
-
-
-                    if(jugadorLocal.getPersonajeElegido().getVida()<50){
-                        notificadorVida.setTextFill(Paint.valueOf("red"));
-                    }else {
-                        notificadorVida.setTextFill(Paint.valueOf("green"));
-                    }
-                }
-
-            });
-
-            opcion2.setOnAction(actionEvent -> {
-                String descripcion = escenario.getOpcion2().accionDeOpcion(jugadorLocal,"algo paso y perdiste "+escenario.getOpcion2().getVidaAModificar()+"hp");
-                if(jugadorLocal.getPersonajeElegido().getVida()<=0){
-                    historiaLabel.setText(descripcion+"\nperdiste el juego...");
-                    historiaLabel.setTextFill(Paint.valueOf("red"));
-                    notificadorVida.setText("");
-
-                }else{
-                    historiaLabel.setText(descripcion);
-                    notificadorVida.setText("te quedan "+jugadorLocal.getPersonajeElegido().getVidaString()+"hp restantes");
-
-
-                    if(jugadorLocal.getPersonajeElegido().getVida()<50){
-                        notificadorVida.setTextFill(Paint.valueOf("red"));
-
-                    }else {
-                        notificadorVida.setTextFill(Paint.valueOf("green"));
-                    }
-
-
-                }
-
-            });
-
-
-            // remover escenario
-            jugadorLocal.getEscenarios().remove(escenario);
-
-    }
-
-    public void cargarEscenarioGanador(){
-        historiaLabel.setText("Felicidades, ganaste el juego!\n");
-        opcion1.visibleProperty().set(false);
-        opcion2.visibleProperty().set(false);
-        notificadorVida.visibleProperty().set(false);
-
-        siguiente.setText("ver estadisticas");
-        siguiente.setOnAction(actionEvent -> {
+ /*   @FXML
+    protected void accionDeOpcion1(){
+        jugadorLocal.getPersonajeElegido().cambiarVida(vidaAModificar);
+        if(jugador.getPersonajeElegido().getVida()<=0){
+            return descripcionDeOpcion+"\nperdiste el juego\n";
             // mostrar estadisticas como cant de opciones elegidas
-        });
+
+        }else{
+            return descripcionDeOpcion;
+        }
 
     }
-
+*/
 
 }
