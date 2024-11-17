@@ -1,8 +1,7 @@
 package com.example.proyectofinalprogii.Juego;
 
 import com.example.proyectofinalprogii.Main;
-import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Jugador;
-import com.example.proyectofinalprogii.Usuario.Mochila.Item;
+import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,7 +24,7 @@ public class controladorJuego {
     private Button opcion1;
     @FXML
     private Button opcion2;
-    private Jugador jugadorLocal;
+    private Usuario jugadorLocal;
     private Stage stage;
 
     //inicializar
@@ -42,11 +41,11 @@ public class controladorJuego {
 
     // getter y setter
 
-    public Jugador getJugadorLocal() {
+    public Usuario getJugadorLocal() {
         return jugadorLocal;
     }
 
-    public void setJugadorLocal(Jugador jugadorLocal) {
+    public void setJugadorLocal(Usuario jugadorLocal) {
         this.jugadorLocal = jugadorLocal;
     }
     public void setStage(Stage stage){

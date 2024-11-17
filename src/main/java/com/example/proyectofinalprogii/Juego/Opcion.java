@@ -1,5 +1,5 @@
 package com.example.proyectofinalprogii.Juego;
-import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Jugador;
+import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Usuario;
 import com.example.proyectofinalprogii.Usuario.Mochila.Item;
 
 /**
@@ -33,7 +33,7 @@ public class Opcion {
         this.itemGanado = itemGanado;
     }
 
-    public String accionDeOpcion(Jugador jugador, String descripcionDeOpcion, int vidaAModificar){
+    public String accionDeOpcion(Usuario jugador, String descripcionDeOpcion, int vidaAModificar){
         jugador.getPersonajeElegido().cambiarVida(vidaAModificar);
         if(jugador.getPersonajeElegido().getVida()<=0){
             return descripcionDeOpcion+"\nperdiste el juego\n";
@@ -42,7 +42,7 @@ public class Opcion {
         }
 
     }
-    public String accionDeOpcion(Jugador jugador, String descripcionDeOpcion, Item itemGanado){
+    public String accionDeOpcion(Usuario jugador, String descripcionDeOpcion, Item itemGanado){
         jugador.getMochila().agregarItem(itemGanado);
         return descripcionDeOpcion;
     }

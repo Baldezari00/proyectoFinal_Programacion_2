@@ -4,7 +4,7 @@ import com.example.proyectofinalprogii.ExcepcionesPersonalizadas.ExcJugador.NoIt
 import com.example.proyectofinalprogii.Juego.Escenario;
 import com.example.proyectofinalprogii.Juego.Opcion;
 import com.example.proyectofinalprogii.Juego.controladorJuego;
-import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Jugador;
+import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Usuario;
 import com.example.proyectofinalprogii.Usuario.Mochila.Consumible;
 import com.example.proyectofinalprogii.Usuario.Mochila.Item;
 import com.example.proyectofinalprogii.Usuario.Mochila.Mochila;
@@ -50,7 +50,7 @@ public class Main extends Application {
         Opcion opcion2= new Opcion("Seguir el camino", -10);
         Escenario escenario = new Escenario("te encontras perdido en una especie de bosque con niebla, ves una casa a lo lejos y un camino formado al otro lado... como si alguien ya hubiese pasado por ahí",opcion1,opcion2);
         //jugador
-        Jugador jugador = new Jugador("balde","1234");
+        Usuario jugador = new Usuario("balde","1234");
         jugador.agregarEscenario(escenario);
 
         // controlador
@@ -68,8 +68,6 @@ public class Main extends Application {
     public static void main(String[] args) {
      //   Inicio.inicio();
         launch();
-
-
     }
 
 

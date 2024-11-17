@@ -3,12 +3,10 @@ package com.example.proyectofinalprogii.Usuario.Manejo_Usuario;
 import com.example.proyectofinalprogii.Juego.Escenario;
 import com.example.proyectofinalprogii.Usuario.Mochila.Item;
 import com.example.proyectofinalprogii.Usuario.Mochila.Mochila;
-import org.json.JSONArray;
 
 import java.util.HashSet;
-import java.util.Objects;
 
-public class Jugador {
+public class Usuario {
     /**
     serializar y deserealizar jugador, luego de eso guardarlo en un archivo y poder leerlo retornando un jugador.
     TIP: en el proyecto ya cree la carpeta OperacionesBasicasJSON, donde podes poner lo de escribir a archivo y leer de archivo.
@@ -25,7 +23,7 @@ public class Jugador {
     private Personaje personajeElegido;
     private Mochila<Item> mochila;
 
-    public Jugador(String nombreUsuario, String contrasenia) {
+    public Usuario(String nombreUsuario, String contrasenia) {
         //falta cargar escenarios del archivo
         this.escenarios = new HashSet<>();
         this.id = contadorId++;
@@ -34,7 +32,7 @@ public class Jugador {
         this.mochila = new Mochila<>();
     }
 
-    public Jugador(String nombreUsuario, String contrasenia, Mochila<Item> mochila) {
+    public Usuario(String nombreUsuario, String contrasenia, Mochila<Item> mochila) {
         //falta cargar escenarios del archivo
         this.escenarios = new HashSet<>();
         this.id = contadorId++;
@@ -103,7 +101,7 @@ public class Jugador {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Jugador jugador)) return false;
+        if (!(o instanceof Usuario jugador)) return false;
         return id == jugador.id;
     }
 
