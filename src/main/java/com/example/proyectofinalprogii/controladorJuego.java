@@ -1,6 +1,6 @@
 package com.example.proyectofinalprogii;
 
-import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Jugador;
+import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Usuario;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -9,20 +9,16 @@ public class controladorJuego {
     // (ej: elegir opcion, utilizar item)
     @FXML
     private Label welcomeText;
-    private Jugador jugadorLocal;
-
-
-
-
+    private Usuario jugadorLocal;
 
 
     // getter y setter
 
-    public Jugador getJugadorLocal() {
+    public Usuario getJugadorLocal() {
         return jugadorLocal;
     }
 
-    public void setJugadorLocal(Jugador jugadorLocal) {
+    public void setJugadorLocal(Usuario jugadorLocal) {
         this.jugadorLocal = jugadorLocal;
     }
 

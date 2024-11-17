@@ -1,6 +1,6 @@
 package com.example.proyectofinalprogii.OperacionesBasicasJSON;
 
-import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Jugador;
+import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Usuario;
 import com.example.proyectofinalprogii.Usuario.Mochila.Consumible;
 import com.example.proyectofinalprogii.Usuario.Mochila.Item;
 import com.example.proyectofinalprogii.Usuario.Mochila.Mochila;
@@ -9,8 +9,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,17 +19,17 @@ public class ManejoJugador {
      **/
 
     //aca se van a guardar todos los jugadores creados, su key es el nombre de usuario
-    private Map<String, Jugador> jugadores;
+    private Map<String, Usuario> jugadores;
 
     public ManejoJugador() {
         this.jugadores = new HashMap<>();
     }
 
-    public Map<String, Jugador> getJugadores() {
+    public Map<String, Usuario> getJugadores() {
         return jugadores;
     }
 
-    public void agregarJugador(Jugador jugador) {
+    public void agregarJugador(Usuario jugador) {
         if (!jugadores.containsKey(jugador.getNombreUsuario())) {
             jugadores.put(jugador.getNombreUsuario(), jugador);
         } else {
@@ -39,7 +37,7 @@ public class ManejoJugador {
         }
     }
 
-    public static JSONObject jugadorToJson(Jugador jugador) {
+    public static JSONObject jugadorToJson(Usuario jugador) {
         JSONObject jsonObject = new JSONObject();
 
         try {
@@ -72,7 +70,7 @@ public class ManejoJugador {
         return jsonObject;
     }
 
-    public static Jugador jsonToJugador(JSONObject jsonObject) {
+    public static Usuario jsonToJugador(JSONObject jsonObject) {
         int idJugador = jsonObject.getInt("idJugador");
         String nombreUsuario = jsonObject.getString("nombreUsuario");
         String contrasenia = jsonObject.getString("contraseña");
@@ -94,7 +92,7 @@ public class ManejoJugador {
             }
         }
 
-        Jugador jugadorAux = new Jugador(nombreUsuario, contrasenia, mochila);
+        Usuario jugadorAux = new Usuario(nombreUsuario, contrasenia, mochila);
         jugadorAux.setId(idJugador);
         jugadorAux.setOro(oroJugador);
 

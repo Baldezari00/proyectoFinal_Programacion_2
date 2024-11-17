@@ -12,12 +12,12 @@ public class Opcion {
     private ConsecuenciaBuena consecuenciaBuena;
     private ConsecuenciaMala consecuenciaMala;
 
-    public Opcion( String consecuenciaTitulo, ConsecuenciaBuena consecuenciaBuena) {
+    public Opcion(String consecuenciaTitulo, ConsecuenciaBuena consecuenciaBuena) {
         this.consecuenciaTitulo = consecuenciaTitulo;
         this.consecuenciaBuena = consecuenciaBuena;
     }
 
-    public Opcion( String consecuenciaTitulo, ConsecuenciaMala consecuenciaMala) {
+    public Opcion(String consecuenciaTitulo, ConsecuenciaMala consecuenciaMala) {
         this.consecuenciaTitulo = consecuenciaTitulo;
         this.consecuenciaMala = consecuenciaMala;
     }
@@ -25,7 +25,5 @@ public class Opcion {
     public String Getconsecuencia(){
         return consecuenciaTitulo;
     }
-
-
 
 }

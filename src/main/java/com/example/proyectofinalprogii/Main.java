@@ -2,10 +2,7 @@ package com.example.proyectofinalprogii;
 
 import com.example.proyectofinalprogii.ExcepcionesPersonalizadas.ExcJugador.NoItemsException;
 import com.example.proyectofinalprogii.OperacionesBasicasJSON.Inicio;
-import com.example.proyectofinalprogii.OperacionesBasicasJSON.ManejoJugador;
-import com.example.proyectofinalprogii.OperacionesBasicasJSON.ManejoUsuario;
-import com.example.proyectofinalprogii.OperacionesBasicasJSON.OperacionLecturaEscritura;
-import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Jugador;
+import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Usuario;
 import com.example.proyectofinalprogii.Usuario.Mochila.Consumible;
 import com.example.proyectofinalprogii.Usuario.Mochila.Item;
 import com.example.proyectofinalprogii.Usuario.Mochila.Mochila;
@@ -16,8 +13,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Main extends Application {
 
@@ -49,7 +44,7 @@ public class Main extends Application {
 
 
         //jugador
-        Jugador jugador = new Jugador("balde","1234");
+        Usuario jugador = new Usuario("balde","1234");
 
         // controlador
         controladorJuego controlador = fxmlLoader.getController();
