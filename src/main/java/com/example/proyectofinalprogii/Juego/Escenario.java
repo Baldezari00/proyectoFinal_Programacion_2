@@ -3,9 +3,9 @@ package com.example.proyectofinalprogii.Juego;
 import java.util.Objects;
 
 /**
- * Escenario que cuenta con solo 2 opciones y una descripción.
- * @author Balde
- */
+
+ Escenario que cuenta con solo 2 opciones y una descripción.
+ @author Balde*/
 public class Escenario {
     private static int contadorId = 0;
     private int idEscenario;
@@ -70,8 +70,4 @@ public class Escenario {
     public void setOpcion2(Opcion opcion2) {
         this.opcion2 = opcion2;
     }
-
-
-
-
 }

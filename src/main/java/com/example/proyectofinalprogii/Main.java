@@ -4,7 +4,10 @@ import com.example.proyectofinalprogii.ExcepcionesPersonalizadas.ExcJugador.NoIt
 import com.example.proyectofinalprogii.Juego.Escenario;
 import com.example.proyectofinalprogii.Juego.Opcion;
 import com.example.proyectofinalprogii.Juego.controladorJuego;
-import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Jugador;
+import com.example.proyectofinalprogii.OperacionesBasicasJSON.OperacionLecturaEscritura;
+import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Mago;
+import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Personaje;
+import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Usuario;
 import com.example.proyectofinalprogii.Usuario.Mochila.Consumible;
 import com.example.proyectofinalprogii.Usuario.Mochila.Item;
 import com.example.proyectofinalprogii.Usuario.Mochila.Mochila;
@@ -15,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.HashSet;
 
 public class Main extends Application {
 
@@ -49,9 +53,22 @@ public class Main extends Application {
         Opcion opcion1= new Opcion("Revisar casa", 40);
         Opcion opcion2= new Opcion("Seguir el camino", -10);
         Escenario escenario = new Escenario("te encontras perdido en una especie de bosque con niebla, ves una casa a lo lejos y un camino formado al otro lado... como si alguien ya hubiese pasado por ahí",opcion1,opcion2);
+
+
+        Opcion opcion3= new Opcion("a", 20);
+        Opcion opcion4= new Opcion("b", -20);
+        Escenario escenario1 = new Escenario("abc",opcion3,opcion4);
+
+        Opcion opcion5= new Opcion("a", 25);
+        Opcion opcion6= new Opcion("b", -25);
+        Escenario escenario2 = new Escenario("ert",opcion5,opcion6);
         //jugador
-        Jugador jugador = new Jugador("balde","1234");
+        Personaje mago = new Mago();
+        Usuario jugador = new Usuario("balde","1234");
+        jugador.setPersonajeElegido(mago);
         jugador.agregarEscenario(escenario);
+        jugador.agregarEscenario(escenario1);
+        jugador.agregarEscenario(escenario2);
 
         // controlador
         controladorJuego controlador = fxmlLoader.getController();
@@ -66,9 +83,14 @@ public class Main extends Application {
 
     // este es el main de toda la vida, no se mareen con lo de arriba tranqui
     public static void main(String[] args) {
-     //   Inicio.inicio();
-        launch();
+        //   Inicio.inicio();
+       // launch();
 
+        HashSet<Escenario> escenarios = OperacionLecturaEscritura.archivoToEscenarios();
+
+        for (Escenario escenario : escenarios) {
+            System.out.println(escenario.toString());
+        }
 
     }
 

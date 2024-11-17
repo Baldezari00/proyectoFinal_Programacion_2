@@ -4,22 +4,18 @@ package com.example.proyectofinalprogii.Usuario.Manejo_Usuario;
 
 public class Mago extends Personaje implements CuracionEnergia{
 
-    public Mago(int ID, String nombre) {
-        super(ID, nombre, 100);
+    public Mago() {
+        super(100);
     }
 
 
-//Metodo interfaz
+    //Metodo interfaz
     @Override
     public String CuraRapida() {
-            this.vida +=15;
-            return "El personaje " + getNombre() + " tiene "+super.getVida()+"hp\n";
+        this.vida +=15;
+        return "El personaje tiene " + super.getVida()+"hp\n";
     }
 
-    @Override
-    public String toString() {
-        return "Mago{" + super.toString() +
-                "} " ;
-    }
+
 
 }
