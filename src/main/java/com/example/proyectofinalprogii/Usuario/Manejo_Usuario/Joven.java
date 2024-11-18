@@ -5,7 +5,7 @@ public class Joven extends Personaje implements CuracionVida {
         super(150);
     }
 
-    public Joven(int vida) { super(vida); }
+    public Joven(int vida, int vidaTotalGanada) { super(vida, vidaTotalGanada); }
 
     @Override
     public int CuraRapida() {
@@ -32,6 +32,7 @@ public class Joven extends Personaje implements CuracionVida {
 
         // Asigna la vida actualizada
         super.setVida(nuevaVida);
+        super.sumarVidaTotalGanada(cantVidaACambiar);
 
         return 1; // Se pudo realizar el cambio
     }

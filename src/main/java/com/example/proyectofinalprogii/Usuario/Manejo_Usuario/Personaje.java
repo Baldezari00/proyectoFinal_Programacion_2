@@ -2,9 +2,16 @@ package com.example.proyectofinalprogii.Usuario.Manejo_Usuario;
 
 public abstract class Personaje {
     protected int vida;
+    protected int vidaTotalGanada;
 
     public Personaje(int vida) {
         this.vida = vida;
+        this.vidaTotalGanada = 0;
+    }
+
+    public Personaje(int vida, int vidaTotalGanada) {
+        this.vida = vida;
+        this.vidaTotalGanada = 0;
     }
 
     public int getVida() {
@@ -21,7 +28,9 @@ public abstract class Personaje {
 
     public abstract int cambiarVida(int cantVidaACambiar);
 
+    public int getVidaTotalGanada() { return vidaTotalGanada; }
 
+    public void sumarVidaTotalGanada(int vidaTotalGanada) { this.vidaTotalGanada += vidaTotalGanada; }
 }
 
 

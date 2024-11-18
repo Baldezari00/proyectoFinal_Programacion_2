@@ -15,6 +15,7 @@ import java.util.List;
 public class Mochila <T extends Item>{
     // que tenga capacidad maxima
     private List<T> items; // porque List permite repetidos
+    private int capacidadMax = 6;
 
     public Mochila() {
         this.items = new ArrayList<>();
@@ -24,8 +25,13 @@ public class Mochila <T extends Item>{
         this.items = items;
     }
 
-    public void agregarItem(T item){
-        items.add(item);
+    public int agregarItem(T item){
+        if (items.size() < capacidadMax) {
+            items.add(item);
+            return 1;
+        }
+
+        return 0;
     }
 
     public void removerItem(T item){

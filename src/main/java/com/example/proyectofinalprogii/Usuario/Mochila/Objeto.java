@@ -30,4 +30,11 @@ public class Objeto extends Item{
     public StringBuilder mostrarItem() {
         return new StringBuilder().append("Objeto: ").append(super.getNombre());
     }
+
+    @Override
+    public String toString() {
+        return "Objeto{ nombre=" + super.getNombre() +
+                " codigo=" + codigo +
+                "} ";
+    }
 }

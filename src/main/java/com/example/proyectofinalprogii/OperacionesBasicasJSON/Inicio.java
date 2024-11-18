@@ -35,15 +35,21 @@ public class Inicio {
                 case 1:
                     usuarioActivo = iniciarSesion(manejoJugadores);
                     if (usuarioActivo != null) {
-                        exit = true; // Salir al menú principal del usuario
+                        boolean sesionActiva = true;
+                        while (sesionActiva) {
+                            // Menú según rol
+                            if (usuarioActivo.getEsAdmin()) {
+                                sesionActiva = mostrarMenuAdmin(usuarioActivo);
+                            } else {
+                                sesionActiva = mostrarMenuUsuario(usuarioActivo);
+                            }
+                        }
                     }
                     break;
                 case 2:
                     crearCuenta(manejoJugadores);
                     guardarCambios(manejoJugadores);
                     System.out.println("Cuenta creada exitosamente. Ahora debe iniciar sesión.");
-                    usuarioActivo = iniciarSesion(manejoJugadores);
-                    exit = usuarioActivo != null;
                     break;
                 case 0:
                     exit = confirmarSalida(scanner);
@@ -52,13 +58,7 @@ public class Inicio {
                     System.out.println("Opción inválida. Intente de nuevo.");
             }
         }
-
-        if (usuarioActivo != null) {
-            mostrarMenuPorRol(usuarioActivo);
-        }
-
-
-        return usuarioActivo;
+        return null; // Salida definitiva
     }
 
     private static void mostrarMenuInicial() {
@@ -111,7 +111,7 @@ public class Inicio {
         }
     }
 
-    public static void mostrarMenuAdmin(Usuario usuarioActivo) {
+    public static boolean mostrarMenuAdmin(Usuario usuarioActivo) {
         Scanner scanner = new Scanner(System.in);
         boolean exit = false;
 
@@ -125,7 +125,7 @@ public class Inicio {
             System.out.println("6- Eliminar escenario");
             System.out.println("7- Modificar escenario");
             System.out.println("8- Jugar");
-            System.out.println("0- Salir");
+            System.out.println("0- Cerrar sesión");
             System.out.print("Seleccione una opción: ");
 
             int opcion = leerOpcion(scanner);
@@ -152,27 +152,25 @@ public class Inicio {
                 case 7:
                     FuncionesAdmin.modificarEscenario();
                     break;
-                case 8: // Jugar
-                    if(JavaFXApp.isLaunched()){
-                        System.out.println("ya jugaste una vez, reinicia para volver a jugar");
-                    }else{
+                case 8:
+                    if (JavaFXApp.isLaunched()) {
+                        System.out.println("Ya has jugado una vez, reinicia para volver a jugar.");
+                    } else {
                         System.out.println("Iniciando la interfaz gráfica...");
                         JavaFXApp.setUsuarioActivo(usuarioActivo);
                         JavaFXApp.mostrarInterfaz();
                     }
-
                     break;
-
                 case 0:
-                    exit = true;
-                    break;
+                    return false; // Cierra sesión y vuelve al menú inicial
                 default:
                     System.out.println("Opción inválida.");
             }
         }
+        return true; // Mantiene la sesión activa
     }
 
-    public static void mostrarMenuUsuario(Usuario usuario) {
+    public static boolean mostrarMenuUsuario(Usuario usuarioActivo) {
         Scanner scanner = new Scanner(System.in);
         boolean exit = false;
 
@@ -181,26 +179,34 @@ public class Inicio {
             System.out.println("1- Jugar partida");
             System.out.println("2- Ver mis datos");
             System.out.println("3- Editar datos");
-            System.out.println("0- Salir");
+            System.out.println("0- Cerrar sesión");
 
             int opcion = scanner.nextInt();
             scanner.nextLine();
 
             switch (opcion) {
+                case 1:
+                    if (JavaFXApp.isLaunched()) {
+                        System.out.println("Ya has jugado una vez, reinicia para volver a jugar.");
+                    } else {
+                        System.out.println("Iniciando la interfaz gráfica...");
+                        JavaFXApp.setUsuarioActivo(usuarioActivo);
+                        JavaFXApp.mostrarInterfaz();
+                    }
+                    break;
                 case 2:
-                    mostrarUsuario(usuario);
+                    mostrarUsuario(usuarioActivo);
                     break;
                 case 3:
-                    editarDatos(usuario, manejoJugadores);
+                    editarDatos(usuarioActivo, manejoJugadores);
                     break;
                 case 0:
-                    exit = true;
-                    break;
+                    return false; // Cierra sesión y vuelve al menú inicial
                 default:
-                    System.out.println("Opcion inválida");
+                    System.out.println("Opción inválida.");
             }
         }
-
+        return true; // Mantiene la sesión activa
     }
 
     private static void mostrarUsuario(Usuario usuario) {

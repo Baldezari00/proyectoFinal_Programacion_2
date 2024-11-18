@@ -13,9 +13,6 @@ import java.util.Random;
 
 public class Usuario {
     /**
-    serializar y deserealizar jugador, luego de eso guardarlo en un archivo y poder leerlo retornando un jugador.
-    TIP: en el proyecto ya cree la carpeta OperacionesBasicasJSON, donde podes poner lo de escribir a archivo y leer de archivo.
-
     @author Fede
     EXTRA: que el jugador pueda iniciar sesion. Si se te complica o ya se te hace mucho trabajo lo vemos en clase
     **/
@@ -27,25 +24,26 @@ public class Usuario {
     private String contrasenia;
     private Personaje personajeElegido;
     private Mochila<Item> mochila;
-    private boolean esAdmin = true;
+    private boolean esAdmin;
 
     public Usuario(String nombreUsuario, String contrasenia, Personaje personaje, HashSet<Escenario> escenariosJugador) {
-        //falta cargar escenarios del archivo
         this.escenarios = escenariosJugador;
         this.id = contadorId++;
         this.nombreUsuario = nombreUsuario;
         this.contrasenia = contrasenia;
         this.mochila = new Mochila<>();
         this.personajeElegido = personaje;
+        this.esAdmin = false;
     }
 
-    public Usuario(String nombreUsuario, String contrasenia, Mochila<Item> mochila, Personaje personaje, HashSet<Escenario> escenarios) {
+    public Usuario(String nombreUsuario, String contrasenia, Mochila<Item> mochila, Personaje personaje, HashSet<Escenario> escenarios, boolean esAdmin) {
         this.escenarios = escenarios;
         this.id = contadorId++;
         this.nombreUsuario = nombreUsuario;
         this.contrasenia = contrasenia;
         this.mochila = mochila;
         this.personajeElegido = personaje;
+        this.esAdmin = esAdmin;
     }
 
     public int getId() {
