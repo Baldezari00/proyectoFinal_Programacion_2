@@ -11,9 +11,39 @@
          <font>
             <Font size="25.0" />
          </font></Button>
-      <Label fx:id="bienvenida" alignment="CENTER" layoutX="356.0" layoutY="43.0" prefHeight="368.0" prefWidth="542.0" text="." textAlignment="CENTER" wrapText="true">
+      <Label fx:id="bienvenida" alignment="CENTER" layoutX="356.0" layoutY="183.0" prefHeight="368.0" prefWidth="542.0" text="." textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="18.0" />
          </font></Label>
+      <Label alignment="CENTER" layoutX="356.0" layoutY="7.0" prefHeight="136.0" prefWidth="542.0" text="Expedición Tierra" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="37.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="356.0" layoutY="109.0" prefHeight="136.0" prefWidth="542.0" text="Este juego te pone en el lugar de un personaje que va a vivir multiples aventuras, donde recorreras hasta lo más profundo de la tierra.                                                                           Tu misión es sobrevivir ante cada uno de estos escenarios tomando desiciones." textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="30.0" layoutY="452.0" prefHeight="136.0" prefWidth="236.0" style="-fx-background-color: darkgray;" text="Si has elegido como personaje a un Joven o Adulto, tienes botón llamado &quot;Cura Rápida&quot;, este cuenta con un solo uso" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="30.0" layoutY="7.0" prefHeight="136.0" prefWidth="236.0" text="Tips" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="30.0" layoutY="140.0" prefHeight="136.0" prefWidth="236.0" style="-fx-background-color: darkgray;" text="La mochila tiene una capacidad máxima de 5 items" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="30.0" layoutY="299.0" prefHeight="136.0" prefWidth="236.0" style="-fx-background-color: darkgray;" text="Utiliza tus objetos continuamente para no perderte la oportunidad de encontrar otros si tienes la mochila vacia" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
    </children>
 </Pane>
