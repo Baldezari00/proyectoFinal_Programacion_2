@@ -6,7 +6,7 @@ public class Adulto extends Personaje implements CuracionVida {
         super(120);
     }
 
-    public Adulto(int vida, int vidaTotalGanada) { super(vida, vidaTotalGanada); }
+    public Adulto(int vida, int vidaTotalGanada, int vidaTotalPerdida) { super(vida, vidaTotalGanada, vidaTotalPerdida); }
 
     //Metodo interfaz
     @Override
@@ -34,8 +34,12 @@ public class Adulto extends Personaje implements CuracionVida {
 
         // Asigna la vida actualizada
         super.setVida(nuevaVida);
-        super.sumarVidaTotalGanada(cantVidaACambiar);
 
+        if (cantVidaACambiar > 0) {
+            super.sumarVidaTotalGanada(cantVidaACambiar);
+        } else {
+            super.sumarVidalTotalPerdida(cantVidaACambiar);
+        }
         return 1; // Se pudo realizar el cambio
     }
 

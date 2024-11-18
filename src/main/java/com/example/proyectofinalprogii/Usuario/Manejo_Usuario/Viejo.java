@@ -7,8 +7,8 @@ public class Viejo extends Personaje {
         super(80);
     }
 
-    public Viejo(int vida, int vidaTotalGanada) {
-        super(vida, vidaTotalGanada);
+    public Viejo(int vida, int vidaTotalGanada, int vidaTotalPerdida) {
+        super(vida, vidaTotalGanada, vidaTotalPerdida);
     }
 
     @Override
@@ -28,7 +28,12 @@ public class Viejo extends Personaje {
 
         // Asigna la vida actualizada
         super.setVida(nuevaVida);
-        super.sumarVidaTotalGanada(cantVidaACambiar);
+
+        if (cantVidaACambiar > 0) {
+            super.sumarVidaTotalGanada(cantVidaACambiar);
+        } else {
+            super.sumarVidalTotalPerdida(cantVidaACambiar);
+        }
 
         return 1; // Se pudo realizar el cambio
     }
