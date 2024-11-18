@@ -13,6 +13,7 @@ import java.util.List;
  */
 
 public class Mochila <T extends Item>{
+    // que tenga capacidad maxima
     private List<T> items; // porque List permite repetidos
 
     public Mochila() {

@@ -15,16 +15,13 @@ public abstract class Personaje {
         return String.valueOf(vida);
     }
 
-    public void cambiarVida(int cantVidaACambiar) {
-        this.vida += cantVidaACambiar;
+    public void setVida(int vida) {
+        this.vida = vida;
     }
 
-    @Override
-    public String toString() {
-        return "Personaje{" +
-                "vida=" + vida +
-                '}';
-    }
+    public abstract int cambiarVida(int cantVidaACambiar);
+
+
 }
 
 
