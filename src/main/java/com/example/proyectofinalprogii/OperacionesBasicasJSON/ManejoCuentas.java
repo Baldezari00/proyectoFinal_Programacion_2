@@ -30,15 +30,25 @@ public class ManejoCuentas {
             System.out.println("Ingrese un nombre de usuario:");
             nombreUsuario = scanner.nextLine().trim();  // Usamos trim para evitar problemas con espacios
 
-            if (!verificarUsuario(manejoUsuarios, nombreUsuario)) {
+            if (nombreUsuario.isEmpty()) {
+                System.out.println("ERROR: El nombre de usuario no puede estar vacío. Intente nuevamente.");
+            } else if (!verificarUsuario(manejoUsuarios, nombreUsuario)) {
                 usuarioValido = true; // Salir del bucle si el nombre de usuario es válido
             } else {
-                System.out.println("ERROR, nombre de usuario en uso.");
+                System.out.println("ERROR: Nombre de usuario en uso.");
             }
         }
 
-        System.out.println("Ingrese una contraseña:");
-        String contrasenia = scanner.nextLine().trim(); // Lee la contraseña
+        // Validación de la contraseña
+        String contrasenia = "";
+        while (contrasenia.isEmpty()) {
+            System.out.println("Ingrese una contraseña:");
+            contrasenia = scanner.nextLine().trim(); // Lee la contraseña
+
+            if (contrasenia.isEmpty()) {
+                System.out.println("ERROR: La contraseña no puede estar vacía. Intente nuevamente.");
+            }
+        }
 
         boolean personajeSeleccionado = false;
 
