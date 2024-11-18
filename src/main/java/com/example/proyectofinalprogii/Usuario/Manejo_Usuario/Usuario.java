@@ -6,7 +6,10 @@ import com.example.proyectofinalprogii.Usuario.Mochila.Item;
 import com.example.proyectofinalprogii.Usuario.Mochila.Mochila;
 import com.example.proyectofinalprogii.Usuario.Mochila.Objeto;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
 
 public class Usuario {
     /**
@@ -125,12 +128,33 @@ public class Usuario {
     }
 
     //metodo para consumir item
-    public void consumir(Item item){
+    public int consumir(Item item){
+        int flag = 1;
         if(item instanceof Consumible){
-            personajeElegido.cambiarVida(((Consumible) item).getSaludRecibida());
-            System.out.println("objeto usado, te queda: "+personajeElegido.getVida()+"hp\n");
+            if(personajeElegido.cambiarVida(((Consumible) item).getSaludRecibida())==0){
+                flag=0;
+            }else{
+                personajeElegido.cambiarVida(((Consumible) item).getSaludRecibida());
+                System.out.println("objeto usado, te queda: "+personajeElegido.getVida()+"hp\n");
+            }
+
+
         }else if(item instanceof Objeto){
 
         }
+
+        return flag;
+    }
+    // obtener escenario random
+    public Escenario obtenerEscenarioRandom() {
+        // Convertir el HashSet a una lista para acceder por índices
+        List<Escenario> listaEscenarios = new ArrayList<>(escenarios);
+
+        // Generar un índice aleatorio
+        Random random = new Random();
+        int indiceRandom = random.nextInt(listaEscenarios.size());
+
+        // Devolver el escenario en el índice generado
+        return listaEscenarios.get(indiceRandom);
     }
 }

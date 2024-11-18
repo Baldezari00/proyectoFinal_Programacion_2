@@ -34,12 +34,15 @@ public class controladorJuego {
     private Label notificadorVida;
     @FXML
     private Button siguiente;
+    @FXML
+    private Label gananciaItemLabel;
     // mochila
     @FXML
     private Button mochilaBoton;
     @FXML
     private VBox contenedorItems;
     private Boolean toggleMochila=false; // false = no se ven los items
+    // jugador
     private Usuario jugadorLocal;
     private Stage stage;
 
@@ -125,11 +128,18 @@ public class controladorJuego {
     public void usarItem(Item item) {
         if (item instanceof Consumible) {
             Consumible consumible = (Consumible) item;
-            jugadorLocal.consumir(consumible); // Método que actualiza atributos del personaje
-            jugadorLocal.getMochila().removerItem(item); // Elimina el ítem de la mochila
-            cargarItemsEnVBox(); // Actualiza la interfaz
+            if(jugadorLocal.consumir(consumible)==0){ // Método que actualiza atributos del personaje
+                notificadorVida.setText("ya tienes la vida al maximo, no puedes utilizar este consumible");
+            }else {
+                jugadorLocal.getMochila().removerItem(item); // Elimina el ítem de la mochila
+                cargarItemsEnVBox(); // Actualiza la interfaz
+                notificadorVida.setText("utilizaste "+item.getNombre()+" \ntienes "+jugadorLocal.getPersonajeElegido().getVida()+"hp");
+            }
+
+
         } else {
-            System.out.println("No se puede usar este tipo de ítem.");
+            notificadorVida.setTextFill(Paint.valueOf("black"));
+            notificadorVida.setText("de momento este objeto no es utilizable");
         }
     }
 
@@ -227,8 +237,9 @@ public class controladorJuego {
     public void cargarEscenario(){
         AtomicBoolean eleccionHecha = new AtomicBoolean(false);
 
-        Escenario escenario = jugadorLocal.getEscenarios().iterator().next();
+        Escenario escenario = jugadorLocal.obtenerEscenarioRandom();
         notificadorVida.setText("");
+        gananciaItemLabel.setText("");
         // textos
         historiaLabel.setText(escenario.getDescripcion());
         opcion1.setText(escenario.getOpcion1().getConsecuenciaTitulo());
@@ -263,35 +274,48 @@ public class controladorJuego {
         if(opcion.getConsumibleGanado() != null || escenario.getOpcion1().getObjetoGanado() != null ){
             if(opcion.getConsumibleGanado() != null){
                 jugadorLocal.getMochila().agregarItem(opcion.getConsumibleGanado());
-                historiaLabel.setText(descripcion+"\nganaste "+opcion.getConsumibleGanado().getNombre());
+                historiaLabel.setText(descripcion+"\n\nganaste "+opcion.getConsumibleGanado().getNombre());
+                gananciaItemLabel.setText("ganaste "+opcion.getConsumibleGanado().getNombre());
+                cargarItemsEnVBox();
+
             }else {
                 jugadorLocal.getMochila().agregarItem(opcion.getObjetoGanado());
-                historiaLabel.setText(descripcion+"\nganaste "+opcion.getObjetoGanado().getNombre());
-
+                historiaLabel.setText(descripcion);
+                gananciaItemLabel.setText("ganaste "+opcion.getObjetoGanado().getNombre());
+                cargarItemsEnVBox();
             }
 
 
-            historiaLabel.setTextFill(Paint.valueOf("green"));
+
+            gananciaItemLabel.setTextFill(Paint.valueOf("green"));
             notificadorVida.setText("");
 
         }else{
-            jugadorLocal.getPersonajeElegido().cambiarVida(opcion.getVidaAModificar());
             historiaLabel.setText(descripcion);
-            if(jugadorLocal.getPersonajeElegido().getVida()<=0){
-                notificadorVida.setText("perdiste el juego...");
-                notificadorVida.setTextFill(Paint.valueOf("red"));
-            }else{
-                notificadorVida.setText("te quedan "+jugadorLocal.getPersonajeElegido().getVidaString()+"hp restantes");
-                if(jugadorLocal.getPersonajeElegido().getVida()<50){
+            if(jugadorLocal.getPersonajeElegido().cambiarVida(opcion.getVidaAModificar())==0){
+                notificadorVida.setTextFill(Paint.valueOf("green"));
+                notificadorVida.setText("has ganado "+opcion.getVidaAModificar()+"hp pero ya tienes vida maxima "+jugadorLocal.getPersonajeElegido().getVida()+"hp");
+            }else {
+                jugadorLocal.getPersonajeElegido().cambiarVida(opcion.getVidaAModificar());
+                if(jugadorLocal.getPersonajeElegido().getVida()<=0){
+                    notificadorVida.setText("\nperdiste el juego...");
                     notificadorVida.setTextFill(Paint.valueOf("red"));
-                }else {
-                    notificadorVida.setTextFill(Paint.valueOf("green"));
+                }else{
+                    notificadorVida.setText("te quedan "+jugadorLocal.getPersonajeElegido().getVidaString()+"hp restantes");
+                    if(jugadorLocal.getPersonajeElegido().getVida()<50){
+                        notificadorVida.setTextFill(Paint.valueOf("red"));
+                    }else {
+                        notificadorVida.setTextFill(Paint.valueOf("green"));
+                    }
                 }
             }
 
 
 
+
+
         }
+
     }
 
     public void cargarEscenarioGanador(){
