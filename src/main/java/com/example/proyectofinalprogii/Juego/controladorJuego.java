@@ -4,6 +4,7 @@ import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Usuario;
 import com.example.proyectofinalprogii.Usuario.Mochila.Consumible;
 import com.example.proyectofinalprogii.Usuario.Mochila.Item;
 import com.example.proyectofinalprogii.Usuario.Mochila.Mochila;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -45,6 +46,21 @@ public class controladorJuego {
     // jugador
     private Usuario jugadorLocal;
     private Stage stage;
+
+    // para cerrar la ventana
+    private Runnable onCloseRequest;
+
+    public void setOnCloseRequest(Runnable onCloseRequest) {
+        this.onCloseRequest = onCloseRequest;
+    }
+
+    @FXML
+    private void handleCerrarVentana() {
+        if (onCloseRequest != null) {
+            onCloseRequest.run(); // Ejecuta la acción de cerrar
+        }
+    }
+
 
 
     //inicializar mochila y texto bienvenida
@@ -180,6 +196,7 @@ public class controladorJuego {
 
     @FXML
     protected void jugar(){
+        Platform.runLater(() -> {
         try {
             // Cargar el archivo FXML de la nueva escena
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("juego.fxml"));
@@ -207,8 +224,8 @@ public class controladorJuego {
         } catch (IOException io) {
             io.printStackTrace();
         }
+        });
     }
-
     private void inicializarEscena() {
         if (jugadorLocal != null && jugadorLocal.getEscenarios() != null) {
             historiaLabel.setWrapText(true);  // Esto permite el ajuste de texto

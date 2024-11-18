@@ -2,6 +2,7 @@ package com.example.proyectofinalprogii;
 
 import com.example.proyectofinalprogii.ExcepcionesPersonalizadas.ExcJugador.NoItemsException;
 import com.example.proyectofinalprogii.Juego.Escenario;
+import com.example.proyectofinalprogii.Juego.JavaFXApp;
 import com.example.proyectofinalprogii.Juego.Opcion;
 import com.example.proyectofinalprogii.Juego.controladorJuego;
 import com.example.proyectofinalprogii.OperacionesBasicasJSON.Inicio;
@@ -21,72 +22,58 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.HashSet;
 
+/*
 public class Main extends Application {
+
 
     // controlador de escenas
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("vista-juego.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        Scene scene = new Scene(fxmlLoader.load(), 1200, 720);
 
-
-        // crear instancias aquí que necesiten ser transmitidas al controlador
-
-        //testing de Usuario/Mochila
-        Objeto llave = new Objeto("llave verde",12);
-        Consumible cafe = new Consumible("cafe americano",30);
-        Consumible comidaConRadiacion = new Consumible("pan erradiado",-10);
-
-        Mochila<Item> mochila = new Mochila<>();
-        mochila.agregarItem(llave);
-        mochila.agregarItem(cafe);
-        // mochila.agregarItem(comidaConRadiacion);
-
-        try {
-            System.out.println(mochila.mostrarItems());
-        } catch (NoItemsException noItemsException){
-            System.out.println(noItemsException.getMessage());
-        }
-
-
-        // escenario
-//        Opcion opcion1= new Opcion("Revisar casa", 40);
-//        Opcion opcion2= new Opcion("Seguir el camino", -10);
-//        Escenario escenario = new Escenario("te encontras perdido en una especie de bosque con niebla, ves una casa a lo lejos y un camino formado al otro lado... como si alguien ya hubiese pasado por ahí",opcion1,opcion2);
-//
-//
-//        Opcion opcion3= new Opcion("a", 20);
-//        Opcion opcion4= new Opcion("b", -20);
-//        Escenario escenario1 = new Escenario("abc",opcion3,opcion4);
-//
-//        Opcion opcion5= new Opcion("a", 25);
-//        Opcion opcion6= new Opcion("b", -25);
-//        Escenario escenario2 = new Escenario("ert",opcion5,opcion6);
-//        //jugador
-//        Personaje mago = new Viejo();
-//        Usuario jugador = new Usuario("balde","1234", mago);
-//        jugador.setPersonajeElegido(mago);
-//        jugador.agregarEscenario(escenario);
-//        jugador.agregarEscenario(escenario1);
-//        jugador.agregarEscenario(escenario2);
-
-        Usuario jugador = Inicio.inicio();
-        jugador.setMochila(mochila);
-        // controlador
+        // Controlador de la vista
         controladorJuego controlador = fxmlLoader.getController();
-        controlador.setJugadorLocal(jugador);
-        controlador.setStage(stage);
+        Usuario usuarioActivo = Inicio.inicio();
+        controlador.setJugadorLocal(usuarioActivo);
 
-        stage.setTitle("juego aventura!");
+
+        // Cierra la ventana JavaFX y regresa al menú de consola
+        controlador.setOnCloseRequest(() -> {
+            stage.close(); // Cierra la ventana
+           // volverAConsola(usuarioActivo); // Regresa al flujo de la consola
+        });
+
+        stage.setTitle("Juego de aventura!");
         stage.setScene(scene);
         stage.show();
     }
 
-
-    // este es el main de toda la vida, no se mareen con lo de arriba tranqui
-    public static void main(String[] args) {
-      launch();
+    private void volverAConsola(Usuario usuarioActivo) {
+        Inicio.inicio();
+        System.out.println("Regresaste al menú de consola.");
     }
+*/
+
+
+import com.example.proyectofinalprogii.OperacionesBasicasJSON.Inicio;
+import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Usuario;
+import javafx.application.Application;
+
+public class Main {
+    public static void main(String[] args) {
+        // Ejecuta la lógica de inicio de sesión en consola
+        Usuario usuario = Inicio.inicio();
+
+        if (usuario != null) {
+            // Si el usuario inicia sesión correctamente, lanza la interfaz gráfica
+            JavaFXApp.setUsuarioActivo(usuario); // Pasa el usuario activo
+            Application.launch(JavaFXApp.class, args);
+        } else {
+            System.out.println("No se inició sesión. Cerrando programa.");
+        }
+    }
+}
 
 
     /**
@@ -105,4 +92,3 @@ public class Main extends Application {
      * @loQueQuieran
      * -
      */
-}

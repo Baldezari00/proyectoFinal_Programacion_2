@@ -1,8 +1,13 @@
 package com.example.proyectofinalprogii.OperacionesBasicasJSON;
-
+import com.example.proyectofinalprogii.ExcepcionesPersonalizadas.ExcJugador.UsuarioEnUsoException;
+import com.example.proyectofinalprogii.Juego.JavaFXApp;
 import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Usuario;
+import javafx.application.Application;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
+
+
 
 public class Inicio {
     /**
@@ -10,9 +15,10 @@ public class Inicio {
      * Esta clase tiene un método estático `inicio` donde se gestiona el inicio del programa,
      * ofreciendo opciones para iniciar sesión o crear una cuenta.
      **/
+    private static ManejoUsuarios manejoJugadores = new ManejoUsuarios();
+
     public static Usuario inicio() {
         Scanner scanner = new Scanner(System.in);
-        ManejoUsuarios manejoJugadores = new ManejoUsuarios();
 
         // Cargar jugadores desde el archivo
         OperacionLecturaEscritura.archivoToJugadores(manejoJugadores.getJugadores());
@@ -47,8 +53,9 @@ public class Inicio {
         }
 
         if (usuarioActivo != null) {
-            mostrarMenuPorRol(usuarioActivo, manejoJugadores);
+            mostrarMenuPorRol(usuarioActivo);
         }
+
 
         return usuarioActivo;
     }
@@ -95,15 +102,15 @@ public class Inicio {
         return respuesta.equals("S");
     }
 
-    private static void mostrarMenuPorRol(Usuario usuario, ManejoUsuarios manejoJugadores) {
+    private static void mostrarMenuPorRol(Usuario usuario) {
         if (usuario.getEsAdmin()) {
-            mostrarMenuAdmin(manejoJugadores);
+            mostrarMenuAdmin(usuario);
         } else {
-            mostrarMenuUsuario();
+            mostrarMenuUsuario(usuario);
         }
     }
 
-    private static void mostrarMenuAdmin(ManejoUsuarios manejoJugadores) {
+    public static void mostrarMenuAdmin(Usuario usuarioActivo) {
         Scanner scanner = new Scanner(System.in);
         boolean exit = false;
 
@@ -116,6 +123,7 @@ public class Inicio {
             System.out.println("5- Crear escenario");
             System.out.println("6- Eliminar escenario");
             System.out.println("7- Modificar escenario");
+            System.out.println("8- Jugar");
             System.out.println("0- Salir");
             System.out.print("Seleccione una opción: ");
 
@@ -143,6 +151,11 @@ public class Inicio {
                 case 7:
                     FuncionesAdmin.modificarEscenario();
                     break;
+                case 8: // Nueva opción para jugar
+                    System.out.println("Iniciando la interfaz gráfica...");
+                    JavaFXApp.setUsuarioActivo(usuarioActivo); // Configura el usuario en la aplicación gráfica
+                    Application.launch(JavaFXApp.class); // Lanza la interfaz gráfica
+                    break;
                 case 0:
                     exit = true;
                     break;
@@ -152,10 +165,126 @@ public class Inicio {
         }
     }
 
-    private static void mostrarMenuUsuario() {
-        System.out.println("\n=== MENÚ USUARIO ===");
-        System.out.println("1- Jugar partida");
-        System.out.println("0- Salir");
-        // implementar acciones
+    private static void mostrarMenuUsuario(Usuario usuario) {
+        Scanner scanner = new Scanner(System.in);
+        boolean exit = false;
+
+        while (!exit) {
+            System.out.println("\n=== MENÚ USUARIO ===");
+            System.out.println("1- Jugar partida");
+            System.out.println("2- Ver mis datos");
+            System.out.println("3- Editar datos");
+            System.out.println("0- Salir");
+
+            int opcion = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcion) {
+                case 2:
+                    mostrarUsuario(usuario);
+                    break;
+                case 3:
+                    editarDatos(usuario, manejoJugadores);
+                    break;
+                case 0:
+                    exit = true;
+                    break;
+                default:
+                    System.out.println("Opcion inválida");
+            }
+        }
+
+    }
+
+    private static void mostrarUsuario(Usuario usuario) {
+        System.out.println("DATOS PERSONALES");
+        System.out.println("Nombre de usuario: " + usuario.getNombreUsuario());
+        System.out.println("Contraseña: " + usuario.getContrasenia());
+    }
+
+    private static void editarDatos(Usuario usuario, ManejoUsuarios manejoUsuarios) {
+        Scanner scanner = new Scanner(System.in);
+
+        boolean exit = false;
+        while (!exit) {
+            System.out.println("¿Qué desea editar?");
+            System.out.println("1- Nombre de usuario");
+            System.out.println("2- Contraseña");
+            System.out.println("0- Volver al menú principal");
+
+            int opcion = 0;
+            boolean opcionValida = false;
+
+            // Validar que la opción sea un número
+            while (!opcionValida) {
+                try {
+                    opcion = scanner.nextInt();
+                    scanner.nextLine();
+
+                    if (opcion < 0 || opcion > 2) {
+                        throw new IllegalArgumentException("Opción inválida. Ingrese 1, 2 o 0.");
+                    }
+
+                    opcionValida = true;
+                } catch (InputMismatchException e) {
+                    System.out.println("ERROR: Debe ingresar un número válido.");
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+
+            switch (opcion) {
+                case 1:
+                    // Editar nombre de usuario
+                    System.out.print("Ingrese el nuevo nombre de usuario: ");
+                    String nuevoNombreUsuario = scanner.nextLine();
+
+                    // Validar que no esté vacío
+                    if (nuevoNombreUsuario.trim().isEmpty()) {
+                        System.out.println("ERROR: El nombre de usuario no puede estar vacío.");
+                    } else {
+                        try {
+                            if (manejoUsuarios.getJugadores().containsKey(nuevoNombreUsuario)) {
+                                throw new UsuarioEnUsoException("El nombre de usuario ya está en uso. Ingrese otro.");
+                            }
+                            usuario.setNombreUsuario(nuevoNombreUsuario);
+                            System.out.println("Nombre de usuario actualizado a: " + nuevoNombreUsuario);
+                            // Guardar los cambios en el archivo
+                            OperacionLecturaEscritura.jugadoresToArchivo(manejoUsuarios.getJugadores());
+                            exit = true;  // Salir después de la modificación
+                        } catch (UsuarioEnUsoException e) {
+                            System.out.println("ERROR: " + e.getMessage());
+                        }
+                    }
+                    break;
+
+                case 2:
+                    // Editar contraseña
+                    System.out.print("Ingrese la nueva contraseña: ");
+                    String nuevaContrasenia = scanner.nextLine();
+
+                    // Validar que no esté vacía
+                    if (nuevaContrasenia.trim().isEmpty()) {
+                        System.out.println("ERROR: La contraseña no puede estar vacía.");
+                    } else {
+                        usuario.setContrasenia(nuevaContrasenia);
+                        System.out.println("Contraseña actualizada correctamente.");
+                        // Guardar los cambios en el archivo
+                        OperacionLecturaEscritura.jugadoresToArchivo(manejoUsuarios.getJugadores());
+                        exit = true;  // Salir después de la modificación
+                    }
+                    break;
+                case 0:
+                    // Volver al menú principal
+                    exit = true;
+                    break;
+                default:
+                    System.out.println("Opción inválida. Intente nuevamente.");
+                    break;
+            }
+        }
     }
 }
+
+
+
