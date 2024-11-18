@@ -10,4 +10,9 @@ public class Viejo extends Personaje {
     public Viejo(int vida) {
         super(vida);
     }
+
+    @Override
+    public String toString() {
+        return "Viejo {" + super.toString() + "}";
+    }
 }

@@ -14,4 +14,9 @@ public class Adulto extends Personaje implements CuracionVida {
         super.cambiarVida(10);
         return "El personaje ahora tiene : " + super.getVida() + "hp";
     }
+
+    @Override
+    public String toString() {
+        return "Adulto {" + super.toString() + "}";
+    }
 }

@@ -1,5 +1,8 @@
 package com.example.proyectofinalprogii.OperacionesBasicasJSON;
 
+import com.example.proyectofinalprogii.ExcepcionesPersonalizadas.ExcJugador.EscenarioNoEncontradoException;
+import com.example.proyectofinalprogii.ExcepcionesPersonalizadas.ExcJugador.NoHayEscenariosException;
+import com.example.proyectofinalprogii.ExcepcionesPersonalizadas.ExcJugador.OpcionInvalidaException;
 import com.example.proyectofinalprogii.Juego.Escenario;
 import com.example.proyectofinalprogii.Juego.Opcion;
 import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Usuario;
@@ -48,26 +51,48 @@ public class FuncionesAdmin {
         HashSet<Escenario> escenarios = OperacionLecturaEscritura.archivoToEscenarios();
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Ingrese el ID del escenario a eliminar:");
-        int idAEliminar = scanner.nextInt();
-        scanner.nextLine();
-
-        Escenario escenarioAEliminar = null;
-
-        // Buscar el escenario con el ID proporcionado
-        for (Escenario escenario : escenarios) {
-            if (escenario.getIdEscenario() == idAEliminar) {
-                escenarioAEliminar = escenario;
-                break;
+        try {
+            // Verificar si existen escenarios antes de continuar
+            if (escenarios.isEmpty()) {
+                throw new NoHayEscenariosException("ERROR: No hay escenarios disponibles para eliminar.");
             }
-        }
 
-        if (escenarioAEliminar != null) {
-            escenarios.remove(escenarioAEliminar);
-            System.out.println("Escenario eliminado exitosamente.");
-            OperacionLecturaEscritura.escenariosToArchivo(escenarios); // Guardar los cambios en el archivo
-        } else {
-            System.out.println("ERROR: No se encontró un escenario con ese ID.");
+            System.out.println("Ingrese el ID del escenario a eliminar:");
+            int idAEliminar = 0;
+            boolean idValido = false;
+
+            while (!idValido) {
+                try {
+                    idAEliminar = scanner.nextInt();
+                    scanner.nextLine(); // Limpiar el buffer
+
+                    idValido = true;  // Si no hay excepción, el ID es válido
+                } catch (InputMismatchException e) {
+                    System.out.println("ERROR: El ID debe ser un número válido. Intente nuevamente.");
+                    scanner.nextLine(); // Limpiar el buffer para evitar bucles infinitos
+                }
+            }
+
+            Escenario escenarioAEliminar = null;
+
+            // Buscar el escenario con el ID proporcionado
+            for (Escenario escenario : escenarios) {
+                if (escenario.getIdEscenario() == idAEliminar) {
+                    escenarioAEliminar = escenario;
+                    break;
+                }
+            }
+
+            if (escenarioAEliminar != null) {
+                escenarios.remove(escenarioAEliminar);
+                System.out.println("Escenario eliminado exitosamente.");
+                OperacionLecturaEscritura.escenariosToArchivo(escenarios); //Guardar los cambios en el archivo
+            } else {
+                System.out.println("ERROR: No se encontró un escenario con ese ID.");
+            }
+
+        } catch (NoHayEscenariosException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -75,42 +100,94 @@ public class FuncionesAdmin {
         HashSet<Escenario> escenarios = OperacionLecturaEscritura.archivoToEscenarios();
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Ingrese el ID del escenario a modificar:");
-        int id = scanner.nextInt();
-        scanner.nextLine();
-
-        Escenario escenarioModificar = null;
-        for (Escenario e : escenarios) {
-            if (e.getIdEscenario() == id) {
-                escenarioModificar = e;
-                break;
+        try {
+            // Verificar si hay escenarios en el conjunto
+            if (escenarios.isEmpty()) {
+                throw new NoHayEscenariosException("ERROR: No hay escenarios disponibles.");
             }
-        }
 
-        if (escenarioModificar != null) {
-            System.out.println("1. Modificar descripción");
-            System.out.println("2. Modificar opciones");
-            int opcion = scanner.nextInt();
-            scanner.nextLine();
+            int id = 0;
+            boolean idValido = false;
 
-            switch (opcion) {
-                case 1:
-                    System.out.println("Ingrese la nueva descripción:");
-                    escenarioModificar.setDescripcion(scanner.nextLine());
-                    break;
-                case 2:
-                    System.out.println("Modificar opción 1:");
-                    escenarioModificar.setOpcion1(crearOpcion(scanner));
-                    System.out.println("Modificar opción 2:");
-                    escenarioModificar.setOpcion2(crearOpcion(scanner));
-                    break;
-                default:
-                    System.out.println("Opción inválida.");
+            while (!idValido) {
+                System.out.println("Ingrese el ID del escenario a modificar.");
+
+                try {
+                    id = scanner.nextInt();
+                    scanner.nextLine(); // Limpiar el buffer
+
+                    idValido = true;
+                } catch (InputMismatchException e) {
+                    System.out.println("ERROR: El ID debe ser un numero valido. Intente nuevamente.");
+                    scanner.nextLine(); // Limpiar el buffer
+                }
             }
-            OperacionLecturaEscritura.escenariosToArchivo(escenarios);
-            System.out.println("Escenario actualizado.");
-        } else {
-            System.out.println("ERROR: Escenario no encontrado.");
+
+            // Lanzamos una excepción personalizada si no se encuentra el escenario
+            Escenario escenarioModificar = null;
+            for (Escenario e : escenarios) {
+                if (e.getIdEscenario() == id) {
+                    escenarioModificar = e;
+                    break;
+                }
+            }
+
+            try {
+                if (escenarioModificar == null) {
+                    throw new EscenarioNoEncontradoException("ERROR: No se encontró un escenario con ese ID.");
+                }
+
+                int opcion = 0;
+                boolean opcionValida = false;
+
+                while (!opcionValida) {
+                    System.out.println("1. Modificar descripción");
+                    System.out.println("2. Modificar opciones");
+                    System.out.println("3. Salir");
+
+                    try {
+                        opcion = scanner.nextInt();
+                        scanner.nextLine(); // Limpiar el buffer
+
+                        if (opcion < 1 || opcion > 3) {
+                            throw new OpcionInvalidaException("Por favor ingrese una opción válida.");
+                        } else {
+                            opcionValida = true;
+                        }
+                    } catch (OpcionInvalidaException e) {
+                        System.out.println("ERROR: " + e.getMessage());
+                    } catch (InputMismatchException e) {
+                        System.out.println("ERROR: Debe ingresar un número válido.");
+                        scanner.nextLine(); // Limpiar el buffer
+                    }
+                }
+
+                // Modificar el escenario basado en la opción seleccionada
+                switch (opcion) {
+                    case 1:
+                        System.out.println("Ingrese la nueva descripción:");
+                        escenarioModificar.setDescripcion(scanner.nextLine());
+                        break;
+                    case 2:
+                        System.out.println("Modificar opción 1:");
+                        escenarioModificar.setOpcion1(crearOpcion(scanner));
+                        System.out.println("Modificar opción 2:");
+                        escenarioModificar.setOpcion2(crearOpcion(scanner));
+                        break;
+                    default:
+                        System.out.println("Opción inválida.");
+                }
+
+                // Guardar los cambios en el archivo
+                OperacionLecturaEscritura.escenariosToArchivo(escenarios);
+                System.out.println("Escenario actualizado.");
+
+            } catch (EscenarioNoEncontradoException e) {
+                System.out.println(e.getMessage()); // Manejar la excepción personalizada
+            }
+
+        } catch (NoHayEscenariosException e) {
+            System.out.println(e.getMessage()); // Manejar la excepción personalizada para no haber escenarios
         }
     }
 
@@ -181,6 +258,7 @@ public class FuncionesAdmin {
 
         if (manejoUsuarios.getJugadores().remove(nombreUsuario) != null) {
             System.out.println("Usuario eliminado con éxito.");
+            OperacionLecturaEscritura.jugadoresToArchivo(manejoUsuarios.getJugadores());
         } else {
             System.out.println("ERROR: Usuario no encontrado.");
         }
@@ -194,38 +272,54 @@ public class FuncionesAdmin {
         Usuario usuario = manejoUsuarios.getJugadores().get(nombreUsuario);
 
         if (usuario != null) {
-            System.out.println("¿Qué desea modificar?");
-            System.out.println("1. Modificar nombre de usuario");
-            System.out.println("2. Modificar contraseña");
-            int opcion = scanner.nextInt();
-            scanner.nextLine();  // Limpiar el buffer
+            boolean salir = false;
 
-            switch (opcion) {
-                case 1:
-                    System.out.println("Ingrese el nuevo nombre de usuario:");
-                    String nuevoNombreUsuario = scanner.nextLine().trim();
+            while (!salir) {
+                System.out.println("¿Qué desea modificar?");
+                System.out.println("1. Modificar nombre de usuario");
+                System.out.println("2. Modificar contraseña");
+                System.out.println("3. Volver atrás");
+                System.out.print("Seleccione una opción: ");
 
-                    // Verificar si el nuevo nombre de usuario ya existe
-                    if (manejoUsuarios.getJugadores().containsKey(nuevoNombreUsuario)) {
-                        System.out.println("ERROR: El nombre de usuario ya está en uso.");
-                    } else {
-                        // Cambiar el nombre de usuario
-                        manejoUsuarios.getJugadores().remove(nombreUsuario); // Eliminar el usuario antiguo
-                        usuario.setNombreUsuario(nuevoNombreUsuario); // Cambiar el nombre del usuario
-                        manejoUsuarios.getJugadores().put(nuevoNombreUsuario, usuario); // Agregar el usuario con el nuevo nombre
-                        System.out.println("Nombre de usuario actualizado.");
+                try {
+                    int opcion = scanner.nextInt();
+                    scanner.nextLine();
+
+                    switch (opcion) {
+                        case 1:
+                            System.out.println("Ingrese el nuevo nombre de usuario:");
+                            String nuevoNombreUsuario = scanner.nextLine().trim();
+
+                            // Verificar si el nuevo nombre de usuario ya existe
+                            if (manejoUsuarios.getJugadores().containsKey(nuevoNombreUsuario)) {
+                                System.out.println("ERROR: El nombre de usuario ya está en uso.");
+                            } else {
+                                // Cambiar el nombre de usuario
+                                manejoUsuarios.getJugadores().remove(nombreUsuario); // Eliminar el usuario antiguo
+                                usuario.setNombreUsuario(nuevoNombreUsuario); // Cambiar el nombre del usuario
+                                manejoUsuarios.getJugadores().put(nuevoNombreUsuario, usuario); // Agregar el usuario con el nuevo nombre
+                                OperacionLecturaEscritura.jugadoresToArchivo(manejoUsuarios.getJugadores());
+                                System.out.println("Nombre de usuario actualizado.");
+                            }
+                            break;
+                        case 2:
+                            System.out.println("Ingrese la nueva contraseña:");
+                            String nuevaContrasenia = scanner.nextLine().trim();
+                            usuario.setContrasenia(nuevaContrasenia);
+                            OperacionLecturaEscritura.jugadoresToArchivo(manejoUsuarios.getJugadores());
+                            System.out.println("Contraseña actualizada.");
+                            break;
+                        case 3:
+                            salir = true;
+                            System.out.println("Regresando al menú anterior...");
+                            break;
+                        default:
+                            System.out.println("Opción inválida. Intente nuevamente");
                     }
-                    break;
-
-                case 2:
-                    System.out.println("Ingrese la nueva contraseña:");
-                    String nuevaContrasenia = scanner.nextLine().trim();
-                    usuario.setContrasenia(nuevaContrasenia);
-                    System.out.println("Contraseña actualizada.");
-                    break;
-
-                default:
-                    System.out.println("Opción inválida.");
+                } catch (InputMismatchException e) {
+                    System.out.println("Opcion invalida. Por favor, ingrese un numero");
+                    scanner.nextLine();
+                }
             }
         } else {
             System.out.println("ERROR: Usuario no encontrado.");

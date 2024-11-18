@@ -21,9 +21,7 @@ public abstract class Personaje {
 
     @Override
     public String toString() {
-        return "Personaje{" +
-                "vida=" + vida +
-                '}';
+        return "vida=" + vida;
     }
 }
 
