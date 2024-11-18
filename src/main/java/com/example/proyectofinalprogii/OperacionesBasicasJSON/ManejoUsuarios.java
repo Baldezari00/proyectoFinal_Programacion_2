@@ -1,7 +1,7 @@
 package com.example.proyectofinalprogii.OperacionesBasicasJSON;
 
 import com.example.proyectofinalprogii.Juego.Escenario;
-import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Personaje;
+import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Personaje.Personaje;
 import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Usuario;
 import com.example.proyectofinalprogii.Usuario.Mochila.Consumible;
 import com.example.proyectofinalprogii.Usuario.Mochila.Item;

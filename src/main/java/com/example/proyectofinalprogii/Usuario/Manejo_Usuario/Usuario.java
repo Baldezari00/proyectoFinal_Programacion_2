@@ -1,6 +1,7 @@
 package com.example.proyectofinalprogii.Usuario.Manejo_Usuario;
 
 import com.example.proyectofinalprogii.Juego.Escenario;
+import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Personaje.Personaje;
 import com.example.proyectofinalprogii.Usuario.Mochila.Consumible;
 import com.example.proyectofinalprogii.Usuario.Mochila.Item;
 import com.example.proyectofinalprogii.Usuario.Mochila.Mochila;

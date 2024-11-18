@@ -1,13 +1,12 @@
 package com.example.proyectofinalprogii.Juego;
 import com.example.proyectofinalprogii.Main;
-import com.example.proyectofinalprogii.OperacionesBasicasJSON.Inicio;
+import com.example.proyectofinalprogii.Juego.ManejoInicio.Inicio;
 import com.example.proyectofinalprogii.OperacionesBasicasJSON.OperacionLecturaEscritura;
-import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Adulto;
-import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Joven;
+import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Personaje.Adulto;
+import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Personaje.Joven;
 import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Usuario;
 import com.example.proyectofinalprogii.Usuario.Mochila.Consumible;
 import com.example.proyectofinalprogii.Usuario.Mochila.Item;
-import com.example.proyectofinalprogii.Usuario.Mochila.Mochila;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -18,7 +17,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
@@ -26,14 +24,15 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.Timer;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class controladorJuego {
     // en esta clase se va a manejar la parte visual del juego y su control de acciones.
     // (ej: elegir opcion, utilizar item)
+
+
     @FXML
-    private Label welcomeText;
+    private Label bienvenida;
 
     @FXML
     private Label historiaLabel;
@@ -87,14 +86,23 @@ public class controladorJuego {
         this.onCloseRequest = onCloseRequest;
     }
 
-    @FXML
-    private void handleCerrarVentana() {
-        if (onCloseRequest != null) {
-            onCloseRequest.run(); // Ejecuta la acción de cerrar
+    // ventana inicio
+    public void cargarVentana(){
+        if(!(bienvenida==null)){
+            if(jugadorLocal.getPersonajeElegido() instanceof Joven){
+                bienvenida.setText("Bienvenido jugador "+jugadorLocal.getNombreUsuario()+"\nPersonaje: Joven (vida máxima 150)\nVida actual: "+jugadorLocal.getPersonajeElegido().getVida()+"hp");
+
+            }else if(jugadorLocal.getPersonajeElegido() instanceof Adulto){
+                bienvenida.setText("Bienvenido jugador "+jugadorLocal.getNombreUsuario()+"\nPersonaje: Adulto (vida máxima 120)\nVida actual: "+jugadorLocal.getPersonajeElegido().getVida()+"hp");
+
+            }else{
+                bienvenida.setTextFill(Paint.valueOf("red"));
+                bienvenida.setText("Bienvenido jugador "+jugadorLocal.getNombreUsuario()+"\nPersonaje: Viejo (vida máxima 80)\nVida actual: "+jugadorLocal.getPersonajeElegido().getVida()+"hp");
+            }
         }
     }
 
-
+    //mochila
 
     public void cargarItemsEnVBox() {
         contenedorItems.getChildren().clear(); // Limpiar elementos previos
@@ -119,7 +127,6 @@ public class controladorJuego {
         Label labelItem = new Label(String.valueOf(item.mostrarItem()));
         Button btnUsar = new Button("Usar");
 
-
         labelItem.setWrapText(true);
 
         btnUsar.setOnAction(event -> {
@@ -127,16 +134,8 @@ public class controladorJuego {
             usarItem(item);
         });
 
-
-
-
-
-
-
         VBox contenedorItem = new VBox(10, labelItem, btnUsar); // 1er Separación entre elementos
         contenedorItem.setStyle("-fx-padding: 10; -fx-border-color: black; -fx-border-width: 1; -fx-border-radius: 5;");
-
-
 
         // Cambia el color de fondo según el tipo de ítem
         if (item instanceof Consumible) {
@@ -163,11 +162,11 @@ public class controladorJuego {
                 notificadorVida.setText("utilizaste "+item.getNombre()+" \ntienes "+jugadorLocal.getPersonajeElegido().getVida()+"hp");
             }
 
-
         } else {
-
             notificadorVida.setTextFill(Paint.valueOf("black"));
-            notificadorVida.setText("de momento este objeto no es utilizable");
+            notificadorVida.setText("Has utilizado "+item.getNombre()+"!");
+            jugadorLocal.getMochila().removerItem(item);
+            cargarItemsEnVBox();
         }
     }
 
@@ -204,14 +203,13 @@ public class controladorJuego {
 
     public void setJugadorLocal(Usuario jugadorLocal) {
         this.jugadorLocal = jugadorLocal;
+        cargarVentana();
     }
     public void setStage(Stage stage){
         this.stage = stage;
     }
 
-    public void agregarTextoBienvenida() {
-        welcomeText.setText("Bienvenido al juego "+jugadorLocal.getNombreUsuario()+" !\n¿confirmas que quieres iniciar tu aventura?");
-    }
+
     // acciones de botones
 
     @FXML
@@ -326,16 +324,26 @@ public class controladorJuego {
         String descripcion = opcion.getDescripcionDeOpcion();
         if(opcion.getConsumibleGanado() != null || escenario.getOpcion1().getObjetoGanado() != null ){
             if(opcion.getConsumibleGanado() != null){
-                jugadorLocal.getMochila().agregarItem(opcion.getConsumibleGanado());
-                historiaLabel.setText(descripcion+"\n\nganaste "+opcion.getConsumibleGanado().getNombre());
-                gananciaItemLabel.setText("ganaste "+opcion.getConsumibleGanado().getNombre());
-                cargarItemsEnVBox();
+                if(jugadorLocal.getMochila().agregarItem(opcion.getConsumibleGanado())==0){
+                    historiaLabel.setText(descripcion);
+                    gananciaItemLabel.setText("encontraste "+opcion.getConsumibleGanado().getNombre()+". Pero tienes la mochila llena!");
+                }else {
+                    historiaLabel.setText(descripcion);
+                    gananciaItemLabel.setText("ganaste "+opcion.getConsumibleGanado().getNombre());
+                    cargarItemsEnVBox();
+                }
 
             }else {
-                jugadorLocal.getMochila().agregarItem(opcion.getObjetoGanado());
-                historiaLabel.setText(descripcion);
-                gananciaItemLabel.setText("ganaste "+opcion.getObjetoGanado().getNombre());
-                cargarItemsEnVBox();
+                if(jugadorLocal.getMochila().agregarItem(opcion.getObjetoGanado())==0){
+                    historiaLabel.setText(descripcion);
+                    gananciaItemLabel.setText("encontraste "+opcion.getObjetoGanado().getNombre()+". Pero tienes la mochila llena!");
+                }else {
+                    historiaLabel.setText(descripcion);
+                    gananciaItemLabel.setText("ganaste "+opcion.getObjetoGanado().getNombre());
+                    cargarItemsEnVBox();
+                }
+
+
             }
 
             gananciaItemLabel.setTextFill(Paint.valueOf("green"));
@@ -350,8 +358,7 @@ public class controladorJuego {
             } else {
                 jugadorLocal.getPersonajeElegido().cambiarVida(opcion.getVidaAModificar());
                 if (jugadorLocal.getPersonajeElegido().getVida() <= 0) {
-                    notificadorVida.setText("\nperdiste el juego...");
-                    notificadorVida.setTextFill(Paint.valueOf("red"));
+                    cargarEscenarioPerdedor();
                 } else {
                     notificadorVida.setText("te quedan " + jugadorLocal.getPersonajeElegido().getVidaString() + "hp restantes");
                     if (jugadorLocal.getPersonajeElegido().getVida() < 50) {
@@ -447,7 +454,8 @@ public class controladorJuego {
         //cargarle nuevamente los escenarios
         HashSet<Escenario> escenarios = OperacionLecturaEscritura.archivoToEscenarios();
         jugadorLocal.setEscenarios(escenarios);
-        jugadorLocal.getEscenarios().clear();
+        jugadorLocal.getMochila().getItems().clear();
+
         if(jugadorLocal.getPersonajeElegido() instanceof Joven){
             jugadorLocal.getPersonajeElegido().setVida(150);
         } else if (jugadorLocal.getPersonajeElegido() instanceof Adulto) {
@@ -464,6 +472,8 @@ public class controladorJuego {
         curaRapida.setVisible(false);
         contenedorItems.setVisible(false);
         guardarPartida.setVisible(false);
+        gananciaItemLabel.setVisible(false);
+        vidaActual.setVisible(false);
         reiniciarPartidaAviso.setVisible(true);
 
         siguiente.setText("ver estadisticas");
@@ -477,6 +487,7 @@ public class controladorJuego {
         //cargarle nuevamente los escenarios
         HashSet<Escenario> escenarios = OperacionLecturaEscritura.archivoToEscenarios();
         jugadorLocal.setEscenarios(escenarios);
+        jugadorLocal.getMochila().getItems().clear();
 
         historiaLabel.setText("Has, perdido el juego...\n");
         opcion1.visibleProperty().set(false);
@@ -486,6 +497,8 @@ public class controladorJuego {
         curaRapida.setVisible(false);
         contenedorItems.setVisible(false);
         guardarPartida.setVisible(false);
+        gananciaItemLabel.setVisible(false);
+        vidaActual.setVisible(false);
         reiniciarPartidaAviso.setVisible(true);
 
         siguiente.setText("ver estadisticas");

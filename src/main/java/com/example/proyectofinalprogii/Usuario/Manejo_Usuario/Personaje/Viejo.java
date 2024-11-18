@@ -1,24 +1,20 @@
-package com.example.proyectofinalprogii.Usuario.Manejo_Usuario;
+package com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Personaje;
 
-public class Joven extends Personaje implements CuracionVida {
-    public Joven() {
-        super(150);
+
+
+public class Viejo extends Personaje {
+    public Viejo() {
+        super(80);
     }
 
-    public Joven(int vida, int vidaTotalGanada, int vidaTotalPerdida) { super(vida, vidaTotalGanada, vidaTotalPerdida); }
-
-    @Override
-    public int CuraRapida() {
-        if(cambiarVida(30)==0){
-            return 0;
-        }
-        return 1;
+    public Viejo(int vida, int vidaTotalGanada, int vidaTotalPerdida) {
+        super(vida, vidaTotalGanada, vidaTotalPerdida);
     }
 
     @Override
     public int cambiarVida(int cantVidaACambiar) {
         // Si el personaje ya tiene la vida máxima y se intenta curar
-        if (vida == 150 && cantVidaACambiar > 0) {
+        if (vida == 80 && cantVidaACambiar > 0) {
             return 0; // No se puede utilizar el consumible
         }
 
@@ -26,8 +22,8 @@ public class Joven extends Personaje implements CuracionVida {
         int nuevaVida = vida + cantVidaACambiar;
 
         // Asegúrate de que no exceda el máximo
-        if (nuevaVida > 150) {
-            nuevaVida = 150;
+        if (nuevaVida > 80) {
+            nuevaVida = 80;
         }
 
         // Asigna la vida actualizada
@@ -44,7 +40,7 @@ public class Joven extends Personaje implements CuracionVida {
 
     @Override
     public String toString() {
-        return "Joven{" +
+        return "Viejo{" +
                 "vida=" + vida +
                 '}';
     }

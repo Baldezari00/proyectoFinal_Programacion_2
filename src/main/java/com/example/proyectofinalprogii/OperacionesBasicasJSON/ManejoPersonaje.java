@@ -1,10 +1,9 @@
 package com.example.proyectofinalprogii.OperacionesBasicasJSON;
 
-import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Adulto;
-import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Joven;
-import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Personaje;
-import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Viejo;
-import org.json.JSONArray;
+import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Personaje.Adulto;
+import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Personaje.Joven;
+import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Personaje.Personaje;
+import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Personaje.Viejo;
 import org.json.JSONObject;
 
 public class ManejoPersonaje {

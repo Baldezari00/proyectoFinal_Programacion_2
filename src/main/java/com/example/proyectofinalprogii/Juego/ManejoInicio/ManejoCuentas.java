@@ -1,11 +1,13 @@
-package com.example.proyectofinalprogii.OperacionesBasicasJSON;
+package com.example.proyectofinalprogii.Juego.ManejoInicio;
 
 import com.example.proyectofinalprogii.ExcepcionesPersonalizadas.ExcJugador.OpcionInvalidaException;
 import com.example.proyectofinalprogii.Juego.Escenario;
-import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Adulto;
-import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Joven;
+import com.example.proyectofinalprogii.OperacionesBasicasJSON.ManejoUsuarios;
+import com.example.proyectofinalprogii.OperacionesBasicasJSON.OperacionLecturaEscritura;
+import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Personaje.Adulto;
+import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Personaje.Joven;
 import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Usuario;
-import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Viejo;
+import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Personaje.Viejo;
 
 import java.util.HashSet;
 import java.util.InputMismatchException;

@@ -1,18 +1,13 @@
 package com.example.proyectofinalprogii.Juego;
 
-import com.example.proyectofinalprogii.Juego.controladorJuego;
 import com.example.proyectofinalprogii.Main;
-import com.example.proyectofinalprogii.OperacionesBasicasJSON.Inicio;
+import com.example.proyectofinalprogii.Juego.ManejoInicio.Inicio;
 import com.example.proyectofinalprogii.OperacionesBasicasJSON.OperacionLecturaEscritura;
-import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Adulto;
-import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Joven;
 import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Usuario;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import static javafx.application.Application.launch;

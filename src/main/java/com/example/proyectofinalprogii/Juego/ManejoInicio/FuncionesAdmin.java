@@ -1,4 +1,4 @@
-package com.example.proyectofinalprogii.OperacionesBasicasJSON;
+package com.example.proyectofinalprogii.Juego.ManejoInicio;
 
 import com.example.proyectofinalprogii.ExcepcionesPersonalizadas.ExcJugador.EscenarioNoEncontradoException;
 import com.example.proyectofinalprogii.ExcepcionesPersonalizadas.ExcJugador.NoHayEscenariosException;
@@ -6,6 +6,8 @@ import com.example.proyectofinalprogii.ExcepcionesPersonalizadas.ExcJugador.NoHa
 import com.example.proyectofinalprogii.ExcepcionesPersonalizadas.ExcJugador.OpcionInvalidaException;
 import com.example.proyectofinalprogii.Juego.Escenario;
 import com.example.proyectofinalprogii.Juego.Opcion;
+import com.example.proyectofinalprogii.OperacionesBasicasJSON.ManejoUsuarios;
+import com.example.proyectofinalprogii.OperacionesBasicasJSON.OperacionLecturaEscritura;
 import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Usuario;
 import com.example.proyectofinalprogii.Usuario.Mochila.Consumible;
 import com.example.proyectofinalprogii.Usuario.Mochila.Objeto;

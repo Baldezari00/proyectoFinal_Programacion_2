@@ -1,9 +1,9 @@
-package com.example.proyectofinalprogii.OperacionesBasicasJSON;
+package com.example.proyectofinalprogii.Juego.ManejoInicio;
 import com.example.proyectofinalprogii.ExcepcionesPersonalizadas.ExcJugador.UsuarioEnUsoException;
 import com.example.proyectofinalprogii.Juego.JavaFXApp;
+import com.example.proyectofinalprogii.OperacionesBasicasJSON.ManejoUsuarios;
+import com.example.proyectofinalprogii.OperacionesBasicasJSON.OperacionLecturaEscritura;
 import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Usuario;
-import javafx.application.Application;
-import javafx.application.Platform;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
