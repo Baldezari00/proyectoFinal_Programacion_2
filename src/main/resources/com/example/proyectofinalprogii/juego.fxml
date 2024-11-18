@@ -23,5 +23,6 @@
       <Label fx:id="siguienteNotificador" alignment="CENTER" contentDisplay="CENTER" layoutX="486.0" layoutY="598.0" prefHeight="47.0" prefWidth="231.0" text="elija una opción para continuar" textAlignment="CENTER" textFill="RED" visible="false" />
       <Label fx:id="vidaActual" alignment="CENTER" contentDisplay="CENTER" layoutX="977.0" layoutY="70.0" prefHeight="34.0" prefWidth="163.0" textAlignment="CENTER" />
       <Button fx:id="curaRapida" alignment="CENTER" layoutX="33.0" layoutY="81.0" mnemonicParsing="false" onAction="#curacionRapida" prefHeight="47.0" prefWidth="143.0" text="Cura Rápida" visible="false" />
+      <Label fx:id="reiniciarPartidaAviso" alignment="CENTER" contentDisplay="CENTER" layoutX="397.0" layoutY="488.0" prefHeight="104.0" prefWidth="410.0" text="reinicia el juego para una nueva partida!" textAlignment="CENTER" visible="false" />
    </children>
 </AnchorPane>

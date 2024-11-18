@@ -25,6 +25,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Timer;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -48,6 +49,8 @@ public class controladorJuego {
     private Label siguienteNotificador;
     @FXML
     private Button curaRapida;
+    @FXML
+    private Label reiniciarPartidaAviso;
 
     // para saber si eligió una opcion y puede pulsar siguiente
     AtomicBoolean eleccionHecha = new AtomicBoolean(false);
@@ -363,20 +366,7 @@ public class controladorJuego {
 
     }
 
-    public void cargarEscenarioGanador(){
-        historiaLabel.setText("Felicidades, ganaste el juego!\n");
-        opcion1.visibleProperty().set(false);
-        opcion2.visibleProperty().set(false);
-        notificadorVida.visibleProperty().set(false);
-        mochilaBoton.setVisible(false);
 
-        siguiente.setText("ver estadisticas");
-        siguiente.setOnAction(actionEvent -> {
-
-            // mostrar estadisticas como cant de opciones elegidas
-        });
-
-    }
     // curacion rapida
     @FXML
     protected void curacionRapida(){
@@ -450,5 +440,62 @@ public class controladorJuego {
                 Platform.exit();
         });
     }
+
+
+    // ganar y perder, escenarios
+    public void cargarEscenarioGanador() {
+        //cargarle nuevamente los escenarios
+        HashSet<Escenario> escenarios = OperacionLecturaEscritura.archivoToEscenarios();
+        jugadorLocal.setEscenarios(escenarios);
+        jugadorLocal.getEscenarios().clear();
+        if(jugadorLocal.getPersonajeElegido() instanceof Joven){
+            jugadorLocal.getPersonajeElegido().setVida(150);
+        } else if (jugadorLocal.getPersonajeElegido() instanceof Adulto) {
+            jugadorLocal.getPersonajeElegido().setVida(120);
+        }else{
+            jugadorLocal.getPersonajeElegido().setVida(80);
+        }
+
+        historiaLabel.setText("Felicidades, ganaste el juego!\n");
+        opcion1.visibleProperty().set(false);
+        opcion2.visibleProperty().set(false);
+        notificadorVida.visibleProperty().set(false);
+        mochilaBoton.setVisible(false);
+        curaRapida.setVisible(false);
+        contenedorItems.setVisible(false);
+        guardarPartida.setVisible(false);
+        reiniciarPartidaAviso.setVisible(true);
+
+        siguiente.setText("ver estadisticas");
+        siguiente.setOnAction(actionEvent -> {
+
+            // mostrar estadisticas como cant de opciones elegidas
+        });
+
+    }
+    public void cargarEscenarioPerdedor(){
+        //cargarle nuevamente los escenarios
+        HashSet<Escenario> escenarios = OperacionLecturaEscritura.archivoToEscenarios();
+        jugadorLocal.setEscenarios(escenarios);
+
+        historiaLabel.setText("Has, perdido el juego...\n");
+        opcion1.visibleProperty().set(false);
+        opcion2.visibleProperty().set(false);
+        notificadorVida.visibleProperty().set(false);
+        mochilaBoton.setVisible(false);
+        curaRapida.setVisible(false);
+        contenedorItems.setVisible(false);
+        guardarPartida.setVisible(false);
+        reiniciarPartidaAviso.setVisible(true);
+
+        siguiente.setText("ver estadisticas");
+        siguiente.setOnAction(actionEvent -> {
+
+            // mostrar estadisticas como cant de opciones elegidas
+        });
+
+    }
+
+
 
 }
