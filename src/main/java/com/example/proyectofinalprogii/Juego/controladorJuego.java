@@ -2,6 +2,8 @@ package com.example.proyectofinalprogii.Juego;
 import com.example.proyectofinalprogii.Main;
 import com.example.proyectofinalprogii.OperacionesBasicasJSON.Inicio;
 import com.example.proyectofinalprogii.OperacionesBasicasJSON.OperacionLecturaEscritura;
+import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Adulto;
+import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Joven;
 import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Usuario;
 import com.example.proyectofinalprogii.Usuario.Mochila.Consumible;
 import com.example.proyectofinalprogii.Usuario.Mochila.Item;
@@ -44,6 +46,8 @@ public class controladorJuego {
     private Button siguiente;
     @FXML
     private Label siguienteNotificador;
+    @FXML
+    private Button curaRapida;
 
     // para saber si eligió una opcion y puede pulsar siguiente
     AtomicBoolean eleccionHecha = new AtomicBoolean(false);
@@ -61,6 +65,8 @@ public class controladorJuego {
     private Button siSalir;
     @FXML
     private Button noSalir;
+    @FXML
+    private Label vidaActual;
     // mochila
     @FXML
     private Button mochilaBoton;
@@ -87,32 +93,21 @@ public class controladorJuego {
 
 
 
-
-// cargar en la vbox los elementos
-  /*  public void cargarItemsEnVBox() {
-        contenedorItems.getChildren().clear(); // Limpiar elementos previos
-        for (Item item : jugadorLocal.getMochila().getItems()) {
-            Label itemLabel = crearRepresentacionItem(item);
-            contenedorItems.getChildren().add(itemLabel);
-        }
-    }
-
-    // presentacion de cada item dentro de la vbox
-   public Label crearRepresentacionItem(Item item) {
-        Label labelItem = new Label(String.valueOf(item.mostrarItem()));
-        labelItem.setWrapText(true);
-        return labelItem;
-    }
-
-
-   */
-
     public void cargarItemsEnVBox() {
         contenedorItems.getChildren().clear(); // Limpiar elementos previos
-        for (Item item : jugadorLocal.getMochila().getItems()) {
-            VBox itemInteractivo = crearRepresentacionItemInteractiva(item);
-            contenedorItems.getChildren().add(itemInteractivo);
+        if(jugadorLocal.getMochila().getItems().isEmpty()){
+            Label notificadorMochilaVacia =  new Label("no tienes items para mostrar aún");
+            contenedorItems.getChildren().add(notificadorMochilaVacia);
+            contenedorItems.setAlignment(Pos.TOP_CENTER);
+            vidaActual.setText("vida actual: "+jugadorLocal.getPersonajeElegido().getVida()+"hp");
+        }else{
+            for (Item item : jugadorLocal.getMochila().getItems()) {
+                VBox itemInteractivo = crearRepresentacionItemInteractiva(item);
+                contenedorItems.getChildren().add(itemInteractivo);
+            }
+            vidaActual.setText("vida actual: "+jugadorLocal.getPersonajeElegido().getVida()+"hp");
         }
+
     }
 
 
@@ -181,7 +176,15 @@ public class controladorJuego {
         if(toggleMochila){
             contenedorItems.setVisible(false);
             toggleMochila = false;
+            vidaActual.setVisible(false);
         }else{
+            vidaActual.setVisible(true);
+            if(jugadorLocal.getPersonajeElegido().getVida()>=50){
+                vidaActual.setTextFill(Paint.valueOf("green"));
+            }else{
+                vidaActual.setTextFill(Paint.valueOf("red"));
+            }
+
             cargarItemsEnVBox();
             contenedorItems.setVisible(true);
             toggleMochila = true;
@@ -236,6 +239,11 @@ public class controladorJuego {
     }
     private void inicializarEscena() {
         if (jugadorLocal != null && jugadorLocal.getEscenarios() != null) {
+            // boton de curacion
+            if(jugadorLocal.getPersonajeElegido() instanceof Joven || jugadorLocal.getPersonajeElegido() instanceof Adulto){
+                curaRapida.setVisible(true);
+            }
+
             historiaLabel.setWrapText(true);  // Esto permite el ajuste de texto
 
             if(jugadorLocal.getEscenarios().iterator().hasNext()){
@@ -330,30 +338,27 @@ public class controladorJuego {
             gananciaItemLabel.setTextFill(Paint.valueOf("green"));
             notificadorVida.setText("");
 
-        }else{
+
+        }else {
             historiaLabel.setText(descripcion);
-            if(jugadorLocal.getPersonajeElegido().cambiarVida(opcion.getVidaAModificar())==0){
+            if (jugadorLocal.getPersonajeElegido().cambiarVida(opcion.getVidaAModificar()) == 0) {
                 notificadorVida.setTextFill(Paint.valueOf("green"));
-                notificadorVida.setText("has ganado "+opcion.getVidaAModificar()+"hp pero ya tienes vida maxima "+jugadorLocal.getPersonajeElegido().getVida()+"hp");
-            }else {
+                notificadorVida.setText("has ganado " + opcion.getVidaAModificar() + "hp pero ya tienes vida maxima " + jugadorLocal.getPersonajeElegido().getVida() + "hp");
+            } else {
                 jugadorLocal.getPersonajeElegido().cambiarVida(opcion.getVidaAModificar());
-                if(jugadorLocal.getPersonajeElegido().getVida()<=0){
+                if (jugadorLocal.getPersonajeElegido().getVida() <= 0) {
                     notificadorVida.setText("\nperdiste el juego...");
                     notificadorVida.setTextFill(Paint.valueOf("red"));
-                }else{
-                    notificadorVida.setText("te quedan "+jugadorLocal.getPersonajeElegido().getVidaString()+"hp restantes");
-                    if(jugadorLocal.getPersonajeElegido().getVida()<50){
+                } else {
+                    notificadorVida.setText("te quedan " + jugadorLocal.getPersonajeElegido().getVidaString() + "hp restantes");
+                    if (jugadorLocal.getPersonajeElegido().getVida() < 50) {
                         notificadorVida.setTextFill(Paint.valueOf("red"));
-                    }else {
+                    } else {
                         notificadorVida.setTextFill(Paint.valueOf("green"));
                     }
                 }
             }
-
-
-
-
-
+            vidaActual.setText("vida actual: " + jugadorLocal.getPersonajeElegido().getVida() + "hp");
         }
 
     }
@@ -370,6 +375,36 @@ public class controladorJuego {
 
             // mostrar estadisticas como cant de opciones elegidas
         });
+
+    }
+    // curacion rapida
+    @FXML
+    protected void curacionRapida(){
+        notificadorVida.setText("");
+        if(jugadorLocal.getPersonajeElegido() instanceof Joven){
+            if( ((Joven) jugadorLocal.getPersonajeElegido()).CuraRapida()==0){
+                notificadorVida.setText("no puedes usar cura rapida, tienes la vida maxima "+jugadorLocal.getPersonajeElegido().getVida()+"hp");
+            }else{
+                if(jugadorLocal.getPersonajeElegido().getVida()>=50){
+                    notificadorVida.setTextFill(Paint.valueOf("green"));
+                }else{notificadorVida.setTextFill(Paint.valueOf("red"));}
+                notificadorVida.setText("usaste cura rapida, tienes "+jugadorLocal.getPersonajeElegido().getVida()+"hp");
+                curaRapida.setVisible(false);
+            }
+
+        }else {
+            if( ((Adulto) jugadorLocal.getPersonajeElegido()).CuraRapida()==0){
+                notificadorVida.setText("no puedes usar cura rapida, tienes la vida maxima "+jugadorLocal.getPersonajeElegido().getVida()+"hp");
+            }else{
+                if(jugadorLocal.getPersonajeElegido().getVida()>=50){
+                    notificadorVida.setTextFill(Paint.valueOf("green"));
+                }else{notificadorVida.setTextFill(Paint.valueOf("red"));}
+                notificadorVida.setText("usaste cura rapida, tienes "+jugadorLocal.getPersonajeElegido().getVida()+"hp");
+                curaRapida.setVisible(false);
+            }
+
+        }
+        vidaActual.setText("vida actual: "+jugadorLocal.getPersonajeElegido().getVida()+"hp");
 
     }
 

@@ -21,5 +21,7 @@
       <Button fx:id="noSalir" alignment="CENTER" layoutX="117.0" layoutY="587.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="47.0" text="No" visible="false" />
       <Label fx:id="salir" alignment="CENTER" contentDisplay="CENTER" layoutX="33.0" layoutY="540.0" prefHeight="47.0" prefWidth="143.0" text="Desea Salir?" textAlignment="CENTER" visible="false" />
       <Label fx:id="siguienteNotificador" alignment="CENTER" contentDisplay="CENTER" layoutX="486.0" layoutY="598.0" prefHeight="47.0" prefWidth="231.0" text="elija una opción para continuar" textAlignment="CENTER" textFill="RED" visible="false" />
+      <Label fx:id="vidaActual" alignment="CENTER" contentDisplay="CENTER" layoutX="977.0" layoutY="70.0" prefHeight="34.0" prefWidth="163.0" textAlignment="CENTER" />
+      <Button fx:id="curaRapida" alignment="CENTER" layoutX="33.0" layoutY="81.0" mnemonicParsing="false" onAction="#curacionRapida" prefHeight="47.0" prefWidth="143.0" text="Cura Rápida" visible="false" />
    </children>
 </AnchorPane>
