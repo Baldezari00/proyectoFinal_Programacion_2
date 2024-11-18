@@ -47,6 +47,7 @@ public class ManejoUsuarios {
             jsonObject.put("idJugador", jugador.getId());
             jsonObject.put("nombreUsuario", jugador.getNombreUsuario());
             jsonObject.put("contraseña", jugador.getContrasenia());
+            jsonObject.put("esAdmin", jugador.getEsAdmin());
 
 
             JSONArray jsonItems = new JSONArray();

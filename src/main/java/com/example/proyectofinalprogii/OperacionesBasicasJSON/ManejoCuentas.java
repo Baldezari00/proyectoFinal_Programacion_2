@@ -1,10 +1,12 @@
 package com.example.proyectofinalprogii.OperacionesBasicasJSON;
 
+import com.example.proyectofinalprogii.Juego.Escenario;
 import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Adulto;
 import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Joven;
 import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Usuario;
 import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Viejo;
 
+import java.util.HashSet;
 import java.util.Scanner;
 
 public class ManejoCuentas {
@@ -19,6 +21,7 @@ public class ManejoCuentas {
         Usuario nuevoJugador = null;
         boolean usuarioValido = false;
         String nombreUsuario = null;
+        HashSet<Escenario> escenarios = OperacionLecturaEscritura.archivoToEscenarios();
 
         // Bucle para pedir el nombre de usuario hasta que se encuentre uno válido
         while (!usuarioValido) {
@@ -45,13 +48,13 @@ public class ManejoCuentas {
 
         switch (opcionPersonaje) {
             case 1:
-                nuevoJugador = new Usuario(nombreUsuario, contrasenia, new Joven());
+                nuevoJugador = new Usuario(nombreUsuario, contrasenia, new Joven(), escenarios);
                 break;
             case 2:
-                nuevoJugador = new Usuario(nombreUsuario, contrasenia, new Adulto());
+                nuevoJugador = new Usuario(nombreUsuario, contrasenia, new Adulto(), escenarios);
                 break;
             case 3:
-                nuevoJugador = new Usuario(nombreUsuario, contrasenia, new Viejo());
+                nuevoJugador = new Usuario(nombreUsuario, contrasenia, new Viejo(), escenarios);
                 break;
         }
 

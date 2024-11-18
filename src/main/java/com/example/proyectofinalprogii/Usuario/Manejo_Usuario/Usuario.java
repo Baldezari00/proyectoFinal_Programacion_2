@@ -24,10 +24,11 @@ public class Usuario {
     private String contrasenia;
     private Personaje personajeElegido;
     private Mochila<Item> mochila;
+    private boolean esAdmin = true;
 
-    public Usuario(String nombreUsuario, String contrasenia, Personaje personaje) {
+    public Usuario(String nombreUsuario, String contrasenia, Personaje personaje, HashSet<Escenario> escenariosJugador) {
         //falta cargar escenarios del archivo
-        this.escenarios = new HashSet<>();
+        this.escenarios = escenariosJugador;
         this.id = contadorId++;
         this.nombreUsuario = nombreUsuario;
         this.contrasenia = contrasenia;
@@ -55,6 +56,8 @@ public class Usuario {
     public String getContrasenia() {
         return this.contrasenia;
     }
+
+    public boolean getEsAdmin() { return this.esAdmin; }
 
     public Mochila<Item> getMochila() {
         return this.mochila;
@@ -94,12 +97,14 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "Jugador{" +
-                "id=" + id +
+        return "Usuario{" +
+                "escenarios=" + escenarios +
+                ", id=" + id +
                 ", nombreUsuario='" + nombreUsuario + '\'' +
                 ", contrasenia='" + contrasenia + '\'' +
                 ", personajeElegido=" + personajeElegido +
                 ", mochila=" + mochila +
+                ", esAdmin=" + esAdmin +
                 '}';
     }
 
