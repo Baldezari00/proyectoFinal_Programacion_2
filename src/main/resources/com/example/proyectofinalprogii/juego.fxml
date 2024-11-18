@@ -14,7 +14,12 @@
       <Button fx:id="siguiente" alignment="CENTER" layoutX="529.0" layoutY="647.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="143.0" text="Siguiente" />
       <Button fx:id="mochilaBoton" alignment="CENTER" layoutX="1005.0" layoutY="45.0" mnemonicParsing="false" onAction="#mostrarItems" prefHeight="25.0" prefWidth="107.0" text="Mochila" />
       <VBox fx:id="contenedorItems" layoutX="925.0" layoutY="98.0" prefHeight="321.0" prefWidth="267.0" />
-      <Button fx:id="salir" alignment="CENTER" layoutX="33.0" layoutY="647.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="143.0" text="Guardar Partida" />
+      <Button fx:id="guardarPartida" alignment="CENTER" layoutX="33.0" layoutY="647.0" mnemonicParsing="false" onAction="#guardarDatos" prefHeight="19.0" prefWidth="143.0" text="Guardar Partida" />
       <Label fx:id="gananciaItemLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="432.0" layoutY="259.0" prefHeight="47.0" prefWidth="337.0" textAlignment="CENTER" />
+      <Label fx:id="avisoGuardado" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="672.0" prefHeight="34.0" prefWidth="189.0" textAlignment="CENTER" />
+      <Button fx:id="siSalir" alignment="CENTER" layoutX="47.0" layoutY="587.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="47.0" text="Sí" visible="false" />
+      <Button fx:id="noSalir" alignment="CENTER" layoutX="117.0" layoutY="587.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="47.0" text="No" visible="false" />
+      <Label fx:id="salir" alignment="CENTER" contentDisplay="CENTER" layoutX="33.0" layoutY="540.0" prefHeight="47.0" prefWidth="143.0" text="Desea Salir?" textAlignment="CENTER" visible="false" />
+      <Label fx:id="siguienteNotificador" alignment="CENTER" contentDisplay="CENTER" layoutX="486.0" layoutY="598.0" prefHeight="47.0" prefWidth="231.0" text="elija una opción para continuar" textAlignment="CENTER" textFill="RED" visible="false" />
    </children>
 </AnchorPane>

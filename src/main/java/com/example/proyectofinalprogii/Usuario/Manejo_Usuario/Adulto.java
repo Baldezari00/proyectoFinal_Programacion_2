@@ -10,9 +10,11 @@ public class Adulto extends Personaje implements CuracionVida {
 
     //Metodo interfaz
     @Override
-    public String CuraRapida() {
-        super.setVida(vida+=20);
-        return "El personaje ahora tiene : " + super.getVida() + "hp";
+    public int CuraRapida() {
+        if(cambiarVida(20)==0){
+            return 0;
+        }
+        return 1;
     }
 
     @Override

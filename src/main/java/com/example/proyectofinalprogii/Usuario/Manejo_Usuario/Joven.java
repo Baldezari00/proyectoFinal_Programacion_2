@@ -8,9 +8,11 @@ public class Joven extends Personaje implements CuracionVida {
     public Joven(int vida) { super(vida); }
 
     @Override
-    public String CuraRapida() {
-        super.setVida(vida+=30);
-        return "El personaje ahora tiene " + super.getVida() + "hp";
+    public int CuraRapida() {
+        if(cambiarVida(30)==0){
+            return 0;
+        }
+        return 1;
     }
 
     @Override

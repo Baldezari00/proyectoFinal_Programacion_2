@@ -1,9 +1,13 @@
 package com.example.proyectofinalprogii.Juego;
 import com.example.proyectofinalprogii.Main;
+import com.example.proyectofinalprogii.OperacionesBasicasJSON.Inicio;
+import com.example.proyectofinalprogii.OperacionesBasicasJSON.OperacionLecturaEscritura;
 import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Usuario;
 import com.example.proyectofinalprogii.Usuario.Mochila.Consumible;
 import com.example.proyectofinalprogii.Usuario.Mochila.Item;
 import com.example.proyectofinalprogii.Usuario.Mochila.Mochila;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +20,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
 import java.io.IOException;
+import java.util.Timer;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class controladorJuego {
@@ -36,7 +43,24 @@ public class controladorJuego {
     @FXML
     private Button siguiente;
     @FXML
+    private Label siguienteNotificador;
+
+    // para saber si eligió una opcion y puede pulsar siguiente
+    AtomicBoolean eleccionHecha = new AtomicBoolean(false);
+
+    @FXML
     private Label gananciaItemLabel;
+    // guardar partida y salir
+    @FXML
+    private Button guardarPartida;
+    @FXML
+    private Label avisoGuardado;
+    @FXML
+    private Label salir;
+    @FXML
+    private Button siSalir;
+    @FXML
+    private Button noSalir;
     // mochila
     @FXML
     private Button mochilaBoton;
@@ -62,17 +86,6 @@ public class controladorJuego {
     }
 
 
-
-    //inicializar mochila y texto bienvenida
-    @FXML
-    public void initialize() {
-        if (jugadorLocal != null) {
-            agregarTextoBienvenida();
-
-        } else {
-            System.out.println("El jugador local no está inicializado aún.");
-        }
-    }
 
 
 // cargar en la vbox los elementos
@@ -144,7 +157,7 @@ public class controladorJuego {
     public void usarItem(Item item) {
         if (item instanceof Consumible) {
             Consumible consumible = (Consumible) item;
-            if(jugadorLocal.consumir(consumible)==0){ // Método que actualiza atributos del personaje
+            if(jugadorLocal.consumir(consumible)==0){ // devuelve 0 cuando tiene la vida al maximo y el objeto suma vida
                 notificadorVida.setText("ya tienes la vida al maximo, no puedes utilizar este consumible");
             }else {
                 jugadorLocal.getMochila().removerItem(item); // Elimina el ítem de la mochila
@@ -154,6 +167,7 @@ public class controladorJuego {
 
 
         } else {
+
             notificadorVida.setTextFill(Paint.valueOf("black"));
             notificadorVida.setText("de momento este objeto no es utilizable");
         }
@@ -209,12 +223,6 @@ public class controladorJuego {
             nuevoControlador.setStage(stage); // Mantener el mismo Stage
             nuevoControlador.setJugadorLocal(jugadorLocal); // Pasar al jugador
             nuevoControlador.inicializarEscena(); // Configurar datos iniciales en la nueva ventana
-            // cargar textos
-          /*  Escenario escenario = jugadorLocal.getEscenarios().iterator().next();
-                historiaLabel.setText(escenario.getDescripcion());
-                opcion1.setText(escenario.getOpcion1().getConsecuenciaTitulo());
-                opcion2.setText(escenario.getOpcion2().getConsecuenciaTitulo());
-            */
 
             // Cambiar la escena del Stage
             stage.setTitle("Juego Aventura en Acción!");
@@ -233,11 +241,26 @@ public class controladorJuego {
             if(jugadorLocal.getEscenarios().iterator().hasNext()){
                 cargarEscenario();
                 siguiente.setOnAction(actionEvent -> {
-                    if(jugadorLocal.getEscenarios().iterator().hasNext()) {
-                        cargarEscenario();
+                    if(eleccionHecha.get()){
+                        if(jugadorLocal.getEscenarios().iterator().hasNext()) {
+                            cargarEscenario();
+                        }else{
+                            cargarEscenarioGanador();
+                        }
                     }else{
-                        cargarEscenarioGanador();
+                        siguienteNotificador.setVisible(true);
+                        //Timeline para esconder texto
+                        Timeline timeline = new Timeline(
+                                new KeyFrame(
+                                        Duration.seconds(2),
+                                        event -> siguienteNotificador.setVisible(false)
+                                )
+                        );
+                        timeline.setCycleCount(1); // Se ejecuta una sola vez
+                        timeline.play(); // Inicia el temporizador
+
                     }
+
                 });
 
             }else{
@@ -252,7 +275,7 @@ public class controladorJuego {
 
 
     public void cargarEscenario(){
-        AtomicBoolean eleccionHecha = new AtomicBoolean(false);
+        eleccionHecha.set(false);
 
         Escenario escenario = jugadorLocal.obtenerEscenarioRandom();
         notificadorVida.setText("");
@@ -268,6 +291,8 @@ public class controladorJuego {
                 if(!eleccionHecha.get()){
                     eleccionHecha.set(true);
                     accionDeOpcion(escenario,escenario.getOpcion1());
+                    // remover escenario solo al presionar opcion, porque sino cuando salga de la partida se le va a remover sin haber jugado
+                    jugadorLocal.getEscenarios().remove(escenario);
                 }
 
             });
@@ -276,12 +301,12 @@ public class controladorJuego {
                 if(!eleccionHecha.get()){
                     eleccionHecha.set(true);
                     accionDeOpcion(escenario,escenario.getOpcion2());
+                    // remover escenario solo al presionar opcion, porque sino cuando salga de la partida se le va a remover sin haber jugado
+                    jugadorLocal.getEscenarios().remove(escenario);
+
                 }
 
             });
-
-        // remover escenario
-        jugadorLocal.getEscenarios().remove(escenario);
 
     }
 
@@ -301,8 +326,6 @@ public class controladorJuego {
                 gananciaItemLabel.setText("ganaste "+opcion.getObjetoGanado().getNombre());
                 cargarItemsEnVBox();
             }
-
-
 
             gananciaItemLabel.setTextFill(Paint.valueOf("green"));
             notificadorVida.setText("");
@@ -340,13 +363,57 @@ public class controladorJuego {
         opcion1.visibleProperty().set(false);
         opcion2.visibleProperty().set(false);
         notificadorVida.visibleProperty().set(false);
+        mochilaBoton.setVisible(false);
 
         siguiente.setText("ver estadisticas");
         siguiente.setOnAction(actionEvent -> {
+
             // mostrar estadisticas como cant de opciones elegidas
         });
 
     }
 
+    // guardar partida
+    @FXML
+    protected void guardarDatos() {
+        try {
+            OperacionLecturaEscritura.jugadoresToArchivo(Inicio.getManejoJugadores().getJugadores());
+            avisoGuardado.setText("Partida guardada!");
+            avisoGuardado.setTextFill(Paint.valueOf("green"));
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            avisoGuardado.setText("Error guardando datos");
+            avisoGuardado.setTextFill(Paint.valueOf("red"));
+        }finally {
+            salir.setVisible(true);
+            siSalir.setVisible(true);
+            noSalir.setVisible(true);
+        }
+
+        // Crear una Timeline para limpiar el texto después de 5 segundos
+        Timeline timeline = new Timeline(
+                new KeyFrame(
+                        Duration.seconds(2),
+                        event -> avisoGuardado.setText("") // Limpiar el texto
+                )
+        );
+        timeline.setCycleCount(1); // Se ejecuta una sola vez
+        timeline.play(); // Inicia el temporizador
+
+        noSalir.setOnAction(actionEvent -> {
+            salir.setVisible(false);
+            siSalir.setVisible(false);
+            noSalir.setVisible(false);
+        });
+
+        siSalir.setOnAction(actionEvent -> {
+                System.out.println("Cerrando ventana gráfica...");
+                stage.close();
+                Platform.exit();
+        });
+    }
 
 }

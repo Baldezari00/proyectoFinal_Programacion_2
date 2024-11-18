@@ -3,6 +3,7 @@ import com.example.proyectofinalprogii.ExcepcionesPersonalizadas.ExcJugador.Usua
 import com.example.proyectofinalprogii.Juego.JavaFXApp;
 import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Usuario;
 import javafx.application.Application;
+import javafx.application.Platform;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -151,11 +152,17 @@ public class Inicio {
                 case 7:
                     FuncionesAdmin.modificarEscenario();
                     break;
-                case 8: // Nueva opción para jugar
-                    System.out.println("Iniciando la interfaz gráfica...");
-                    JavaFXApp.setUsuarioActivo(usuarioActivo); // Configura el usuario en la aplicación gráfica
-                    Application.launch(JavaFXApp.class); // Lanza la interfaz gráfica
+                case 8: // Jugar
+                    if(JavaFXApp.isLaunched()){
+                        System.out.println("ya jugaste una vez, reinicia para volver a jugar");
+                    }else{
+                        System.out.println("Iniciando la interfaz gráfica...");
+                        JavaFXApp.setUsuarioActivo(usuarioActivo);
+                        JavaFXApp.mostrarInterfaz();
+                    }
+
                     break;
+
                 case 0:
                     exit = true;
                     break;
@@ -165,7 +172,7 @@ public class Inicio {
         }
     }
 
-    private static void mostrarMenuUsuario(Usuario usuario) {
+    public static void mostrarMenuUsuario(Usuario usuario) {
         Scanner scanner = new Scanner(System.in);
         boolean exit = false;
 
@@ -283,6 +290,10 @@ public class Inicio {
                     break;
             }
         }
+    }
+
+    public static ManejoUsuarios getManejoJugadores() {
+        return manejoJugadores;
     }
 }
 
