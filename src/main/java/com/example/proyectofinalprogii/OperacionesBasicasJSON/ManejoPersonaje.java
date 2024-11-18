@@ -13,6 +13,7 @@ public class ManejoPersonaje {
 
         jsonObject.put("tipo", personaje.getClass().getSimpleName());
         jsonObject.put("vida", personaje.getVida());
+        jsonObject.put("vidaTotalGanada", personaje.getVidaTotalGanada());
 
         return jsonObject;
     }
@@ -20,14 +21,15 @@ public class ManejoPersonaje {
     public static Personaje jsonToPersonaje(JSONObject jsonObject) {
         String tipo = jsonObject.getString("tipo");
         int vida = jsonObject.getInt("vida");
+        int vidaTotalGanada = jsonObject.getInt("vidaTotalGanada");
 
         switch (tipo) {
             case "Joven":
-                return new Joven(vida);
+                return new Joven(vida, vidaTotalGanada);
             case "Adulto":
-                return new Adulto(vida);
+                return new Adulto(vida, vidaTotalGanada);
             case "Viejo":
-                return new Viejo(vida);
+                return new Viejo(vida, vidaTotalGanada);
             default:
                 throw new IllegalArgumentException("Tipo de personaje desconocido: " + tipo);
         }

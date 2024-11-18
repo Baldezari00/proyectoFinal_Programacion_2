@@ -21,12 +21,10 @@ public class Consumible extends Item {
 
 
     @Override
-        // retorna la salud que luego será aplicada al jugador
-        public int utilizar() {
+    // retorna la salud que luego será aplicada al jugador
+    public int utilizar() {
             return saludRecibida;
         }
-
-
         @Override
         public StringBuilder mostrarItem() {
         StringBuilder consumibleMostrar= new StringBuilder();
@@ -38,7 +36,12 @@ public class Consumible extends Item {
         }
 
         return consumibleMostrar;
-        }
+    }
 
-
+    @Override
+    public String toString() {
+        return "Consumible { nombre=" + super.getNombre() +
+                " saludRecibida=" + saludRecibida +
+                "} ";
+    }
 }

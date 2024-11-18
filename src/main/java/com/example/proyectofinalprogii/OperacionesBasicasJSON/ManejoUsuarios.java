@@ -89,6 +89,7 @@ public class ManejoUsuarios {
         int idJugador = jsonObject.getInt("idJugador");
         String nombreUsuario = jsonObject.getString("nombreUsuario");
         String contrasenia = jsonObject.getString("contraseña");
+        boolean esAdmin = jsonObject.getBoolean("esAdmin");
 
         Mochila<Item> mochila = new Mochila<>();
 
@@ -120,7 +121,7 @@ public class ManejoUsuarios {
             escenariosAux.add(aux);
         }
 
-        Usuario jugadorAux = new Usuario(nombreUsuario, contrasenia, mochila, personajeElegido, escenariosAux);
+        Usuario jugadorAux = new Usuario(nombreUsuario, contrasenia, mochila, personajeElegido, escenariosAux, esAdmin);
         jugadorAux.setId(idJugador);
 
         return jugadorAux;
