@@ -12,39 +12,46 @@ import org.json.JSONObject;
  */
 public class Opcion {
 
-    private String consecuenciaTitulo; // serÃ¡ visible para el usuario. ej: "investigar bosque".
+    private String consecuenciaTitulo; // sera visible para el usuario. ej: "investigar bosque".
     private int vidaAModificar;
     private Objeto objetoGanado;
     private Consumible consumibleGanado;
+    private String descripcionDeOpcion;
 
     public String getConsecuenciaTitulo() {
         return consecuenciaTitulo;
     }
 
-    public Opcion(String consecuenciaTitulo, int vidaAModificar) {
+    public Opcion(String consecuenciaTitulo,String descripcionDeOpcion, int vidaAModificar) {
         this.consecuenciaTitulo = consecuenciaTitulo;
+        this.descripcionDeOpcion = descripcionDeOpcion;
+
         this.vidaAModificar = vidaAModificar;
 
         this.objetoGanado = null;
         this.consumibleGanado = null;
     }
 
-    public Opcion(String consecuenciaTitulo, Objeto objetoGanado) {
+    public Opcion(String consecuenciaTitulo,String descripcionDeOpcion, Objeto objetoGanado) {
         this.consecuenciaTitulo = consecuenciaTitulo;
+        this.descripcionDeOpcion = descripcionDeOpcion;
+
         this.objetoGanado = objetoGanado;
 
         this.consumibleGanado = null;
         this.vidaAModificar = 0;
     }
 
-    public Opcion(String consecuenciaTitulo, Consumible consumibleGanado) {
+    public Opcion(String consecuenciaTitulo,String descripcionDeOpcion, Consumible consumibleGanado) {
         this.consecuenciaTitulo = consecuenciaTitulo;
+        this.descripcionDeOpcion = descripcionDeOpcion;
         this.consumibleGanado = consumibleGanado;
 
         this.objetoGanado = null;
         this.vidaAModificar = 0;
     }
 
+    /*
     public String accionDeOpcion(Usuario jugador, String descripcionDeOpcion, int vidaAModificar){
         jugador.getPersonajeElegido().cambiarVida(vidaAModificar);
 
@@ -60,6 +67,8 @@ public class Opcion {
         return descripcionDeOpcion;
     }
 
+*/
+
     public Objeto getObjetoGanado() {
         return this.objetoGanado;
     }
@@ -70,6 +79,14 @@ public class Opcion {
 
     public int getVidaAModificar() {
         return this.vidaAModificar;
+    }
+
+    public String getDescripcionDeOpcion() {
+        return descripcionDeOpcion;
+    }
+
+    public void setDescripcionDeOpcion(String descripcionDeOpcion) {
+        this.descripcionDeOpcion = descripcionDeOpcion;
     }
 
     @Override

@@ -10,6 +10,7 @@ public class ManejoOpcion {
     public static JSONObject opcionToJson(Opcion opcion) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("consecuenciaTitulo", opcion.getConsecuenciaTitulo());
+        jsonObject.put("descOpcion",opcion.getDescripcionDeOpcion());
 
         // Verificar si el itemGanado es null
         if (opcion.getObjetoGanado() != null) {
@@ -25,16 +26,17 @@ public class ManejoOpcion {
 
     public static Opcion jsonToOpcion(JSONObject jsonObject) {
         String consecuenciaTitulo = jsonObject.getString("consecuenciaTitulo");
+        String descOpcion = jsonObject.getString("descOpcion");
 
         if (jsonObject.has("vidaAModificar")) {
             int vidaAModificar = jsonObject.getInt("vidaAModificar");
-            return new Opcion(consecuenciaTitulo, vidaAModificar);
+            return new Opcion(consecuenciaTitulo,descOpcion, vidaAModificar);
         } else if (jsonObject.has("objetoGanado")) {
             Objeto objeto = ManejoItems.jsonToObjeto(jsonObject.getJSONObject("objetoGanado"));
-            return new Opcion(consecuenciaTitulo, objeto);
+            return new Opcion(consecuenciaTitulo,descOpcion, objeto);
         } else if (jsonObject.has("consumibleGanado")) {
             Consumible consumible = ManejoItems.jsonToConsumible(jsonObject.getJSONObject("consumibleGanado"));
-            return new Opcion(consecuenciaTitulo, consumible);
+            return new Opcion(consecuenciaTitulo,descOpcion, consumible);
         }
 
         throw new IllegalArgumentException("El JSON no contiene suficiente información para crear una Opcion.");

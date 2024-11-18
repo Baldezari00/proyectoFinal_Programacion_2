@@ -235,26 +235,11 @@ public class controladorJuego {
         opcion2.setText(escenario.getOpcion2().getConsecuenciaTitulo());
 
 
+        // setear la accion de cada boton
             opcion1.setOnAction(actionEvent -> {
                 if(!eleccionHecha.get()){
                     eleccionHecha.set(true);
-                    String descripcion = escenario.getOpcion1().accionDeOpcion(jugadorLocal,"algo paso y ganaste ",escenario.getOpcion1().getVidaAModificar());
-                    if(jugadorLocal.getPersonajeElegido().getVida()<=0){
-                        historiaLabel.setText(descripcion+"\nperdiste el juego...");
-                        historiaLabel.setTextFill(Paint.valueOf("red"));
-                        notificadorVida.setText("");
-
-                    }else{
-                        historiaLabel.setText(descripcion);
-                        notificadorVida.setText("te quedan "+jugadorLocal.getPersonajeElegido().getVidaString()+"hp restantes");
-
-
-                        if(jugadorLocal.getPersonajeElegido().getVida()<50){
-                            notificadorVida.setTextFill(Paint.valueOf("red"));
-                        }else {
-                            notificadorVida.setTextFill(Paint.valueOf("green"));
-                        }
-                    }
+                    accionDeOpcion(escenario,escenario.getOpcion1());
                 }
 
             });
@@ -262,34 +247,51 @@ public class controladorJuego {
             opcion2.setOnAction(actionEvent -> {
                 if(!eleccionHecha.get()){
                     eleccionHecha.set(true);
-                    String descripcion = escenario.getOpcion2().accionDeOpcion(jugadorLocal,"algo paso y perdiste ",escenario.getOpcion2().getVidaAModificar());
-                    if(jugadorLocal.getPersonajeElegido().getVida()<=0){
-                        historiaLabel.setText(descripcion+"\nperdiste el juego...");
-                        historiaLabel.setTextFill(Paint.valueOf("red"));
-                        notificadorVida.setText("");
-
-                    }else{
-                        historiaLabel.setText(descripcion);
-                        notificadorVida.setText("te quedan "+jugadorLocal.getPersonajeElegido().getVidaString()+"hp restantes");
-
-
-                        if(jugadorLocal.getPersonajeElegido().getVida()<50){
-                            notificadorVida.setTextFill(Paint.valueOf("red"));
-
-                        }else {
-                            notificadorVida.setTextFill(Paint.valueOf("green"));
-                        }
-
-
-                    }
+                    accionDeOpcion(escenario,escenario.getOpcion2());
                 }
-
 
             });
 
         // remover escenario
         jugadorLocal.getEscenarios().remove(escenario);
 
+    }
+
+
+    public void accionDeOpcion(Escenario escenario, Opcion opcion){
+        String descripcion = opcion.getDescripcionDeOpcion();
+        if(opcion.getConsumibleGanado() != null || escenario.getOpcion1().getObjetoGanado() != null ){
+            if(opcion.getConsumibleGanado() != null){
+                jugadorLocal.getMochila().agregarItem(opcion.getConsumibleGanado());
+                historiaLabel.setText(descripcion+"\nganaste "+opcion.getConsumibleGanado().getNombre());
+            }else {
+                jugadorLocal.getMochila().agregarItem(opcion.getObjetoGanado());
+                historiaLabel.setText(descripcion+"\nganaste "+opcion.getObjetoGanado().getNombre());
+
+            }
+
+
+            historiaLabel.setTextFill(Paint.valueOf("green"));
+            notificadorVida.setText("");
+
+        }else{
+            jugadorLocal.getPersonajeElegido().cambiarVida(opcion.getVidaAModificar());
+            historiaLabel.setText(descripcion);
+            if(jugadorLocal.getPersonajeElegido().getVida()<=0){
+                notificadorVida.setText("perdiste el juego...");
+                notificadorVida.setTextFill(Paint.valueOf("red"));
+            }else{
+                notificadorVida.setText("te quedan "+jugadorLocal.getPersonajeElegido().getVidaString()+"hp restantes");
+                if(jugadorLocal.getPersonajeElegido().getVida()<50){
+                    notificadorVida.setTextFill(Paint.valueOf("red"));
+                }else {
+                    notificadorVida.setTextFill(Paint.valueOf("green"));
+                }
+            }
+
+
+
+        }
     }
 
     public void cargarEscenarioGanador(){

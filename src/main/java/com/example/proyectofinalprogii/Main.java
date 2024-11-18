@@ -70,21 +70,23 @@ public class Main extends Application {
 //        jugador.agregarEscenario(escenario1);
 //        jugador.agregarEscenario(escenario2);
 
+        Usuario jugador = Inicio.inicio();
+        jugador.setMochila(mochila);
         // controlador
-//        controladorJuego controlador = fxmlLoader.getController();
-//        controlador.setJugadorLocal(jugador);
-//        controlador.setStage(stage);
-//
-//        stage.setTitle("juego aventura!");
-//        stage.setScene(scene);
-//        stage.show();
+        controladorJuego controlador = fxmlLoader.getController();
+        controlador.setJugadorLocal(jugador);
+        controlador.setStage(stage);
+
+        stage.setTitle("juego aventura!");
+        stage.setScene(scene);
+        stage.show();
     }
 
 
     // este es el main de toda la vida, no se mareen con lo de arriba tranqui
     public static void main(String[] args) {
-        Inicio.inicio();
-//        launch();
+
+      launch();
     }
 
 

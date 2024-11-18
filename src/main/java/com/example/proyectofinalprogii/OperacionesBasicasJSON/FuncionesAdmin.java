@@ -115,8 +115,10 @@ public class FuncionesAdmin {
     }
 
     private static Opcion crearOpcion(Scanner scanner) {
-        System.out.println("Ingrese el título de la opción:");
+        System.out.println("Ingrese el título de la opción:\n");
         String titulo = scanner.nextLine().trim();
+        System.out.println("Ingrese la descripcion de la opcion\n:");
+        String descOpcion = scanner.nextLine().trim();
 
         int opcionElegida = -1;
         while (opcionElegida < 1 || opcionElegida > 3) {
@@ -138,9 +140,10 @@ public class FuncionesAdmin {
             case 1:
                 System.out.println("Ingrese la cantidad de vida a sumar/restar:");
                 int vidaModificar = obtenerEntero(scanner);
-                return new Opcion(titulo, vidaModificar);
+                return new Opcion(titulo,descOpcion, vidaModificar);
 
             case 2:
+
                 System.out.println("Ingrese el nombre del objeto:");
                 String nombreObjeto = scanner.nextLine().trim();
 
@@ -148,7 +151,7 @@ public class FuncionesAdmin {
                 int codigoObjeto = obtenerEntero(scanner);
 
                 Objeto objAux = new Objeto(nombreObjeto, codigoObjeto);
-                return new Opcion(titulo, objAux);
+                return new Opcion(titulo,descOpcion, objAux);
 
             case 3:
                 System.out.println("Ingrese el nombre del consumible:");
@@ -158,7 +161,7 @@ public class FuncionesAdmin {
                 int saludRecuperada = obtenerEntero(scanner);
 
                 Consumible consumible = new Consumible(nombreConsumible, saludRecuperada);
-                return new Opcion(titulo, consumible);
+                return new Opcion(titulo,descOpcion, consumible);
 
             default:
                 throw new IllegalStateException("Opción inválida. Este error no debería ocurrir.");
