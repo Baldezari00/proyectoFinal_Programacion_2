@@ -2,6 +2,7 @@ package com.example.proyectofinalprogii.OperacionesBasicasJSON;
 
 import com.example.proyectofinalprogii.ExcepcionesPersonalizadas.ExcJugador.EscenarioNoEncontradoException;
 import com.example.proyectofinalprogii.ExcepcionesPersonalizadas.ExcJugador.NoHayEscenariosException;
+import com.example.proyectofinalprogii.ExcepcionesPersonalizadas.ExcJugador.NoHayUsuariosException;
 import com.example.proyectofinalprogii.ExcepcionesPersonalizadas.ExcJugador.OpcionInvalidaException;
 import com.example.proyectofinalprogii.Juego.Escenario;
 import com.example.proyectofinalprogii.Juego.Opcion;
@@ -15,10 +16,21 @@ public class FuncionesAdmin {
     public static void verEscenarios() {
         HashSet<Escenario> escenarios = OperacionLecturaEscritura.archivoToEscenarios();
 
+        // Verificar si no hay escenarios
+        if (escenarios.isEmpty()) {
+            try {
+                throw new NoHayEscenariosException("ERROR: No hay escenarios disponibles.");
+            } catch (NoHayEscenariosException e) {
+                System.out.println(e.getMessage());
+                return;  // Salir del método si no hay escenarios
+            }
+        }
+
         // Ordenar los escenarios por ID
         List<Escenario> listaEscenarios = new ArrayList<>(escenarios);
         listaEscenarios.sort(Comparator.comparingInt(Escenario::getIdEscenario));
 
+        // Mostrar los escenarios
         for (Escenario escenario : listaEscenarios) {
             System.out.println(escenario.toString());
         }
@@ -246,6 +258,17 @@ public class FuncionesAdmin {
     }
 
     public static void verUsuarios(ManejoUsuarios manejoUsuarios) {
+        // Verificar si no hay usuarios
+        if (manejoUsuarios.getJugadores().isEmpty()) {
+            try {
+                throw new NoHayUsuariosException("ERROR: No hay usuarios disponibles.");
+            } catch (NoHayUsuariosException e) {
+                System.out.println(e.getMessage());
+                return;  // Salir del método si no hay usuarios
+            }
+        }
+
+        // Si hay usuarios, los mostramos
         for (Usuario usuario : manejoUsuarios.getJugadores().values()) {
             System.out.println(usuario);
         }
@@ -266,8 +289,17 @@ public class FuncionesAdmin {
 
     public static void modificarUsuario(ManejoUsuarios manejoUsuarios) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Ingrese el nombre del usuario a modificar:");
-        String nombreUsuario = scanner.nextLine().trim();
+        String nombreUsuario = "";
+
+        // Validar que el nombre de usuario no esté vacío
+        while (nombreUsuario.isEmpty()) {
+            System.out.println("Ingrese el nombre del usuario a modificar:");
+            nombreUsuario = scanner.nextLine().trim();
+
+            if (nombreUsuario.isEmpty()) {
+                System.out.println("ERROR: El nombre de usuario no puede estar vacío. Intente nuevamente.");
+            }
+        }
 
         Usuario usuario = manejoUsuarios.getJugadores().get(nombreUsuario);
 
@@ -283,42 +315,68 @@ public class FuncionesAdmin {
 
                 try {
                     int opcion = scanner.nextInt();
-                    scanner.nextLine();
+                    scanner.nextLine(); // Limpiar el buffer
 
                     switch (opcion) {
                         case 1:
-                            System.out.println("Ingrese el nuevo nombre de usuario:");
-                            String nuevoNombreUsuario = scanner.nextLine().trim();
+                            String nuevoNombreUsuario = "";
+                            boolean nombreValido = false;
 
-                            // Verificar si el nuevo nombre de usuario ya existe
-                            if (manejoUsuarios.getJugadores().containsKey(nuevoNombreUsuario)) {
-                                System.out.println("ERROR: El nombre de usuario ya está en uso.");
-                            } else {
-                                // Cambiar el nombre de usuario
-                                manejoUsuarios.getJugadores().remove(nombreUsuario); // Eliminar el usuario antiguo
-                                usuario.setNombreUsuario(nuevoNombreUsuario); // Cambiar el nombre del usuario
-                                manejoUsuarios.getJugadores().put(nuevoNombreUsuario, usuario); // Agregar el usuario con el nuevo nombre
-                                OperacionLecturaEscritura.jugadoresToArchivo(manejoUsuarios.getJugadores());
-                                System.out.println("Nombre de usuario actualizado.");
+                            // Validar que el nuevo nombre de usuario no esté vacío
+                            while (!nombreValido) {
+                                System.out.println("Ingrese el nuevo nombre de usuario:");
+                                nuevoNombreUsuario = scanner.nextLine().trim();
+
+                                if (nuevoNombreUsuario.isEmpty()) {
+                                    System.out.println("ERROR: El nombre de usuario no puede estar vacío.");
+                                } else if (manejoUsuarios.getJugadores().containsKey(nuevoNombreUsuario)) {
+                                    System.out.println("ERROR: El nombre de usuario ya está en uso.");
+                                } else {
+                                    nombreValido = true;
+                                }
                             }
+
+                            // Cambiar el nombre de usuario si es válido
+                            manejoUsuarios.getJugadores().remove(nombreUsuario); // Eliminar el usuario antiguo
+                            usuario.setNombreUsuario(nuevoNombreUsuario); // Cambiar el nombre del usuario
+                            manejoUsuarios.getJugadores().put(nuevoNombreUsuario, usuario); // Agregar el usuario con el nuevo nombre
+                            OperacionLecturaEscritura.jugadoresToArchivo(manejoUsuarios.getJugadores());
+                            System.out.println("Nombre de usuario actualizado.");
                             break;
+
                         case 2:
-                            System.out.println("Ingrese la nueva contraseña:");
-                            String nuevaContrasenia = scanner.nextLine().trim();
+                            String nuevaContrasenia = "";
+                            boolean contraseniaValida = false;
+
+                            // Validar que la contraseña no esté vacía
+                            while (!contraseniaValida) {
+                                System.out.println("Ingrese la nueva contraseña:");
+                                nuevaContrasenia = scanner.nextLine().trim();
+
+                                if (nuevaContrasenia.isEmpty()) {
+                                    System.out.println("ERROR: La contraseña no puede estar vacía.");
+                                } else {
+                                    contraseniaValida = true;
+                                }
+                            }
+
+                            // Cambiar la contraseña si es válida
                             usuario.setContrasenia(nuevaContrasenia);
                             OperacionLecturaEscritura.jugadoresToArchivo(manejoUsuarios.getJugadores());
                             System.out.println("Contraseña actualizada.");
                             break;
+
                         case 3:
                             salir = true;
                             System.out.println("Regresando al menú anterior...");
                             break;
+
                         default:
                             System.out.println("Opción inválida. Intente nuevamente");
                     }
                 } catch (InputMismatchException e) {
-                    System.out.println("Opcion invalida. Por favor, ingrese un numero");
-                    scanner.nextLine();
+                    System.out.println("Opción inválida. Por favor, ingrese un número.");
+                    scanner.nextLine(); // Limpiar el buffer
                 }
             }
         } else {
