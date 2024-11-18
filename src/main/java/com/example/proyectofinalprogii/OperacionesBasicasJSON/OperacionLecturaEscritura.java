@@ -6,10 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashSet;
 import java.util.Map;
 
@@ -45,6 +42,13 @@ public class OperacionLecturaEscritura {
          String archivo = "jugadores.json";
 
          try {
+             File file = new File(archivo);
+
+             //verificar si el archivo existe
+             if (!file.exists()) {
+                 crearArchivoJugadores(archivo);
+             }
+
               JSONArray arrJsonJugadores = new JSONArray(leerArchivo(archivo));
 
                cargarMapJugadores(arrJsonJugadores, mapJugadores);
@@ -53,6 +57,16 @@ public class OperacionLecturaEscritura {
               e.printStackTrace();
          }
      }
+
+    private static void crearArchivoJugadores(String archivo) {
+        File file = new File(archivo);
+
+        try (PrintWriter salida = new PrintWriter(file)) {
+            salida.println("[]"); //escribe un arreglo JSON vacío
+        } catch (FileNotFoundException e) {
+            System.out.println("Error al crear el archivo " + archivo + ": " + e.getMessage());
+        }
+    }
 
      public static void escenariosToArchivo(HashSet<Escenario> escenarios) {
         String archivoEscenarios = "escenarios.json";
@@ -79,6 +93,12 @@ public class OperacionLecturaEscritura {
 
         HashSet<Escenario> escenarios = new HashSet<>();
 
+         // Verificar si el archivo existe y crearlo si es necesario
+         File file = new File(archivo);
+         if (!file.exists()) {
+             crearArchivoEscenarios(archivo); // Crear archivo vacío si no existe
+         }
+
         try {
             JSONArray arrJsonEscenarios = new JSONArray(leerArchivo(archivo));
 
@@ -90,6 +110,16 @@ public class OperacionLecturaEscritura {
         }
 
         return escenarios;
+    }
+
+    private static void crearArchivoEscenarios(String archivo) {
+        File file = new File(archivo);
+
+        try (PrintWriter salida = new PrintWriter(file)) {
+            salida.println("[]"); // Escribe un arreglo JSON vacío
+        } catch (FileNotFoundException e) {
+            System.out.println("Error al crear el archivo " + archivo + ": " + e.getMessage());
+        }
     }
 
     public static void cargarSetEscenarios(JSONArray arrJsonEscenarios, HashSet<Escenario> escenarios) {

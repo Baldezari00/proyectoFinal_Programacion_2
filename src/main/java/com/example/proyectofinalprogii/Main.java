@@ -85,7 +85,6 @@ public class Main extends Application {
 
     // este es el main de toda la vida, no se mareen con lo de arriba tranqui
     public static void main(String[] args) {
-
       launch();
     }
 

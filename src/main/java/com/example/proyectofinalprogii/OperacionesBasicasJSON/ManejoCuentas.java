@@ -1,5 +1,6 @@
 package com.example.proyectofinalprogii.OperacionesBasicasJSON;
 
+import com.example.proyectofinalprogii.ExcepcionesPersonalizadas.ExcJugador.OpcionInvalidaException;
 import com.example.proyectofinalprogii.Juego.Escenario;
 import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Adulto;
 import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Joven;
@@ -7,6 +8,7 @@ import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Usuario;
 import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Viejo;
 
 import java.util.HashSet;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ManejoCuentas {
@@ -38,24 +40,40 @@ public class ManejoCuentas {
         System.out.println("Ingrese una contraseña:");
         String contrasenia = scanner.nextLine().trim(); // Lee la contraseña
 
-        System.out.println("Elija su personaje:");
-        System.out.println("1-Joven (Nivel facil)");
-        System.out.println("2-Adulto (Nivel medio)");
-        System.out.println("3-Viejo (Nivel dificil)");
+        boolean personajeSeleccionado = false;
 
-        int opcionPersonaje = scanner.nextInt();
-        scanner.nextLine();
+        while (!personajeSeleccionado) {
+            try {
+                System.out.println("Elija su personaje:");
+                System.out.println("1-Joven (Nivel fácil)");
+                System.out.println("2-Adulto (Nivel medio)");
+                System.out.println("3-Viejo (Nivel difícil)");
 
-        switch (opcionPersonaje) {
-            case 1:
-                nuevoJugador = new Usuario(nombreUsuario, contrasenia, new Joven(), escenarios);
-                break;
-            case 2:
-                nuevoJugador = new Usuario(nombreUsuario, contrasenia, new Adulto(), escenarios);
-                break;
-            case 3:
-                nuevoJugador = new Usuario(nombreUsuario, contrasenia, new Viejo(), escenarios);
-                break;
+                int opcionPersonaje = scanner.nextInt();
+                scanner.nextLine(); // Limpia el buffer
+
+                switch (opcionPersonaje) {
+                    case 1:
+                        nuevoJugador = new Usuario(nombreUsuario, contrasenia, new Joven(), escenarios);
+                        personajeSeleccionado = true;
+                        break;
+                    case 2:
+                        nuevoJugador = new Usuario(nombreUsuario, contrasenia, new Adulto(), escenarios);
+                        personajeSeleccionado = true;
+                        break;
+                    case 3:
+                        nuevoJugador = new Usuario(nombreUsuario, contrasenia, new Viejo(), escenarios);
+                        personajeSeleccionado = true;
+                        break;
+                    default:
+                        throw new OpcionInvalidaException("La opción seleccionada no es válida. Intente nuevamente.");
+                }
+            } catch (OpcionInvalidaException e) {
+                System.out.println(e.getMessage());
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada inválida. Por favor ingrese un número.");
+                scanner.nextLine();
+            }
         }
 
         manejoUsuarios.agregarJugador(nuevoJugador);

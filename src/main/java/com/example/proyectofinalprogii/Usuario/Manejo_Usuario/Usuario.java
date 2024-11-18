@@ -101,13 +101,13 @@ public class Usuario {
     @Override
     public String toString() {
         return "Usuario{" +
-                "escenarios=" + escenarios +
-                ", id=" + id +
+                "id=" + id +
                 ", nombreUsuario='" + nombreUsuario + '\'' +
                 ", contrasenia='" + contrasenia + '\'' +
                 ", personajeElegido=" + personajeElegido +
                 ", mochila=" + mochila +
                 ", esAdmin=" + esAdmin +
+                ", escenarios=" + escenarios +
                 '}';
     }
 

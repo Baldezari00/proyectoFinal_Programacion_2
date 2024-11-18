@@ -127,11 +127,9 @@ public class Inicio {
                     break;
                 case 2:
                     FuncionesAdmin.eliminarUsuario(manejoJugadores);
-                    guardarCambios(manejoJugadores);
                     break;
                 case 3:
                     FuncionesAdmin.modificarUsuario(manejoJugadores);
-                    guardarCambios(manejoJugadores);
                     break;
                 case 4:
                     FuncionesAdmin.verEscenarios();
