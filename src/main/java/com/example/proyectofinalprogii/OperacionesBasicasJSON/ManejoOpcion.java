@@ -2,7 +2,6 @@ package com.example.proyectofinalprogii.OperacionesBasicasJSON;
 
 import com.example.proyectofinalprogii.Juego.Opcion;
 import com.example.proyectofinalprogii.Usuario.Mochila.Consumible;
-import com.example.proyectofinalprogii.Usuario.Mochila.Item;
 import com.example.proyectofinalprogii.Usuario.Mochila.Objeto;
 import org.json.JSONObject;
 

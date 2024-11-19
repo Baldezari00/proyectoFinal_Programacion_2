@@ -2,290 +2,280 @@
     {
         "descripcion": "Una cueva oscura se abre ante ti, con un ligero olor a humedad y eco en su interior. Las paredes están cubiertas de musgo, y a lo lejos se escucha el sonido de agua goteando.",
         "opcion2": {
+            "descOpcion": "Te alejas de la cueva pero te doblas el tobillo en el camino.",
+            "vidaAModificar": -39,
+            "consecuenciaTitulo": "No entrar"
+        },
+        "opcion1": {
             "descOpcion": "Encuentras una botella de agua casi llena en un rincón, olvidada por algún viajero anterior.",
-            "consecuenciaTitulo": "Investigar sonido",
+            "consecuenciaTitulo": "Entrar",
             "consumibleGanado": {
                 "saludRecibida": 20,
                 "nombre": "Botella de agua",
-                "idItem": 3
+                "idItem": 0
             }
-        },
-        "opcion1": {
-            "descOpcion": "Encuentras una piedra extrañamente lisa y redonda que parece haber sido pulida por el agua.",
-            "objetoGanado": {
-                "codigoObj": 102,
-                "nombre": "Piedra lisa",
-                "idItem": 4
-            },
-            "consecuenciaTitulo": "Piedra"
         },
         "idEscenario": 0
     },
     {
-        "descripcion": "Un camino polvoriento se extiende ante ti, rodeado de campos secos y sin árboles. El sol abrasador te ciega y sientes cómo el calor empieza a afectarte.",
-        "opcion2": {
-            "descOpcion": "Encuentras una barra energética semiderretida junto a una mochila rota.",
-            "consecuenciaTitulo": "Barra energética",
-            "consumibleGanado": {
-                "saludRecibida": 30,
-                "nombre": "PowerBar",
-                "idItem": 5
-            }
-        },
-        "opcion1": {
-            "descOpcion": "Encuentras un mapa viejo que muestra la ubicación de un refugio cercano.",
-            "objetoGanado": {
-                "codigoObj": 103,
-                "nombre": "Mapa viejo",
-                "idItem": 6
-            },
-            "consecuenciaTitulo": "Mapa"
-        },
-        "idEscenario": 1
-    },
-    {
         "descripcion": "Te topas con un río tranquilo que serpentea entre las rocas. El agua parece cristalina y escuchas el sonido relajante de su flujo. Sin embargo, hay señales de animales cercanos.",
         "opcion2": {
-            "descOpcion": "Encuentras un pequeño pescado atrapado entre las rocas.",
-            "consecuenciaTitulo": "Pescado fresco",
-            "consumibleGanado": {
-                "saludRecibida": 50,
-                "nombre": "Pescado fresco",
-                "idItem": 7
-            }
-        },
-        "opcion1": {
             "descOpcion": "Descubres una caña de pescar improvisada hecha con ramas.",
             "objetoGanado": {
                 "codigoObj": 104,
                 "nombre": "Caña improvisada",
-                "idItem": 8
+                "idItem": 2
             },
-            "consecuenciaTitulo": "Caña"
+            "consecuenciaTitulo": "Intentar pescar."
         },
-        "idEscenario": 2
+        "opcion1": {
+            "descOpcion": "Intentas irte nadando pero la corriente te arrastra con fuerza.",
+            "vidaAModificar": -27,
+            "consecuenciaTitulo": "Te vas nadando"
+        },
+        "idEscenario": 1
     },
     {
         "descripcion": "Te encuentras en un pueblo abandonado, con casas derruidas y escombros por todas partes. Hay grafitis en las paredes que advierten sobre peligros desconocidos.",
         "opcion2": {
+            "descOpcion": "Te alejas del pueblo y encuentras una cueva para descansar.",
+            "vidaAModificar": 20,
+            "consecuenciaTitulo": "Irse"
+        },
+        "opcion1": {
             "descOpcion": "Encuentras una lata de comida aún cerrada y en buen estado.",
-            "consecuenciaTitulo": "Lata de comida",
+            "consecuenciaTitulo": "Investigar",
             "consumibleGanado": {
-                "saludRecibida": 40,
+                "saludRecibida": 30,
                 "nombre": "Sopa enlatada",
-                "idItem": 9
+                "idItem": 5
             }
         },
-        "opcion1": {
-            "descOpcion": "Encuentras una linterna vieja con baterías medio descargadas.",
-            "objetoGanado": {
-                "codigoObj": 105,
-                "nombre": "Linterna vieja",
-                "idItem": 10
-            },
-            "consecuenciaTitulo": "Linterna"
-        },
-        "idEscenario": 3
-    },
-    {
-        "descripcion": "Te encuentras en una playa desierta, con el sonido del mar rompiendo contra las rocas cercanas. En la arena hay huellas que se dirigen hacia las dunas más alejadas.",
-        "opcion2": {
-            "descOpcion": "Encuentras una caja de madera parcialmente enterrada en la arena. Dentro, hay frutas secas aún comestibles.",
-            "consecuenciaTitulo": "Frutas secas",
-            "consumibleGanado": {
-                "saludRecibida": 35,
-                "nombre": "Mix de frutas secas",
-                "idItem": 11
-            }
-        },
-        "opcion1": {
-            "descOpcion": "Encuentras un trozo de vidrio pulido por el agua, lo suficientemente afilado como para usarlo como herramienta.",
-            "objetoGanado": {
-                "codigoObj": 106,
-                "nombre": "Vidrio pulido",
-                "idItem": 12
-            },
-            "consecuenciaTitulo": "Herramienta improvisada"
-        },
-        "idEscenario": 4
-    },
-    {
-        "descripcion": "Caminas por una colina cubierta de hierba alta que se balancea con el viento. Desde la cima, ves una construcción lejana que parece ser un molino.",
-        "opcion2": {
-            "descOpcion": "Encuentras una pequeña bolsa de granos que podría ser útil para preparar comida.",
-            "consecuenciaTitulo": "Bolsa de granos",
-            "consumibleGanado": {
-                "saludRecibida": 20,
-                "nombre": "Granos de trigo",
-                "idItem": 13
-            }
-        },
-        "opcion1": {
-            "descOpcion": "Encuentras una cuerda vieja colgada de un árbol cercano.",
-            "objetoGanado": {
-                "codigoObj": 107,
-                "nombre": "Cuerda resistente",
-                "idItem": 14
-            },
-            "consecuenciaTitulo": "Cuerda"
-        },
-        "idEscenario": 5
+        "idEscenario": 2
     },
     {
         "descripcion": "Una tormenta comienza a formarse, y el cielo se oscurece rápidamente. Te encuentras en un terreno abierto con pocas opciones de refugio.",
         "opcion2": {
-            "descOpcion": "Encuentras una botella de refresco medio llena junto a unos escombros.",
-            "consecuenciaTitulo": "Refresco",
-            "consumibleGanado": {
-                "saludRecibida": 15,
-                "nombre": "Refresco energético",
-                "idItem": 15
-            }
+            "descOpcion": "Comienzas a gritar y una familia te escucha a lo lejos, se acercan y te dan comida y refugio.",
+            "vidaAModificar": 30,
+            "consecuenciaTitulo": "Gritar"
         },
         "opcion1": {
-            "descOpcion": "Encuentras una lona vieja que podría servir para protegerte de la lluvia.",
+            "descOpcion": "Comienzas a correr buscando un lugar seguro pero te cansas mucho.",
+            "vidaAModificar": -35,
+            "consecuenciaTitulo": "Correr"
+        },
+        "idEscenario": 3
+    },
+    {
+        "descripcion": "Un bosque denso y sombrío se extiende frente a ti, con árboles tan altos que apenas dejan pasar la luz del sol. Escuchas ruidos lejanos que parecen provenir de algún animal.",
+        "opcion2": {
+            "descOpcion": "Decides seguir el camino marcado pero un árbol caído te obstruye y pierdes tiempo.",
+            "vidaAModificar": -16,
+            "consecuenciaTitulo": "Seguir el camino"
+        },
+        "opcion1": {
+            "descOpcion": "Encuentras un refugio improvisado con algo de comida dentro.",
+            "consecuenciaTitulo": "Explorar el bosque",
+            "consumibleGanado": {
+                "saludRecibida": 15,
+                "nombre": "Ración militar",
+                "idItem": 6
+            }
+        },
+        "idEscenario": 4
+    },
+    {
+        "descripcion": "Llegas a un campamento abandonado con una fogata apagada y restos de comida alrededor. El lugar parece seguro, pero hay rastros de que alguien estuvo allí recientemente.",
+        "opcion2": {
+            "descOpcion": "Decides esperar por si alguien regresa, pero la noche es fría.",
+            "vidaAModificar": -12,
+            "consecuenciaTitulo": "Esperar"
+        },
+        "opcion1": {
+            "descOpcion": "Encuentras un cuchillo pequeño y funcional.",
             "objetoGanado": {
-                "codigoObj": 108,
-                "nombre": "Lona impermeable",
-                "idItem": 16
+                "codigoObj": 105,
+                "nombre": "Cuchillo pequeño",
+                "idItem": 7
             },
-            "consecuenciaTitulo": "Refugio improvisado"
+            "consecuenciaTitulo": "Revisar campamento"
+        },
+        "idEscenario": 5
+    },
+    {
+        "descripcion": "Te encuentras en una pradera tranquila con hierba alta. A lo lejos, ves una pequeña choza rodeada de flores silvestres.",
+        "opcion2": {
+            "descOpcion": "Te acercas con cuidado y encuentras una trampa que casi te lastima.",
+            "vidaAModificar": -13,
+            "consecuenciaTitulo": "Ir hacia la choza"
+        },
+        "opcion1": {
+            "descOpcion": "Recolectas flores comestibles que encuentras en el camino.",
+            "consecuenciaTitulo": "Recolectar flores",
+            "consumibleGanado": {
+                "saludRecibida": 10,
+                "nombre": "Flores comestibles",
+                "idItem": 8
+            }
+        },
+        "idEscenario": 6
+    },
+    {
+        "descripcion": "Un puente colgante cruza un profundo cañón, pero parece viejo y desgastado. Las cuerdas crujen con el viento.",
+        "opcion2": {
+            "descOpcion": "Decides buscar otra ruta, pero pierdes varias horas.",
+            "vidaAModificar": -20,
+            "consecuenciaTitulo": "Evitar el puente"
+        },
+        "opcion1": {
+            "descOpcion": "Atraviesas el puente con éxito y encuentras una mochila abandonada.",
+            "objetoGanado": {
+                "codigoObj": 106,
+                "nombre": "Mochila resistente",
+                "idItem": 9
+            },
+            "consecuenciaTitulo": "Cruzar el puente"
         },
         "idEscenario": 7
     },
     {
-        "descripcion": "Un desierto árido se extiende ante ti, con dunas interminables y un calor sofocante. A lo lejos, parece haber una construcción abandonada.",
+        "descripcion": "Un claro en el bosque revela un pequeño lago con agua cristalina. Hay peces nadando cerca de la orilla.",
         "opcion2": {
-            "descOpcion": "Encuentras un paquete de frutos secos escondido en la sombra de una roca.",
-            "consecuenciaTitulo": "Frutos secos",
-            "consumibleGanado": {
-                "saludRecibida": 40,
-                "nombre": "Maní salado",
-                "idItem": 17
-            }
+            "descOpcion": "Te acercas a beber agua pero resbalas y caes al lago.",
+            "vidaAModificar": -5,
+            "consecuenciaTitulo": "Beber agua"
         },
         "opcion1": {
-            "descOpcion": "Encuentras una cantimplora vacía, pero aún funcional.",
-            "objetoGanado": {
-                "codigoObj": 109,
-                "nombre": "Cantimplora vacía",
-                "idItem": 18
-            },
-            "consecuenciaTitulo": "Cantimplora"
+            "descOpcion": "Utilizas una red improvisada para atrapar un pez.",
+            "consecuenciaTitulo": "Pescar",
+            "consumibleGanado": {
+                "saludRecibida": 25,
+                "nombre": "Pez fresco",
+                "idItem": 10
+            }
         },
         "idEscenario": 8
     },
     {
-        "descripcion": "Llegas a un claro en el bosque, donde parece haber restos de una fogata y un saco de dormir dejado atrás.",
+        "descripcion": "En un camino polvoriento, te topas con un carro abandonado cargado con barriles y cajas cerradas.",
         "opcion2": {
-            "descOpcion": "Encuentras un paquete de sopa instantánea aún sellado.",
-            "consecuenciaTitulo": "Sopa instantánea",
-            "consumibleGanado": {
-                "saludRecibida": 30,
-                "nombre": "Sopa de pollo",
-                "idItem": 19
-            }
+            "descOpcion": "Tratas de abrir una caja pero dentro solo encuentras basura.",
+            "vidaAModificar": -10,
+            "consecuenciaTitulo": "Forzar la caja"
         },
         "opcion1": {
-            "descOpcion": "Encuentras un cuchillo oxidado tirado junto a la fogata.",
+            "descOpcion": "Encuentras una linterna en buen estado entre las cajas.",
             "objetoGanado": {
-                "codigoObj": 110,
-                "nombre": "Cuchillo oxidado",
-                "idItem": 20
+                "codigoObj": 107,
+                "nombre": "Linterna",
+                "idItem": 11
             },
-            "consecuenciaTitulo": "Cuchillo"
+            "consecuenciaTitulo": "Revisar cajas"
         },
         "idEscenario": 9
     },
     {
-        "descripcion": "Mientras avanzas por un camino estrecho entre montañas, te detienes al escuchar un eco extraño que parece ser el rugido de un animal. La temperatura comienza a bajar rápidamente, y te das cuenta de que el suelo está cubierto de pequeñas marcas que no habías notado antes.",
+        "descripcion": "Un sendero angosto bordea una montaña, ofreciendo vistas impresionantes pero peligrosas.",
         "opcion2": {
-            "descOpcion": "Sigues el sonido, esperando encontrar su origen para despejar tus dudas.",
-            "vidaAModificar": -35,
-            "consecuenciaTitulo": "El descubrimiento"
+            "descOpcion": "Eliges no arriesgarte y retrocedes, pero te cansas en el camino.",
+            "vidaAModificar": -15,
+            "consecuenciaTitulo": "Retroceder"
         },
         "opcion1": {
-            "descOpcion": "Decides retroceder unos metros para buscar un camino alternativo, aunque esto te hace perder tiempo.",
-            "vidaAModificar": 15,
-            "consecuenciaTitulo": "La precaución"
+            "descOpcion": "Encuentras una planta medicinal que puedes usar.",
+            "consecuenciaTitulo": "Avanzar con cuidado",
+            "consumibleGanado": {
+                "saludRecibida": 20,
+                "nombre": "Hierba curativa",
+                "idItem": 12
+            }
         },
         "idEscenario": 10
     },
     {
-        "descripcion": "Te encuentras en un desierto donde el sol es abrasador y tu botella de agua está casi vacía. A lo lejos, ves lo que parece ser una figura que se mueve lentamente. Te debates entre acercarte para investigar o ignorar lo que podría ser una ilusión óptica.",
+        "descripcion": "Un campo lleno de arbustos con bayas de aspecto tentador se abre frente a ti.",
         "opcion2": {
-            "descOpcion": "Te acercas a la figura, con la esperanza de que sea alguien con provisiones.",
-            "vidaAModificar": -20,
-            "consecuenciaTitulo": "La decisión apresurada"
+            "descOpcion": "Pruebas una baya pero resulta venenosa.",
+            "vidaAModificar": -30,
+            "consecuenciaTitulo": "Comer bayas"
         },
         "opcion1": {
-            "descOpcion": "Te alejas del área y decides buscar refugio temporal bajo una roca.",
-            "vidaAModificar": 25,
-            "consecuenciaTitulo": "El refugio inesperado"
+            "descOpcion": "Recolectas bayas que parecen seguras.",
+            "consecuenciaTitulo": "Recolectar bayas",
+            "consumibleGanado": {
+                "saludRecibida": 15,
+                "nombre": "Bayas dulces",
+                "idItem": 13
+            }
         },
         "idEscenario": 11
     },
     {
-        "descripcion": "Un bosque oscuro se extiende frente a ti, y aunque sientes que el aire está cargado, también notas que el suelo está lleno de raíces y plantas. A lo lejos, hay un destello de luz que parece provenir de algo metálico.",
+        "descripcion": "Una cabaña destartalada se alza en el bosque. De la chimenea sale un débil hilo de humo.",
         "opcion2": {
-            "descOpcion": "Te diriges hacia el destello para ver qué está reflejando la luz.",
-            "vidaAModificar": -10,
-            "consecuenciaTitulo": "El brillo misterioso"
+            "descOpcion": "Te acercas y el ocupante resulta ser hostil.",
+            "vidaAModificar": -25,
+            "consecuenciaTitulo": "Tocar la puerta"
         },
         "opcion1": {
-            "descOpcion": "Evitas el destello y sigues caminando por un camino más seguro pero más largo.",
-            "vidaAModificar": 10,
-            "consecuenciaTitulo": "El sendero largo"
+            "descOpcion": "Encuentras un saco de provisiones en la entrada.",
+            "consecuenciaTitulo": "Revisar sin entrar",
+            "consumibleGanado": {
+                "saludRecibida": 20,
+                "nombre": "Saco de provisiones",
+                "idItem": 14
+            }
         },
         "idEscenario": 12
     },
     {
-        "descripcion": "Caminando por un acantilado, el viento empieza a intensificarse, y pequeños fragmentos de roca caen al vacío. Una extraña cueva está visible en la distancia, pero parece inestable.",
+        "descripcion": "Llegas a una colina desde donde puedes ver toda la región. Es un lugar ideal para descansar o planear tu próximo movimiento.",
         "opcion2": {
-            "descOpcion": "Entras en la cueva buscando refugio del viento.",
-            "vidaAModificar": -25,
-            "consecuenciaTitulo": "El escondite peligroso"
+            "descOpcion": "Decides descansar pero te expones al sol y te deshidratas.",
+            "vidaAModificar": -10,
+            "consecuenciaTitulo": "Descansar"
         },
         "opcion1": {
-            "descOpcion": "Sigues bordeando el acantilado con mucho cuidado.",
-            "vidaAModificar": 20,
-            "consecuenciaTitulo": "El camino seguro"
+            "descOpcion": "Encuentras un mapa rudimentario tallado en una roca.",
+            "objetoGanado": {
+                "codigoObj": 108,
+                "nombre": "Mapa tallado",
+                "idItem": 15
+            },
+            "consecuenciaTitulo": "Buscar indicios"
         },
         "idEscenario": 13
     },
     {
-        "descripcion": "Un pueblo abandonado aparece en tu camino, con casas en ruinas y un extraño silencio envolvente. Al explorar, encuentras un pozo viejo que parece contener algo dentro.",
+        "descripcion": "Un claro en el bosque donde los rayos del sol atraviesan las hojas y crean un ambiente sereno. En el centro, un gran árbol con marcas misteriosas.",
         "opcion2": {
-            "descOpcion": "Inspeccionas el pozo, esperando encontrar algo útil en su interior.",
-            "vidaAModificar": -15,
-            "consecuenciaTitulo": "La búsqueda infructuosa"
+            "descOpcion": "Te sientas a descansar bajo el árbol y, al levantarte, encuentras una bolsa de hierbas medicinales olvidada.",
+            "consecuenciaTitulo": "Descansar",
+            "consumibleGanado": {
+                "saludRecibida": 25,
+                "nombre": "Hierbas medicinales",
+                "idItem": 6
+            }
         },
         "opcion1": {
-            "descOpcion": "Ignoras el pozo y buscas en una de las casas más estables.",
-            "vidaAModificar": 30,
-            "consecuenciaTitulo": "La casa útil"
+            "descOpcion": "Intentas escalar el árbol para obtener una mejor vista, pero te resbalas y caes.",
+            "vidaAModificar": -20,
+            "consecuenciaTitulo": "Escalar el árbol"
         },
         "idEscenario": 14
     },
     {
-        "descripcion": "Te encuentras en un bosque denso y misterioso, rodeado de árboles altos y una niebla espesa que apenas deja pasar la luz del sol. El ambiente es frío y húmedo, y el sonido de los pájaros parece provenir de todas partes.",
+        "descripcion": "Un antiguo puente de piedra que cruza un río caudaloso. El puente parece deteriorado, pero sigue en pie.",
         "opcion2": {
-            "descOpcion": "Después de caminar unos metros, descubres un paquete de galletas abandonado bajo un tronco caído.",
-            "consecuenciaTitulo": "Paquete de galletas",
-            "consumibleGanado": {
-                "saludRecibida": 25,
-                "nombre": "ChocoChip Deluxe",
-                "idItem": 1
-            }
+            "descOpcion": "Decides no arriesgarte a cruzar y sigues el río hasta encontrar una zona más segura.",
+            "vidaAModificar": 15,
+            "consecuenciaTitulo": "Buscar otro camino"
         },
         "opcion1": {
-            "descOpcion": "Encuentras una brújula rota en un charco de agua turbia, pero quizás todavía sea útil para orientarte.",
-            "objetoGanado": {
-                "codigoObj": 101,
-                "nombre": "Brújula rota",
-                "idItem": 2
-            },
-            "consecuenciaTitulo": "Brújula"
+            "descOpcion": "Cruzando el puente, una piedra suelta hace que tropieces y te lastimes.",
+            "vidaAModificar": -28,
+            "consecuenciaTitulo": "Cruzar el puente"
         },
         "idEscenario": 15
     }

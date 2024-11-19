@@ -327,51 +327,48 @@ public class controladorJuego {
     }
 
 
-    public void accionDeOpcion(Escenario escenario, Opcion opcion){
+    public void accionDeOpcion(Escenario escenario, Opcion opcion) {
         String descripcion = opcion.getDescripcionDeOpcion();
-        if(opcion.getConsumibleGanado() != null || escenario.getOpcion1().getObjetoGanado() != null ){
-            if(opcion.getConsumibleGanado() != null){
-                if(jugadorLocal.getMochila().agregarItem(opcion.getConsumibleGanado())==0){
+
+        // Verificar si se gana un consumible o un objeto antes de acceder a sus métodos
+        if (opcion.getConsumibleGanado() != null || opcion.getObjetoGanado() != null) {
+            if (opcion.getConsumibleGanado() != null) {
+                if (jugadorLocal.getMochila().agregarItem(opcion.getConsumibleGanado()) == 0) {
                     historiaLabel.setText(descripcion);
-                    gananciaItemLabel.setText("encontraste "+opcion.getConsumibleGanado().getNombre()+". Pero tienes la mochila llena!");
-                }else {
+                    gananciaItemLabel.setText("Encontraste " + opcion.getConsumibleGanado().getNombre() + ". ¡Pero tienes la mochila llena!");
+                } else {
                     historiaLabel.setText(descripcion);
-                    gananciaItemLabel.setText("encontraste "+opcion.getConsumibleGanado().getNombre());
+                    gananciaItemLabel.setText("Encontraste " + opcion.getConsumibleGanado().getNombre());
                     cargarItemsEnVBox();
                 }
-
-            }else {
-                if(jugadorLocal.getMochila().agregarItem(opcion.getObjetoGanado())==0){
+            } else if (opcion.getObjetoGanado() != null) {
+                if (jugadorLocal.getMochila().agregarItem(opcion.getObjetoGanado()) == 0) {
                     historiaLabel.setText(descripcion);
-                    gananciaItemLabel.setText("encontraste "+opcion.getObjetoGanado().getNombre()+". Pero tienes la mochila llena!");
-                }else {
+                    gananciaItemLabel.setText("Encontraste " + opcion.getObjetoGanado().getNombre() + ". ¡Pero tienes la mochila llena!");
+                } else {
                     historiaLabel.setText(descripcion);
-                    gananciaItemLabel.setText("encontraste "+opcion.getObjetoGanado().getNombre());
+                    gananciaItemLabel.setText("Encontraste " + opcion.getObjetoGanado().getNombre());
                     cargarItemsEnVBox();
                 }
-
-
             }
 
             gananciaItemLabel.setTextFill(Paint.valueOf("green"));
             notificadorVida.setText("");
 
-
-        }else {
+        } else {
+            // No se gana ningún item, solo se modifica la vida
             historiaLabel.setText(descripcion);
             if (jugadorLocal.getPersonajeElegido().cambiarVida(opcion.getVidaAModificar()) == 0) {
                 notificadorVida.setTextFill(Paint.valueOf("green"));
-                notificadorVida.setText("has ganado " + opcion.getVidaAModificar() + "hp pero ya tienes vida maxima " + jugadorLocal.getPersonajeElegido().getVida() + "hp");
+                notificadorVida.setText("Has ganado " + opcion.getVidaAModificar() + "hp pero ya tienes vida máxima: " + jugadorLocal.getPersonajeElegido().getVida() + "hp");
             } else {
                 if (jugadorLocal.getPersonajeElegido().getVida() <= 0) {
-                    cargarEscenarioPerdedorGanador("Has, perdido el juego...");
+                    cargarEscenarioPerdedorGanador("Has perdido el juego...");
                 } else {
-
-                    if(opcion.getVidaAModificar()>0){
-                        notificadorVida.setText("has ganado "+opcion.getVidaAModificar()+"hp te quedan " + jugadorLocal.getPersonajeElegido().getVidaString() + "hp restantes");
-                    }else{
-                        notificadorVida.setText("has perdido "+opcion.getVidaAModificar()+"hp te quedan " + jugadorLocal.getPersonajeElegido().getVidaString() + "hp restantes");
-
+                    if (opcion.getVidaAModificar() > 0) {
+                        notificadorVida.setText("Has ganado " + opcion.getVidaAModificar() + "hp. Te quedan " + jugadorLocal.getPersonajeElegido().getVidaString() + "hp restantes.");
+                    } else {
+                        notificadorVida.setText("Has perdido " + Math.abs(opcion.getVidaAModificar()) + "hp. Te quedan " + jugadorLocal.getPersonajeElegido().getVidaString() + "hp restantes.");
                     }
                     if (jugadorLocal.getPersonajeElegido().getVida() < 50) {
                         notificadorVida.setTextFill(Paint.valueOf("red"));
@@ -380,15 +377,15 @@ public class controladorJuego {
                     }
                 }
             }
-            if(jugadorLocal.getPersonajeElegido().getVida()>=50){
+            if (jugadorLocal.getPersonajeElegido().getVida() >= 50) {
                 vidaActual.setTextFill(Paint.valueOf("green"));
-            }else{
+            } else {
                 vidaActual.setTextFill(Paint.valueOf("red"));
             }
-            vidaActual.setText("vida actual: " + jugadorLocal.getPersonajeElegido().getVida() + "hp");
+            vidaActual.setText("Vida actual: " + jugadorLocal.getPersonajeElegido().getVida() + "hp");
         }
-
     }
+
 
 
     // curacion rapida

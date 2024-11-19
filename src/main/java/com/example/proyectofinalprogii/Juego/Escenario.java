@@ -1,11 +1,10 @@
 package com.example.proyectofinalprogii.Juego;
 
-import java.util.Objects;
-
 /**
 
  Escenario que cuenta con solo 2 opciones y una descripción.
- @author Balde*/
+ @author Balde y Fede
+ */
 public class Escenario {
     private static int contadorId = 0;
     private int idEscenario;

@@ -5,8 +5,6 @@ import com.example.proyectofinalprogii.Usuario.Manejo_Usuario.Personaje.Personaj
 import com.example.proyectofinalprogii.Usuario.Mochila.Consumible;
 import com.example.proyectofinalprogii.Usuario.Mochila.Item;
 import com.example.proyectofinalprogii.Usuario.Mochila.Mochila;
-import com.example.proyectofinalprogii.Usuario.Mochila.Objeto;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -120,9 +118,7 @@ public class Usuario {
                 ", nombreUsuario='" + nombreUsuario + '\'' +
                 ", contrasenia='" + contrasenia + '\'' +
                 ", personajeElegido=" + personajeElegido +
-                ", mochila=" + mochila +
                 ", esAdmin=" + esAdmin +
-                ", escenarios=" + escenarios +
                 '}';
     }
 

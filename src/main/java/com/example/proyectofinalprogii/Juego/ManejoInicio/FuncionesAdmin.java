@@ -15,6 +15,10 @@ import com.example.proyectofinalprogii.Usuario.Mochila.Objeto;
 import java.util.*;
 
 public class FuncionesAdmin {
+    /*
+    @author Fede
+    Todas las funciones que puedan hacer solo los administradores estan aca
+     */
     public static void verEscenarios() {
         HashSet<Escenario> escenarios = OperacionLecturaEscritura.archivoToEscenarios();
 
@@ -39,6 +43,7 @@ public class FuncionesAdmin {
     }
 
     public static void agregarEscenario() {
+        // Se traen los escenarios del json
         HashSet<Escenario> escenarios = OperacionLecturaEscritura.archivoToEscenarios();
         Scanner scanner = new Scanner(System.in);
 
@@ -62,6 +67,7 @@ public class FuncionesAdmin {
     }
 
     public static void eliminarEscenario() {
+        //Se traen todos los escenarios del json
         HashSet<Escenario> escenarios = OperacionLecturaEscritura.archivoToEscenarios();
         Scanner scanner = new Scanner(System.in);
 
@@ -78,12 +84,12 @@ public class FuncionesAdmin {
             while (!idValido) {
                 try {
                     idAEliminar = scanner.nextInt();
-                    scanner.nextLine(); // Limpiar el buffer
+                    scanner.nextLine();
 
-                    idValido = true;  // Si no hay excepción, el ID es válido
+                    idValido = true;  //Si no hay excepción, el ID es válido
                 } catch (InputMismatchException e) {
                     System.out.println("ERROR: El ID debe ser un número válido. Intente nuevamente.");
-                    scanner.nextLine(); // Limpiar el buffer para evitar bucles infinitos
+                    scanner.nextLine(); //Limpiar el buffer para evitar bucles infinitos
                 }
             }
 
@@ -98,6 +104,7 @@ public class FuncionesAdmin {
             }
 
             if (escenarioAEliminar != null) {
+                //Si se encuentra escenario se elimina
                 escenarios.remove(escenarioAEliminar);
                 System.out.println("Escenario eliminado exitosamente.");
                 OperacionLecturaEscritura.escenariosToArchivo(escenarios); //Guardar los cambios en el archivo
@@ -111,6 +118,7 @@ public class FuncionesAdmin {
     }
 
     public static void modificarEscenario() {
+        //Se traen todos los escenarios del json
         HashSet<Escenario> escenarios = OperacionLecturaEscritura.archivoToEscenarios();
         Scanner scanner = new Scanner(System.in);
 
@@ -128,16 +136,15 @@ public class FuncionesAdmin {
 
                 try {
                     id = scanner.nextInt();
-                    scanner.nextLine(); // Limpiar el buffer
+                    scanner.nextLine();
 
                     idValido = true;
                 } catch (InputMismatchException e) {
                     System.out.println("ERROR: El ID debe ser un numero valido. Intente nuevamente.");
-                    scanner.nextLine(); // Limpiar el buffer
+                    scanner.nextLine();
                 }
             }
 
-            // Lanzamos una excepción personalizada si no se encuentra el escenario
             Escenario escenarioModificar = null;
             for (Escenario e : escenarios) {
                 if (e.getIdEscenario() == id) {
@@ -172,7 +179,7 @@ public class FuncionesAdmin {
                         System.out.println("ERROR: " + e.getMessage());
                     } catch (InputMismatchException e) {
                         System.out.println("ERROR: Debe ingresar un número válido.");
-                        scanner.nextLine(); // Limpiar el buffer
+                        scanner.nextLine();
                     }
                 }
 
@@ -206,9 +213,9 @@ public class FuncionesAdmin {
     }
 
     private static Opcion crearOpcion(Scanner scanner) {
-        System.out.println("Ingrese el título de la opción:\n");
+        System.out.println("Ingrese el título de la opción:");
         String titulo = scanner.nextLine().trim();
-        System.out.println("Ingrese la descripcion de la opcion\n:");
+        System.out.println("Ingrese la descripcion de la opcion:");
         String descOpcion = scanner.nextLine().trim();
 
         int opcionElegida = -1;
@@ -220,10 +227,10 @@ public class FuncionesAdmin {
 
             if (scanner.hasNextInt()) {
                 opcionElegida = scanner.nextInt();
-                scanner.nextLine(); // Limpia el buffer
+                scanner.nextLine();
             } else {
                 System.out.println("Por favor, ingrese un número válido.");
-                scanner.nextLine(); // Limpia el buffer
+                scanner.nextLine();
             }
         }
 
@@ -232,9 +239,7 @@ public class FuncionesAdmin {
                 System.out.println("Ingrese la cantidad de vida a sumar/restar:");
                 int vidaModificar = obtenerEntero(scanner);
                 return new Opcion(titulo,descOpcion, vidaModificar);
-
             case 2:
-
                 System.out.println("Ingrese el nombre del objeto:");
                 String nombreObjeto = scanner.nextLine().trim();
 
@@ -243,7 +248,6 @@ public class FuncionesAdmin {
 
                 Objeto objAux = new Objeto(nombreObjeto, codigoObjeto);
                 return new Opcion(titulo,descOpcion, objAux);
-
             case 3:
                 System.out.println("Ingrese el nombre del consumible:");
                 String nombreConsumible = scanner.nextLine().trim();
@@ -253,7 +257,6 @@ public class FuncionesAdmin {
 
                 Consumible consumible = new Consumible(nombreConsumible, saludRecuperada);
                 return new Opcion(titulo,descOpcion, consumible);
-
             default:
                 throw new IllegalStateException("Opción inválida. Este error no debería ocurrir.");
         }
@@ -270,8 +273,14 @@ public class FuncionesAdmin {
             }
         }
 
-        // Si hay usuarios, los mostramos
-        for (Usuario usuario : manejoUsuarios.getJugadores().values()) {
+        // Convertir la colección de valores a una lista
+        List<Usuario> usuariosList = new ArrayList<>(manejoUsuarios.getJugadores().values());
+
+        // Ordenar la lista por id de usuario
+        usuariosList.sort(Comparator.comparingInt(Usuario::getId));
+
+        // Mostrar los usuarios ordenados
+        for (Usuario usuario : usuariosList) {
             System.out.println(usuario);
         }
     }
@@ -317,7 +326,7 @@ public class FuncionesAdmin {
 
                 try {
                     int opcion = scanner.nextInt();
-                    scanner.nextLine(); // Limpiar el buffer
+                    scanner.nextLine();
 
                     switch (opcion) {
                         case 1:
@@ -378,7 +387,7 @@ public class FuncionesAdmin {
                     }
                 } catch (InputMismatchException e) {
                     System.out.println("Opción inválida. Por favor, ingrese un número.");
-                    scanner.nextLine(); // Limpiar el buffer
+                    scanner.nextLine();
                 }
             }
         } else {
@@ -389,10 +398,10 @@ public class FuncionesAdmin {
     private static int obtenerEntero(Scanner scanner) {
         while (!scanner.hasNextInt()) {
             System.out.println("Por favor, ingrese un número válido.");
-            scanner.nextLine(); // Limpia el buffer
+            scanner.nextLine();
         }
         int numero = scanner.nextInt();
-        scanner.nextLine(); // Limpia el buffer
+        scanner.nextLine();
         return numero;
     }
 }

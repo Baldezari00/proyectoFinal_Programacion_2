@@ -2,10 +2,7 @@ package com.example.proyectofinalprogii.OperacionesBasicasJSON;
 
 import com.example.proyectofinalprogii.Juego.Escenario;
 import com.example.proyectofinalprogii.Juego.Opcion;
-import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.util.HashSet;
 
 public class ManejoEscenario {
     public static JSONObject escenarioToJson(Escenario escenario) {
