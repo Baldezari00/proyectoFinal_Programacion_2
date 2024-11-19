@@ -97,6 +97,22 @@ public class Usuario {
         this.mochila = mochila;
     }
 
+    public static int getContadorId() {
+        return contadorId;
+    }
+
+    public static void setContadorId(int contadorId) {
+        Usuario.contadorId = contadorId;
+    }
+
+    public boolean isEsAdmin() {
+        return esAdmin;
+    }
+
+    public void setEsAdmin(boolean esAdmin) {
+        this.esAdmin = esAdmin;
+    }
+
     @Override
     public String toString() {
         return "Usuario{" +
@@ -133,13 +149,8 @@ public class Usuario {
             if(personajeElegido.cambiarVida(((Consumible) item).getSaludRecibida())==0){
                 flag=0;
             }else{
-                personajeElegido.cambiarVida(((Consumible) item).getSaludRecibida());
                 System.out.println("objeto usado, te queda: "+personajeElegido.getVida()+"hp\n");
             }
-
-
-        }else if(item instanceof Objeto){
-
         }
 
         return flag;

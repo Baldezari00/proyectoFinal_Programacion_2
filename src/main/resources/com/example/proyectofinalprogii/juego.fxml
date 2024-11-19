@@ -20,7 +20,10 @@
          <font>
             <Font size="20.0" />
          </font></Label>
-      <Label fx:id="notificadorVida" alignment="CENTER" contentDisplay="CENTER" layoutX="396.0" layoutY="360.0" prefHeight="104.0" prefWidth="410.0" textAlignment="CENTER" />
+      <Label fx:id="notificadorVida" alignment="CENTER" contentDisplay="CENTER" layoutX="397.0" layoutY="374.0" prefHeight="104.0" prefWidth="410.0" textAlignment="CENTER">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
       <Button fx:id="siguiente" alignment="CENTER" layoutX="514.0" layoutY="640.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="172.0" text="Siguiente">
          <font>
             <Font size="18.0" />
@@ -34,7 +37,10 @@
          <font>
             <Font size="13.0" />
          </font></Button>
-      <Label fx:id="gananciaItemLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="432.0" layoutY="259.0" prefHeight="47.0" prefWidth="337.0" textAlignment="CENTER" />
+      <Label fx:id="gananciaItemLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="432.0" layoutY="259.0" prefHeight="47.0" prefWidth="337.0" textAlignment="CENTER">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
       <Label fx:id="avisoGuardado" alignment="CENTER" contentDisplay="CENTER" layoutX="20.0" layoutY="681.0" prefHeight="34.0" prefWidth="189.0" textAlignment="CENTER">
          <font>
             <Font size="14.0" />
@@ -58,5 +64,10 @@
          <font>
             <Font size="15.0" />
          </font></Label>
+      <Label fx:id="estadisticaVidaGanada" alignment="CENTER" contentDisplay="CENTER" layoutX="395.0" layoutY="290.0" prefHeight="83.0" prefWidth="410.0" textAlignment="CENTER">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

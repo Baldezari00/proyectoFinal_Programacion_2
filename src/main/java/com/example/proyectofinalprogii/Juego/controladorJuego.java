@@ -9,6 +9,7 @@ import com.example.proyectofinalprogii.Usuario.Mochila.Consumible;
 import com.example.proyectofinalprogii.Usuario.Mochila.Item;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -49,6 +50,8 @@ public class controladorJuego {
     @FXML
     private Button curaRapida;
     @FXML
+    private Label estadisticaVidaGanada;
+    @FXML
     private Label reiniciarPartidaAviso;
 
     // para saber si eligió una opcion y puede pulsar siguiente
@@ -69,6 +72,8 @@ public class controladorJuego {
     private Button noSalir;
     @FXML
     private Label vidaActual;
+    // detectar si ya perdio/gano y vió las estadisticas
+    boolean flagGanarPerder = false;
     // mochila
     @FXML
     private Button mochilaBoton;
@@ -90,14 +95,14 @@ public class controladorJuego {
     public void cargarVentana(){
         if(!(bienvenida==null)){
             if(jugadorLocal.getPersonajeElegido() instanceof Joven){
-                bienvenida.setText("Bienvenido jugador "+jugadorLocal.getNombreUsuario()+"\nPersonaje: Joven (vida máxima 150)\nVida actual: "+jugadorLocal.getPersonajeElegido().getVida()+"hp");
+                bienvenida.setText("Bienvenido "+jugadorLocal.getNombreUsuario()+"\nPersonaje: Joven (vida máxima 150)\nVida actual: "+jugadorLocal.getPersonajeElegido().getVida()+"hp");
 
             }else if(jugadorLocal.getPersonajeElegido() instanceof Adulto){
-                bienvenida.setText("Bienvenido jugador "+jugadorLocal.getNombreUsuario()+"\nPersonaje: Adulto (vida máxima 120)\nVida actual: "+jugadorLocal.getPersonajeElegido().getVida()+"hp");
+                bienvenida.setText("Bienvenido "+jugadorLocal.getNombreUsuario()+"\nPersonaje: Adulto (vida máxima 120)\nVida actual: "+jugadorLocal.getPersonajeElegido().getVida()+"hp");
 
             }else{
                 bienvenida.setTextFill(Paint.valueOf("red"));
-                bienvenida.setText("Bienvenido jugador "+jugadorLocal.getNombreUsuario()+"\nPersonaje: Viejo (vida máxima 80)\nVida actual: "+jugadorLocal.getPersonajeElegido().getVida()+"hp");
+                bienvenida.setText("Bienvenido "+jugadorLocal.getNombreUsuario()+"\nPersonaje: Viejo (vida máxima 80)\nVida actual: "+jugadorLocal.getPersonajeElegido().getVida()+"hp");
             }
         }
     }
@@ -116,9 +121,15 @@ public class controladorJuego {
                 VBox itemInteractivo = crearRepresentacionItemInteractiva(item);
                 contenedorItems.getChildren().add(itemInteractivo);
             }
-            vidaActual.setText("vida actual: "+jugadorLocal.getPersonajeElegido().getVida()+"hp");
-        }
 
+            vidaActual.setText("vida actual: "+jugadorLocal.getPersonajeElegido().getVida()+"hp");
+
+        }
+        if(jugadorLocal.getPersonajeElegido().getVida()>=50){
+            vidaActual.setTextFill(Paint.valueOf("green"));
+        }else{
+            vidaActual.setTextFill(Paint.valueOf("red"));
+        }
     }
 
 
@@ -181,11 +192,7 @@ public class controladorJuego {
             vidaActual.setVisible(false);
         }else{
             vidaActual.setVisible(true);
-            if(jugadorLocal.getPersonajeElegido().getVida()>=50){
-                vidaActual.setTextFill(Paint.valueOf("green"));
-            }else{
-                vidaActual.setTextFill(Paint.valueOf("red"));
-            }
+
 
             cargarItemsEnVBox();
             contenedorItems.setVisible(true);
@@ -254,7 +261,7 @@ public class controladorJuego {
                         if(jugadorLocal.getEscenarios().iterator().hasNext()) {
                             cargarEscenario();
                         }else{
-                            cargarEscenarioGanador();
+                            cargarEscenarioPerdedorGanador("Ganaste el juego !");
                         }
                     }else{
                         siguienteNotificador.setVisible(true);
@@ -273,7 +280,7 @@ public class controladorJuego {
                 });
 
             }else{
-                cargarEscenarioGanador();
+                cargarEscenarioPerdedorGanador("Ganaste el juego !");
             }
 
 
@@ -329,7 +336,7 @@ public class controladorJuego {
                     gananciaItemLabel.setText("encontraste "+opcion.getConsumibleGanado().getNombre()+". Pero tienes la mochila llena!");
                 }else {
                     historiaLabel.setText(descripcion);
-                    gananciaItemLabel.setText("ganaste "+opcion.getConsumibleGanado().getNombre());
+                    gananciaItemLabel.setText("encontraste "+opcion.getConsumibleGanado().getNombre());
                     cargarItemsEnVBox();
                 }
 
@@ -339,7 +346,7 @@ public class controladorJuego {
                     gananciaItemLabel.setText("encontraste "+opcion.getObjetoGanado().getNombre()+". Pero tienes la mochila llena!");
                 }else {
                     historiaLabel.setText(descripcion);
-                    gananciaItemLabel.setText("ganaste "+opcion.getObjetoGanado().getNombre());
+                    gananciaItemLabel.setText("encontraste "+opcion.getObjetoGanado().getNombre());
                     cargarItemsEnVBox();
                 }
 
@@ -356,17 +363,27 @@ public class controladorJuego {
                 notificadorVida.setTextFill(Paint.valueOf("green"));
                 notificadorVida.setText("has ganado " + opcion.getVidaAModificar() + "hp pero ya tienes vida maxima " + jugadorLocal.getPersonajeElegido().getVida() + "hp");
             } else {
-                jugadorLocal.getPersonajeElegido().cambiarVida(opcion.getVidaAModificar());
                 if (jugadorLocal.getPersonajeElegido().getVida() <= 0) {
-                    cargarEscenarioPerdedor();
+                    cargarEscenarioPerdedorGanador("Has, perdido el juego...");
                 } else {
-                    notificadorVida.setText("te quedan " + jugadorLocal.getPersonajeElegido().getVidaString() + "hp restantes");
+
+                    if(opcion.getVidaAModificar()>0){
+                        notificadorVida.setText("has ganado "+opcion.getVidaAModificar()+"hp te quedan " + jugadorLocal.getPersonajeElegido().getVidaString() + "hp restantes");
+                    }else{
+                        notificadorVida.setText("has perdido "+opcion.getVidaAModificar()+"hp te quedan " + jugadorLocal.getPersonajeElegido().getVidaString() + "hp restantes");
+
+                    }
                     if (jugadorLocal.getPersonajeElegido().getVida() < 50) {
                         notificadorVida.setTextFill(Paint.valueOf("red"));
                     } else {
                         notificadorVida.setTextFill(Paint.valueOf("green"));
                     }
                 }
+            }
+            if(jugadorLocal.getPersonajeElegido().getVida()>=50){
+                vidaActual.setTextFill(Paint.valueOf("green"));
+            }else{
+                vidaActual.setTextFill(Paint.valueOf("red"));
             }
             vidaActual.setText("vida actual: " + jugadorLocal.getPersonajeElegido().getVida() + "hp");
         }
@@ -400,6 +417,11 @@ public class controladorJuego {
                 curaRapida.setVisible(false);
             }
 
+        }
+        if(jugadorLocal.getPersonajeElegido().getVida()>=50){
+            vidaActual.setTextFill(Paint.valueOf("green"));
+        }else{
+            vidaActual.setTextFill(Paint.valueOf("red"));
         }
         vidaActual.setText("vida actual: "+jugadorLocal.getPersonajeElegido().getVida()+"hp");
 
@@ -450,21 +472,14 @@ public class controladorJuego {
 
 
     // ganar y perder, escenarios
-    public void cargarEscenarioGanador() {
+
+    public void cargarEscenarioPerdedorGanador(String texto){
         //cargarle nuevamente los escenarios
         HashSet<Escenario> escenarios = OperacionLecturaEscritura.archivoToEscenarios();
         jugadorLocal.setEscenarios(escenarios);
         jugadorLocal.getMochila().getItems().clear();
 
-        if(jugadorLocal.getPersonajeElegido() instanceof Joven){
-            jugadorLocal.getPersonajeElegido().setVida(150);
-        } else if (jugadorLocal.getPersonajeElegido() instanceof Adulto) {
-            jugadorLocal.getPersonajeElegido().setVida(120);
-        }else{
-            jugadorLocal.getPersonajeElegido().setVida(80);
-        }
-
-        historiaLabel.setText("Felicidades, ganaste el juego!\n");
+        historiaLabel.setText(texto);
         opcion1.visibleProperty().set(false);
         opcion2.visibleProperty().set(false);
         notificadorVida.visibleProperty().set(false);
@@ -478,33 +493,21 @@ public class controladorJuego {
 
         siguiente.setText("ver estadisticas");
         siguiente.setOnAction(actionEvent -> {
+            siguiente.setText("salir");
+            if(flagGanarPerder){
+                stage.close();
+                Platform.exit();
+            }else{
+                flagGanarPerder = true;
+                estadisticaVidaGanada.setTextFill(Paint.valueOf("black"));
+                estadisticaVidaGanada.setText("Vida total ganada: "+jugadorLocal.getPersonajeElegido().getVidaTotalGanada()+"hp");
 
-            // mostrar estadisticas como cant de opciones elegidas
-        });
+                notificadorVida.visibleProperty().set(true);
+                notificadorVida.setTextFill(Paint.valueOf("black"));
+                notificadorVida.setText("Vida total perdida: "+jugadorLocal.getPersonajeElegido().getVidaTotalPerdida()+"hp");
+                // mostrar estadisticas como cant de opciones elegidas
+            }
 
-    }
-    public void cargarEscenarioPerdedor(){
-        //cargarle nuevamente los escenarios
-        HashSet<Escenario> escenarios = OperacionLecturaEscritura.archivoToEscenarios();
-        jugadorLocal.setEscenarios(escenarios);
-        jugadorLocal.getMochila().getItems().clear();
-
-        historiaLabel.setText("Has, perdido el juego...\n");
-        opcion1.visibleProperty().set(false);
-        opcion2.visibleProperty().set(false);
-        notificadorVida.visibleProperty().set(false);
-        mochilaBoton.setVisible(false);
-        curaRapida.setVisible(false);
-        contenedorItems.setVisible(false);
-        guardarPartida.setVisible(false);
-        gananciaItemLabel.setVisible(false);
-        vidaActual.setVisible(false);
-        reiniciarPartidaAviso.setVisible(true);
-
-        siguiente.setText("ver estadisticas");
-        siguiente.setOnAction(actionEvent -> {
-
-            // mostrar estadisticas como cant de opciones elegidas
         });
 
     }

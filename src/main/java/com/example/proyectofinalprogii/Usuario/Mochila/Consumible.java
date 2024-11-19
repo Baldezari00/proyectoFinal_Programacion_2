@@ -30,9 +30,9 @@ public class Consumible extends Item {
         StringBuilder consumibleMostrar= new StringBuilder();
         consumibleMostrar.append("Consumible: "+super.getNombre());
         if(saludRecibida<0){
-            consumibleMostrar.append(" perdida de salud "+getSaludRecibida()+"hp");
+            consumibleMostrar.append(" perdida: "+getSaludRecibida()+"hp");
         }else{
-            consumibleMostrar.append(" ganancia de salud "+getSaludRecibida()+"hp");
+            consumibleMostrar.append(" ganancia: "+getSaludRecibida()+"hp");
         }
 
         return consumibleMostrar;
